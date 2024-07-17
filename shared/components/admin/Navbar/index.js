@@ -3,7 +3,6 @@ import Button from '../Button'
 import NavbarAvatar from '../navbarAvatar'
 import { useTranslation } from 'react-i18next'
 import { useRouter } from 'next/router'
-import AdminAside from '../adminAside'
 
 const Navbar = ({ adminNavbar }) => {
   const { t } = useTranslation()
@@ -21,7 +20,7 @@ const Navbar = ({ adminNavbar }) => {
   }
 
   return (
-    <nav className="flex justify-between m-0 mb-4 items-center rounded-md py-11 px-5 sm:m-0 sm:mb-4 bg-darkBlue_3 sm:p-5">
+    <nav className="flex justify-between m-0 mb-4 items-center rounded-md py-11 px-5 sm:m-0 sm:mb-4 bg-darkBlue_3 sm:p-5 fixed w-full z-10">
       <h1 className="text-white text-3xl font-extrabold flex items-center">
         Foody
         <span className="text-orange">.</span>
@@ -32,14 +31,8 @@ const Navbar = ({ adminNavbar }) => {
           className="p-3 hidden sm:block bg-lightPurple_3 text-white text-sm font-medium px-3 rounded-full shadow-sm shadow-textGreenLight hover:scale-95 transition-all duration-500"
           innerText={t('addCategory')}
         />
-        <Button
-          onClick={changeHidden}
-          className="block sm:hidden bg-lightPurple_3 text-white text-2xl font-medium px-4 rounded-full shadow-sm shadow-textGreenLight hover:scale-95 transition-all duration-500"
-          innerText="hello"
-        />
         <NavbarAvatar isName={isActiveName} />
       </div>
-      {/* <AdminAside /> */}
     </nav>
   )
 }

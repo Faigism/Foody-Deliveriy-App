@@ -1,10 +1,10 @@
 import AdminLayout from '../../../shared/components/layout/admin'
 
-const Offers = () => {
+const OrderHistory = () => {
   return (
     <AdminLayout>
-      <div>Offers</div>
+      <div>OrderHistory</div>
     </AdminLayout>
   )
 }
-export default Offers
+export default OrderHistory

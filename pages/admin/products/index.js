@@ -1,4 +1,10 @@
+import AdminLayout from '../../../shared/components/layout/admin'
+
 const Products = () => {
-  return <div>Products page</div>
+  return (
+    <AdminLayout>
+      <div>Products</div>
+    </AdminLayout>
+  )
 }
 export default Products
