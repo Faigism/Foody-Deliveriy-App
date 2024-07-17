@@ -2,6 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-};
+  reactStrictMode: true,
+  transpilePackages: ['@mui/x-charts'],
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig
