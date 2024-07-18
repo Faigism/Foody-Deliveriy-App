@@ -1,6 +1,7 @@
 import orderIcon from '../../../../public/orders-icon.svg'
 import dashboardIcon from '../../../../public/dashboard-icon.svg'
 import productIcon from '../../../../public/product-icon.svg'
+import logoutIcon from '../../../../public/logout-icon.svg'
 
 import { useTranslation } from 'react-i18next'
 import AdminAsideItem from '../adminAsideItem'
@@ -60,12 +61,12 @@ const AdminAside = () => {
         img={orderIcon}
         onClick={changePage}
       />
-      {/* <AdminAsideItem
+      <AdminAsideItem
         value={'logout'}
         innerText={t('adminLeftBarComponent7')}
-        img="/logout-icon.svg"
-        onClick={logout}
-      /> */}
+        img={logoutIcon}
+        onClick={changePage}
+      />
     </div>
   )
 }
