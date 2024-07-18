@@ -4,17 +4,26 @@ import Image from 'next/image'
 import ImageInput from '../imageInput'
 import { fileStorage } from '../../../../server/configs/firebase'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import AdminModalInput from '../adminModalInput'
+import AdminModalTextArea from '../adminModalTextArea'
+import AdminModalSelectOption from '../adminModalSelectOption'
+import { t } from 'i18next'
 
 const AdminLeftModal = ({
   p,
   p1,
   p2,
-  mod,
   btn,
   hidden,
   imgRef,
   onClickClose,
   getImgUrl,
+  createOnClick,
+  arr,
+  addProductName,
+  addProductPrice,
+  addProductDesc,
+  addProductRestaurant,
 }) => {
   const [imgUrl, setImgUrl] = useState('')
   const [imgOnload, setImgOnload] = useState(false)
@@ -81,16 +90,38 @@ const AdminLeftModal = ({
               {p2}
             </p>
           </div>
+          <div className=" w-full lg:w-2/3  pt-5 pl-5  pr-7 pb-7  rounded-2xl bg-darkBlue_5 max-h-[600px] overflow-y-auto ">
+            <div>
+              <AdminModalInput
+                p={t('adminModalProductName')}
+                useRef={addProductName}
+              />
+              <AdminModalTextArea
+                p={t('adminModalProductDesc')}
+                useRef={addProductDesc}
+              />
+              <AdminModalInput
+                p={t('adminModalProductPrice')}
+                useRef={addProductPrice}
+              />
+              <AdminModalSelectOption
+                useRef={addProductRestaurant}
+                arr={arr}
+                p={t('adminModalProductRestaurants')}
+                className="w-full bg-darkBlue_4 rounded-2xl font-medium text-base text-whiteLight pl-3 py-4"
+              />
+            </div>
+          </div>
         </div>
-
         <div className="flex justify-around  border-t-darkBlue_5 border-t-4 pt-6  gap-10">
           <Button
             onClick={onClickClose}
             className=" bg-darkBlue_5 text-white py-3 w-1/2 rounded-2xl"
-            innerText="Cancel"
+            innerText={t('adminModalCancel')}
           />
           <Button
-            className=" text-white bg-lightPurple_3 w-1/2 rounded-2xl"
+            onClick={createOnClick}
+            className="text-white bg-lightPurple_3 w-1/2 rounded-2xl"
             innerText={btn}
           />
         </div>

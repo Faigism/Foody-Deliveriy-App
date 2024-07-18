@@ -1,6 +1,4 @@
-import AdminAside from '../../../shared/components/admin/adminAside'
 import LineChart from '../../../shared/components/admin/lineChart'
-import Navbar from '../../../shared/components/admin/Navbar'
 import OrdersChart from '../../../shared/components/admin/ordersChart'
 import AdminLayout from '../../../shared/components/layout/admin'
 
