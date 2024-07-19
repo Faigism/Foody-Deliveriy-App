@@ -1,0 +1,18 @@
+.subHeading {
+    background-color: #27283C;
+    border-radius: 14px;
+    height: 73px;
+    margin: 0 25px 0 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.subHeading p {
+    color: #F2F2F2;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 21px;
+    letter-spacing: 0.10000000149011612px;
+    text-indent: 33px;
+}

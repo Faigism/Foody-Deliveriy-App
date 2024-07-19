@@ -1,0 +1,44 @@
+.card {
+    width: 252px;
+    height: 120px;
+    gap: 0px;
+    border-radius: 5px;
+    background: #FFFFFF;
+    display: flex;
+}
+
+.card:hover {
+    cursor: pointer;
+    transform: scale(0.95);
+    transition: ease-in-out 333ms;
+}
+
+.restaurantInfo {
+    display: flex;
+    gap: 10px;
+    height: 100%;
+    width: 220px;
+    align-items: center;
+    margin-left: 5px;
+}
+
+.restaurantName {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: #1E1E30;
+}
+
+.category {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: #828282;
+
+}
+
+.delete:hover,
+.edit:hover {
+    transform: scale(1.3);
+    transition: ease-in-out 333ms;
+}
