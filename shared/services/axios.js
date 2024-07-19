@@ -1,28 +1,38 @@
-import axios from "axios";
+import axios from 'axios'
 
-const BASE_URL = "https://foody-api.vercel.app/";
+const baseUrl = 'https://foody-api.vercel.app/api'
 
-const getCategoriesFromDB = async () => {
-    try {
-        const response = await axios.get(BASE_URL + "api/category");
-        const categories = response.data.result.data;
-        // const uniqueCategories = categories.map(item => item.name).filter((value, index, self) =>
-        //   self.indexOf(value) === index);
-        // console.log(uniqueCategories)
-        console.log(categories)
-        return categories;
-    } catch (err) {
-        console.log(err)
-    }
+const instanceAxios = axios.create({
+  baseURL: baseUrl,
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+})
+
+export const getProducts = async () => {
+  try {
+    const response = await instanceAxios.get('/products')
+    return response
+  } catch (error) {
+    console.log(error)
+  }
 }
 
-const getRestaurantsByCategoryFromDB = async (categoryId) => {
-    const response = await axios.get(BASE_URL + `api/category/${categoryId}`);
+export const createProduct = async (data) => {
+  try {
+    const response = await instanceAxios.post('/products', data)
+    return response
+  } catch (error) {
+    console.log(error)
+  }
 }
 
-const getRestaurantsFromDB = async () => {
-    const response = await axios.get(BASE_URL + `api/restuarants`);
-    return response.data.result.data
+export const getRestaurants = async () => {
+  try {
+    const response = await instanceAxios.get('/restuarants')
+    return response
+  } catch (error) {
+    console.log(error)
+  }
 }
-
-export { getCategoriesFromDB, getRestaurantsByCategoryFromDB, getRestaurantsFromDB }
