@@ -44,7 +44,6 @@ const Navbar = ({ adminNavbar }) => {
     const productPrice = addProductPrice.current?.value
     const productDesc = addProductDesc.current?.value
     const productRestaurant = addProductRestaurant.current?.value
-
     if (
       !productName &&
       !productPrice &&
@@ -61,8 +60,9 @@ const Navbar = ({ adminNavbar }) => {
       description: productDesc,
       img_url: image,
       rest_id: productRestaurant,
-      price: productPrice,
+      price: parseFloat(productPrice),
     }
+    console.log(productValues)
 
     try {
       const response = await createProduct(productValues)

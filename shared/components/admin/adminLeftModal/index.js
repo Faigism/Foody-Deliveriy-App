@@ -121,7 +121,7 @@ const AdminLeftModal = ({
           />
           <Button
             onClick={createOnClick}
-            className="text-white bg-lightPurple_3 w-1/2 rounded-2xl"
+            className="text-white bg-lightPurple_3 w-1/2 rounded-2xl hover:scale-95 transition-all duration-500"
             innerText={btn}
           />
         </div>
