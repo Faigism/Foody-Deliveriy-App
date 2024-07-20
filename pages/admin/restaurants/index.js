@@ -4,14 +4,15 @@ import { useState } from 'react';
 import RestaurantItems from '../../../shared/components/admin/RestaurantItems'
 import Subheading from '../../../shared/components/admin/Subheading'
 import AdminLayout from '../../../shared/components/layout/admin'
-import { getCategoriesFromDB, getRestaurantsByCategoryFromDB, getRestaurantsFromDB } from '../../../shared/services/axios';
+import { getCategoriesFromDB, getRestaurants, getRestaurantsFromDB } from '../../../shared/services/axios';
 
 const Restaurants = () => {
   const [categories, setCategories] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
 
   const getRestaurantsByCategory = async (categoryId) => {
-    const restaurants = await getRestaurantsFromDB();
+    const restaurantsData = await getRestaurants();
+    const restaurants = restaurantsData.data.result.data
     const filteredRestaurants = restaurants?.filter(restaurant => {
       return restaurant.category_id == categoryId
     }
