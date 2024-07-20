@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useEffect, useState } from 'react'
 import RestaurantCard from './restaurantCard'
 import styles from './restaurantItems.module.css'

@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from 'react'
 import styles from './restaurantCard.module.css'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
