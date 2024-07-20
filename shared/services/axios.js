@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-const baseUrl = 'https://foody-api.vercel.app/api'
+const BASE_URL = 'https://foody-api.vercel.app/api'
 
 const instanceAxios = axios.create({
-  baseURL: baseUrl,
+  baseURL: BASE_URL,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -34,5 +34,18 @@ export const getRestaurants = async () => {
     return response
   } catch (error) {
     console.log(error)
+  }
+}
+
+export const getCategoriesFromDB = async () => {
+  try {
+    const response = await instanceAxios.get('/category')
+    const categories = response.data.result.data;
+    // const uniqueCategories = categories.map(item => item.name).filter((value, index, self) =>
+    //   self.indexOf(value) === index);
+    // console.log(uniqueCategories)
+    return categories;
+  } catch (err) {
+    console.log(err)
   }
 }
