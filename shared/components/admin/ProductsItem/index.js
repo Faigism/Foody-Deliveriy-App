@@ -1,21 +1,19 @@
 "use client"
 
 import React, { useEffect, useState } from 'react'
-import RestaurantCard from './restaurantCard'
-import styles from './restaurantItems.module.css'
-import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
+import styles from './products.module.css'
+import ProductCard from './ProductCard'
 
-const RestaurantItems = ({ restaurants, categoryName }) => {
+const ProductsItem = ({ products, restaurant }) => {
     const itemsPerPage = 15;
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
 
     const startIndex = currentPage * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    const subset = restaurants.slice(startIndex, endIndex);
+    const subset = products.slice(startIndex, endIndex);
     useEffect(() => {
-        setTotalPages(Math.ceil(restaurants.length / itemsPerPage));
+        setTotalPages(Math.ceil(products.length / itemsPerPage));
     });
 
     const paginated = (event, value) => {
@@ -28,14 +26,12 @@ const RestaurantItems = ({ restaurants, categoryName }) => {
             color: "#fff"
         }
     }
-
-
     return (
-        <div className='flex flex-col items-center'>
-            <div className={styles.restaurants}>
-                {subset.map((restaurant, index) => (
-                    <div style={{ width: '252px', height: '120px' }} key={index}>
-                        <RestaurantCard restaurant={restaurant} categoryName={categoryName} />
+        <div className='flex flex-col'>
+            <div className={styles.products}>
+                {subset.map((product, index) => (
+                    <div key={index}>
+                        <ProductCard product={product} restaurant={restaurant} />
                     </div>
                 ))}
 
@@ -48,4 +44,4 @@ const RestaurantItems = ({ restaurants, categoryName }) => {
     )
 }
 
-export default RestaurantItems
+export default ProductsItem
