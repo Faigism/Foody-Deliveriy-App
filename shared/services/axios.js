@@ -37,6 +37,26 @@ export const getRestaurants = async () => {
   }
 }
 
+export const getRestaurantById = async (id) => {
+  try {
+    const response = await instanceAxios.get(`restuarants/${id}`)
+    const restaurant = response.data.result.data;
+    return restaurant
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const deleteRestaurantById = async (id) => {
+  try {
+    const response = await instanceAxios.delete(`restuarants/${id}`)
+    console.log(response)
+    // return restaurant
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const getCategoriesFromDB = async () => {
   try {
     const response = await instanceAxios.get('/category')
@@ -45,6 +65,15 @@ export const getCategoriesFromDB = async () => {
     //   self.indexOf(value) === index);
     // console.log(uniqueCategories)
     return categories;
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const getCategoryById = async (id) => {
+  try {
+    const response = await instanceAxios.get(`/category/${id}`)
+    return response;
   } catch (err) {
     console.log(err)
   }
