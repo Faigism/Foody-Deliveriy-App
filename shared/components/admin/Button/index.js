@@ -1,4 +1,4 @@
-const Button = ({ className, onClick, innerText = 'BUTTON' }) => {
+const Button = ({ className, onClick, innerText = 'Button' }) => {
   return (
     <button onClick={onClick} className={className}>
       {innerText}

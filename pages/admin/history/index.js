@@ -1,9 +1,10 @@
+import Subheading from '../../../shared/components/admin/Subheading'
 import AdminLayout from '../../../shared/components/layout/admin'
 
 const OrderHistory = () => {
   return (
     <AdminLayout>
-      <div>OrderHistory</div>
+      <Subheading text={'Order-History'} />
     </AdminLayout>
   )
 }

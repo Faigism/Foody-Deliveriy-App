@@ -24,6 +24,13 @@ const AdminLeftModal = ({
   addProductPrice,
   addProductDesc,
   addProductRestaurant,
+  addCategorySlug,
+  addRestaurantCuisine,
+  addRestaurantDeliveryPrice,
+  addRestaurantDeliveryMin,
+  addRestaurantAddress,
+  cateArr,
+  addRestaurantCategory,
 }) => {
   const [imgUrl, setImgUrl] = useState('')
   const [imgOnload, setImgOnload] = useState(false)
@@ -96,20 +103,61 @@ const AdminLeftModal = ({
                 p={t('adminModalProductName')}
                 useRef={addProductName}
               />
-              <AdminModalTextArea
-                p={t('adminModalProductDesc')}
-                useRef={addProductDesc}
-              />
-              <AdminModalInput
-                p={t('adminModalProductPrice')}
-                useRef={addProductPrice}
-              />
-              <AdminModalSelectOption
-                useRef={addProductRestaurant}
-                arr={arr}
-                p={t('adminModalProductRestaurants')}
-                className="w-full bg-darkBlue_4 rounded-2xl font-medium text-base text-whiteLight pl-3 py-4"
-              />
+              {addCategorySlug && (
+                <AdminModalInput p="Slug" useRef={addCategorySlug} />
+              )}
+              {addRestaurantCuisine && (
+                <AdminModalTextArea
+                  p={t('adminRestaurantCuisine')}
+                  useRef={addRestaurantCuisine}
+                />
+              )}
+              {addRestaurantDeliveryPrice && (
+                <AdminModalInput
+                  p={t('adminRestaurantDeliveryPrice')}
+                  useRef={addRestaurantDeliveryPrice}
+                />
+              )}
+              {addRestaurantDeliveryMin && (
+                <AdminModalInput
+                  p={t('adminRestaurantDeliveryMin')}
+                  useRef={addRestaurantDeliveryMin}
+                />
+              )}
+              {addRestaurantAddress && (
+                <AdminModalInput
+                  p={t('adminRestaurantAddress')}
+                  useRef={addRestaurantAddress}
+                />
+              )}
+              {addProductDesc && (
+                <AdminModalTextArea
+                  p={t('adminModalProductDesc')}
+                  useRef={addProductDesc}
+                />
+              )}
+              {addProductPrice && (
+                <AdminModalInput
+                  p={t('adminModalProductPrice')}
+                  useRef={addProductPrice}
+                />
+              )}
+              {addProductRestaurant && (
+                <AdminModalSelectOption
+                  useRef={addProductRestaurant}
+                  arr={arr}
+                  p={t('adminModalProductRestaurants')}
+                  className="w-full bg-darkBlue_4 rounded-2xl font-medium text-base text-whiteLight pl-3 py-4"
+                />
+              )}
+              {addRestaurantCategory && (
+                <AdminModalSelectOption
+                  useRef={addRestaurantCategory}
+                  arr={cateArr}
+                  p="category"
+                  className="w-full bg-darkBlue_4 rounded-2xl font-medium text-base text-whiteLight pl-3 py-4"
+                />
+              )}
             </div>
           </div>
         </div>
