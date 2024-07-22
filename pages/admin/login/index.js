@@ -27,7 +27,7 @@ const Login = () => {
             placeholder='Password'
             type="password" 
             required 
-            style={{width:250, height:30, borderRadius:3, position:'relative', left:20}} 
+            style={{width:251, height:30, borderRadius:3, position:'relative', left:20}} 
             value={password} 
             onChange={(e) => setPassword(e.target.value)} 
           /><br/><br/><br/>
