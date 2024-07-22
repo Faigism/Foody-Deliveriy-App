@@ -18,7 +18,6 @@ const AdminAside = () => {
 
   return (
     <div className=" bg-lightPurple_2 w-full sm:w-[256px] h-[474px] flex flex-col gap-2 pt-6 pl-2 sm:pl-6 pr-4 rounded-[14px] fixed mt-[100px]">
-      {/* <ToastContainer /> */}
       <AdminAsideItem
         value={'dashboard'}
         innerText={t('adminLeftBarComponent')}

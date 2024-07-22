@@ -22,3 +22,19 @@ a {
 tspan {
   fill: #fff;
 }
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading {
+  width: 5rem;
+  height: 5rem;
+  border: 5px solid #cbd5e1;
+  border-radius: 50%;
+  border-top-color: #059669;
+  animation: spinner 0.6s linear infinite;
+  margin: auto;
+}

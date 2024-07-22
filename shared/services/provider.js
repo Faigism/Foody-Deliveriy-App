@@ -9,12 +9,18 @@ export const useGlobalStore = () => {
 
 const Provider = ({ children }) => {
   const [products, setProducts] = useState([])
+  const [categoryData, setCategoryData] = useState([])
+  const [offerData, setOfferData] = useState([])
 
   const Component = globalContext.Provider
 
   const values = {
     products,
     setProducts,
+    categoryData,
+    setCategoryData,
+    offerData,
+    setOfferData,
   }
 
   return <Component value={values}>{children}</Component>

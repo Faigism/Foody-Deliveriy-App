@@ -124,6 +124,9 @@ const resources = {
       adminRestaurantAddress: 'Address',
       adminRestaurantCuisine: 'Cuisine',
       adminRestaurantDeliveryPrice: 'Delivery Price',
+      adminCategoryEdit: 'Edit Category',
+      adminCategoryEditInformation: 'Edit your Category information',
+      adminCategoryBtnEdit: 'Edit Category',
     },
   },
   az: {
@@ -249,6 +252,9 @@ const resources = {
       adminRestaurantAddress: 'Ünvanı',
       adminRestaurantCuisine: 'Mətbəx',
       adminRestaurantDeliveryPrice: 'Çatdırılma qiyməti',
+      adminCategoryEdit: 'Kateqoriyanı yenilə',
+      adminCategoryEditInformation: 'Kateqoriya məlumatlarını yeniləyin',
+      adminCategoryBtnEdit: 'Yenilə',
     },
   },
 }

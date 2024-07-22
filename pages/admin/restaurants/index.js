@@ -21,7 +21,7 @@ const Restaurants = () => {
 
   const showAllRestaurants = async () => {
     const allRestaurants = await getRestaurants()
-    const restaurants = allRestaurants.data.result.data
+    const restaurants = allRestaurants?.data.result.data
     setRestaurants(restaurants)
   }
   useEffect(() => {
@@ -46,7 +46,7 @@ const Restaurants = () => {
 
   const getCategoriesModal = async () => {
     const categories = await getCategoriesFromDB()
-    const items = categories.map((item) => item.name)
+    const items = categories?.map((item) => item.name)
     setCategoriesModal(items)
   }
 
