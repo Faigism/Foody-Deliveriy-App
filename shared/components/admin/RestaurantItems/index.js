@@ -15,7 +15,7 @@ const RestaurantItems = ({ restaurants, categoryName }) => {
   const endIndex = startIndex + itemsPerPage
   const subset = restaurants?.slice(startIndex, endIndex)
   useEffect(() => {
-    setTotalPages(Math.ceil(restaurants.length / itemsPerPage))
+    setTotalPages(Math.ceil(restaurants?.length / itemsPerPage))
   })
 
   const paginated = (event, value) => {
