@@ -1,8 +1,8 @@
-const Button = ({ className, onClick, innerText = 'Button' }) => {
+const ClientButton = ({ onClick, className, innerText }) => {
   return (
     <button onClick={onClick} className={className}>
       {innerText}
     </button>
   )
 }
-export default Button
+export default ClientButton
