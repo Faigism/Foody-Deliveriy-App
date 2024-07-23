@@ -62,12 +62,10 @@ const Navbar = ({ adminNavbar }) => {
       rest_id: productRestaurant,
       price: parseFloat(productPrice),
     }
-    console.log(productValues)
 
     try {
       const response = await createProduct(productValues)
       const prValue = response?.data
-      console.log(prValue)
 
       if (response?.status === 201) {
         setProducts((prev) => [...prev, prValue])
@@ -124,7 +122,7 @@ const Navbar = ({ adminNavbar }) => {
         <Button
           onClick={changeHidden}
           className="p-3 hidden sm:block bg-lightPurple_3 text-white text-sm font-medium px-3 rounded-full shadow-sm shadow-textGreenLight hover:scale-95 transition-all duration-500"
-          innerText={t('addCategory')}
+          innerText={t('addProduct')}
         />
         <NavbarLangButton />
         <NavbarAvatar isName={isActiveName} />

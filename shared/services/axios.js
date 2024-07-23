@@ -40,7 +40,7 @@ export const getRestaurants = async () => {
 export const getRestaurantById = async (id) => {
   try {
     const response = await instanceAxios.get(`restuarants/${id}`)
-    const restaurant = response.data.result.data;
+    const restaurant = response.data.result.data
     return restaurant
   } catch (error) {
     console.log(error)
@@ -60,11 +60,11 @@ export const deleteRestaurantById = async (id) => {
 export const getCategoriesFromDB = async () => {
   try {
     const response = await instanceAxios.get('/category')
-    const categories = response.data.result.data;
+    const categories = response?.data.result.data
     // const uniqueCategories = categories.map(item => item.name).filter((value, index, self) =>
     //   self.indexOf(value) === index);
     // console.log(uniqueCategories)
-    return categories;
+    return categories
   } catch (err) {
     console.log(err)
   }
@@ -73,8 +73,53 @@ export const getCategoriesFromDB = async () => {
 export const getCategoryById = async (id) => {
   try {
     const response = await instanceAxios.get(`/category/${id}`)
-    return response;
+    return response
   } catch (err) {
     console.log(err)
+  }
+}
+
+export const updateCategories = async (id, form) => {
+  try {
+    const response = await instanceAxios.put(`/category/${id}`, form)
+    return response
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const getEditCategories = async (id) => {
+  try {
+    const response = await instanceAxios.get(`/category/${id}`)
+    return response
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const deleteCategories = async (id) => {
+  try {
+    const response = await instanceAxios.delete(`/category/${id}`)
+    return response
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const getOffer = async () => {
+  try {
+    const response = await instanceAxios.get(`/offer`)
+    return response
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const getEditOffer = async (id) => {
+  try {
+    const response = await instanceAxios.get(`/offer/${id}`)
+    return response
+  } catch (error) {
+    console.log(error)
   }
 }
