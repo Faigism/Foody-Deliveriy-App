@@ -13,10 +13,12 @@ const RestaurantItems = ({ restaurants, categoryName }) => {
 
   const startIndex = currentPage * itemsPerPage
   const endIndex = startIndex + itemsPerPage
-  const subset = restaurants?.slice(startIndex, endIndex)
+  const subset = restaurants ? restaurants.slice(startIndex, endIndex) : []
   useEffect(() => {
-    setTotalPages(Math.ceil(restaurants?.length / itemsPerPage))
-  })
+    if (restaurants) {
+      setTotalPages(Math.ceil(restaurants.length / itemsPerPage))
+    }
+  }, [restaurants, itemsPerPage])
 
   const paginated = (event, value) => {
     setCurrentPage(value - 1)

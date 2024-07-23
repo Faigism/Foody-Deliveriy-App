@@ -1,4 +1,4 @@
 const User = () => {
-  return <div>User Page</div>
+  return <div>User page</div>
 }
 export default User

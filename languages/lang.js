@@ -189,7 +189,7 @@ const resources = {
       faqsDesc5: 'Veb saytın cavabı vaxt alır, necə yaxşılaşdırmaq olar?',
       faqsDesc6:
         'Müştəri Təcrübəsi Qrupumuz həftənin 7 günü mövcuddur və biz əlaqə saxlamağın 2 yolunu təklif edirik. E-poçt və Çat. Tez cavab verməyə çalışırıq, ona görə də cavab üçün çox gözləməyinizə ehtiyac yoxdur!',
-      adminDesc: 'Xoş gəlmisiniz Admin',
+      adminDesc: 'Xoş gəlmisiniz',
       signIn: 'Daxil olun',
       adminLeftBarComponent: 'İdarə paneli',
       adminLeftBarComponent2: 'Məhsullar',
