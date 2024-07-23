@@ -19,7 +19,6 @@ const RestaurantCard = ({ restaurant, categoryName }) => {
             width={100}
             height={57}
             quality={100}
-            objectFit="contain"
           />
         </div>
         <div>

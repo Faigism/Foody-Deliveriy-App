@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = 'https://foody-api.vercel.app/api'
+const BASE_URL = '/api'
 
 const instanceAxios = axios.create({
   baseURL: BASE_URL,
