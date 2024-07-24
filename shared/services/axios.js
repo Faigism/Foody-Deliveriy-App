@@ -57,6 +57,7 @@ export const deleteRestaurantById = async (id) => {
   }
 }
 
+//Categories
 export const getCategoriesFromDB = async () => {
   try {
     const response = await instanceAxios.get('/category')
@@ -65,6 +66,15 @@ export const getCategoriesFromDB = async () => {
     //   self.indexOf(value) === index);
     // console.log(uniqueCategories)
     return categories
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const postCategory = async (form) => {
+  try {
+    const response = await instanceAxios.post('/category', form)
+    return response
   } catch (err) {
     console.log(err)
   }
@@ -105,6 +115,7 @@ export const deleteCategories = async (id) => {
     console.log(err)
   }
 }
+//Categories
 
 export const getOffer = async () => {
   try {
