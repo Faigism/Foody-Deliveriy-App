@@ -1,13 +1,86 @@
 import Image from 'next/image'
 import NavbarLangButton from '../../../admin/navbarLangButton'
 import NavbarList from '../../../client/navbarList'
+import Input from '../../../client/input'
 import { useTranslation } from 'react-i18next'
 import ClientButton from '../../../client/button'
 import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { getRestaurants } from '../../../../services/axios'
+import RestaurantSearchModal from '../../../client/restaurantSearchModal'
+import NavbarAvatar from '../../../client/navbarAvatar'
 
 const ClientLayout = ({ children }) => {
   const { t } = useTranslation()
   const navigate = useRouter()
+
+  const [isInputModal, setInputModal] = useState(false)
+  const [filterRestaurant, setFilterRestaurant] = useState()
+  const [restaurants, setRestaurants] = useState()
+  const [isToken, setIsToken] = useState(false)
+  const [isName, setIsName] = useState('')
+  const [isFullName, setIsFullName] = useState('')
+
+  const fetchRestaurants = async () => {
+    try {
+      const response = await getRestaurants()
+      const mapRestaurant = response?.data.result.data.map((item) => item.name)
+      setRestaurants(mapRestaurant)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchRestaurants()
+  }, [])
+
+  const searchRestaurant = async (e) => {
+    let res = await getRestaurants()
+    let resData = res?.data.result.data
+    // console.log(e.target.value)
+
+    let filterResData = resData.filter(function (item) {
+      return item.name.toLowerCase().includes(e.target.value.toLowerCase())
+    })
+    // console.log(filterResData);
+    console.log(filterResData)
+
+    setFilterRestaurant(filterResData)
+  }
+
+  const toggleInputModal = async () => {
+    setInputModal(!isInputModal)
+    let res = await getRestaurants()
+    let resData = res?.data.result.data
+    setFilterRestaurant(resData)
+  }
+
+  const closeInputModal = () => {
+    setInputModal(false)
+  }
+
+  useEffect(() => {
+    const localItem = localStorage?.getItem('tokenObj')
+    const localUser = localStorage?.getItem('userInfo')
+
+    let parsedItem = JSON.parse(localItem)
+    let parsedUser = JSON.parse(localUser)
+    let userEmail = parsedUser?.email
+    let str = ' '
+    str += userEmail?.split(' ')[0]?.[0] ?? ''
+    let avatar = str.toUpperCase()
+
+    setIsFullName(userEmail)
+    setIsName(avatar)
+
+    if (parsedItem?.access_token) {
+      setIsToken(true)
+    } else {
+      setIsName('')
+    }
+  }, [isToken])
+
   return (
     <>
       <header>
@@ -16,25 +89,55 @@ const ClientLayout = ({ children }) => {
             Foody
             <span className="text-mainRed">.</span>
           </h1>
-          <NavbarList />
-          <div className="w-1/5 hidden sm:block">
-            <input
-              type="text"
-              placeholder="Search"
-              className="w-full px-6 py-3 relative rounded-xl outline-none shadow-sm"
-            />
-          </div>
-          <div className="flex gap-7 items-center">
-            <NavbarLangButton />
-            <ClientButton
-              className="px-6 py-2 rounded-3xl bg-mainRed text-white font-medium shadow-md hover:scale-95 transition-all duration-500"
-              innerText={t('signUp')}
-              onClick={() => navigate.push('/login')}
-            />
-          </div>
+          {isToken ? (
+            <>
+              <NavbarList />
+              <div className="w-1/5 hidden sm:block">
+                <Input
+                  OnClick={toggleInputModal}
+                  OnChange={searchRestaurant}
+                  Type="text"
+                  Placeholder="Search"
+                  ClassName="w-full px-6 py-3 relative rounded-xl outline-none shadow-sm"
+                />
+                {isInputModal && (
+                  <RestaurantSearchModal
+                    filterRestaurant={filterRestaurant}
+                    onClose={closeInputModal}
+                  />
+                )}
+              </div>
+              <NavbarAvatar isName={isName} />
+            </>
+          ) : (
+            <>
+              <NavbarList />
+              <div className="w-1/5 hidden sm:block">
+                <Input
+                  OnClick={toggleInputModal}
+                  OnChange={searchRestaurant}
+                  Type="text"
+                  Placeholder="Search"
+                  ClassName="w-full px-6 py-3 relative rounded-xl outline-none shadow-sm"
+                />
+                {isInputModal && (
+                  <RestaurantSearchModal
+                    filterRestaurant={filterRestaurant}
+                    onClose={closeInputModal}
+                  />
+                )}
+              </div>
+              <NavbarLangButton />
+              <ClientButton
+                className="px-6 py-2 rounded-3xl bg-mainRed text-white font-medium shadow-md hover:scale-95 transition-all duration-500"
+                innerText={t('signUp')}
+                onClick={() => navigate.push('/login')}
+              />
+            </>
+          )}
         </nav>
       </header>
-      <div className="h-[90vh]">{children}</div>
+      <div className="mb-[300px]">{children}</div>
       <footer className="flex flex-col justify-center items-center relative pt-44 pb-6 bg-black w-full">
         <section
           data-aos="fade-bottom"
