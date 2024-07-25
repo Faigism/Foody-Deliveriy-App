@@ -1,0 +1,44 @@
+.sidebar {
+    width: 251px;
+    height: 898px;
+    background: #F3F4F6;
+    margin-bottom: 100px;
+    overflow: auto;
+}
+
+.sidebar li {
+    border-radius: 4px;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-align: left;
+    color: #333333;
+    padding: 4px;
+}
+
+.sidebar img {
+    width: 30px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.sidebar li:hover {
+    cursor: pointer;
+    background: #ffdcd9;
+    transition: 333ms;
+    color: #D63626;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    border-radius: 180px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background-color: #D63626;
+    border-radius: 180px;
+}
