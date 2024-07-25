@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import RestaurantCard from './restaurantCard'
+import RestaurantCard from './RestaurantCard/index'
 import styles from './restaurantItems.module.css'
 import Pagination from '@mui/material/Pagination'
 import Stack from '@mui/material/Stack'
