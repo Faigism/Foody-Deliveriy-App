@@ -225,7 +225,6 @@ const ClientLayout = ({ children }) => {
             </ul>
           </div>
         </section>
-
         <div className="text-white mt-20 text-center w-3/4 sm:w-full">
           All rights reserved © 2003-2023 Foody TERMS OF USE | Privacy Policy
         </div>

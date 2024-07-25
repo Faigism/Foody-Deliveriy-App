@@ -24,16 +24,16 @@ const Home = () => {
       </Head>
       <ClientLayout>
         <Header />
-        <section className="flex flex-col gap-10 justify-center my-14 px-3">
+        <section className="flex flex-col gap-10 justify-center my-14 px-3 sm:px-14">
           <div className="flex flex-col gap-6 items-center text-center">
             <h3 className=" text-5xl font-black">{t('homeDesc5')}</h3>
-            <p className="w-full text-2xl text-grayText1">
+            <p className="w-full sm:w-2/3 text-2xl text-grayText1">
               Lorem ipsum is placeholder text commonly used in the graphic,
               print, and publishing industries for previewing layouts and visual
               mockups.
             </p>
           </div>
-          <div className="flex flex-col justify-center gap-16 items-center">
+          <div className="flex flex-col justify-center gap-16 items-center sm:flex-row">
             <div className="flex flex-col gap-5 text-center pb-6 shadow-xl">
               <Image
                 width={240}
@@ -86,13 +86,13 @@ const Home = () => {
             return (
               <section
                 key={item.name}
-                className="flex flex-col gap-0 justify-center items-center px-3 mt-52"
+                className="flex flex-col gap-0 justify-center items-center px-3 mt-52 sm:flex-row-reverse sm:gap-16 sm:px-11"
               >
-                <div className="flex flex-col gap-8 w-full">
-                  <h4 className="text-5xl w-full font-black leading-tight text-center mx-auto sm:text-start">
+                <div className="flex flex-col gap-8 w-full sm:w-1/2">
+                  <h4 className="text-5xl w-full font-black leading-tight text-center mx-auto sm:text-start sm:w-full sm:text-6xl">
                     {item.name}
                   </h4>
-                  <p className="text-xl text-grayText1 w-full mb-8 mx-auto text-center">
+                  <p className="text-xl text-grayText1 w-full mb-8 mx-auto text-center sm:mb-0 sm:w-4/5 sm:text-start sm:mx-0">
                     {item.description}
                   </p>
                 </div>
@@ -133,18 +133,18 @@ const Home = () => {
             </section>
           )
         })}
-        <section className="flex flex-col gap-10 justify-center px-3 mb-96 mt-52">
+        <section className="flex flex-col gap-10 justify-center px-3 mt-52 sm:px-14">
           <div className="flex flex-col gap-6 items-center text-center">
-            <h3 className=" text-5xl font-black w-full mt-20 leading-tight">
+            <h3 className=" text-5xl font-black w-full mt-20 leading-tight sm:mt-0 sm:w-1/3">
               {t('homeDesc9')}
             </h3>
-            <p className="w-full text-2xl text-grayText1">
+            <p className="sm:w-2/3 w-full text-2xl text-grayText1">
               Lorem ipsum is placeholder text commonly used in the graphic,
               print, and publishing industries for previewing layouts and visual
               mockups.
             </p>
           </div>
-          <div className="flex flex-col justify-center gap-16 items-center">
+          <div className="flex flex-col justify-center gap-16 items-center sm:flex-row">
             <div className="flex flex-col gap-5 text-center pb-6 shadow-xl ">
               <Image
                 width={240}
