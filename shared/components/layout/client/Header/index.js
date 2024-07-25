@@ -139,7 +139,7 @@ const ClientLayout = ({ children }) => {
       </header>
       <main className="mb-[300px] mx-[30px]">{children}</main>
       <footer className="flex flex-col justify-center items-center relative pt-44 pb-6 bg-black w-full">
-        {/* <section
+        <section
           data-aos="fade-bottom"
           className="w-3/4 flex justify-around bg-blackLight absolute -top-44 items-center rounded-3xl py-12 px-0 sm:px-9 text-white "
         >
@@ -167,7 +167,7 @@ const ClientLayout = ({ children }) => {
             src={'/mainBurger.svg'}
             alt="burger"
           />
-        </section> */}
+        </section>
         <section className=" flex items-center justify-around w-4/5">
           <div className="flex flex-col gap-5 sm:gap-2">
             <p className="text-white font-extrabold text-center text-5xl sm:text-start sm:text-3xl">
