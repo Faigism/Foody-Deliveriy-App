@@ -5,7 +5,12 @@ const nextConfig = {
   reactStrictMode: false,
   transpilePackages: ['@mui/x-charts'],
   images: {
-    domains: ['encrypted-tbn0.gstatic.com', 'media-cdn.tripadvisor.com'],
+    domains: [
+      'encrypted-tbn0.gstatic.com',
+      'media-cdn.tripadvisor.com',
+      'dynamic-media-cdn.tripadvisor.com',
+      'avatars.mds.yandex.net',
+    ],
   },
 }
 

@@ -81,7 +81,7 @@ const Home = () => {
             </div>
           </div>
         </section>
-        {data.map((item, index) => {
+        {data?.map((item, index) => {
           if (index % 2 === 1) {
             return (
               <section
@@ -97,7 +97,7 @@ const Home = () => {
                   </p>
                 </div>
                 <div>
-                  <img
+                  <Image
                     className="rounded-xl"
                     width={400}
                     height={400}

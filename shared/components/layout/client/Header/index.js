@@ -40,7 +40,7 @@ const ClientLayout = ({ children }) => {
     let resData = res?.data.result.data
     // console.log(e.target.value)
 
-    let filterResData = resData.filter(function (item) {
+    let filterResData = resData?.filter(function (item) {
       return item.name.toLowerCase().includes(e.target.value.toLowerCase())
     })
     // console.log(filterResData);
