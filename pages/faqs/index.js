@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import ClientLayout from '../../shared/components/layout/client/Header'
+import { useState } from 'react';
 
 const Faqs = () => {
   const [activeIndex, setActiveIndex] = useState(null);
