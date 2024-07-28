@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import AdminLeftModal from '../adminLeftModal'
 import { useTranslation } from 'react-i18next'
 import {
+  deleteCategories,
   getCategoriesFromDB,
   getEditCategories,
   updateCategories,
@@ -10,6 +11,7 @@ import { useGlobalStore } from '../../../services/provider'
 import Image from 'next/image'
 import Modal from '../Modal'
 import Button from '../Button'
+
 const AdminCategory = ({ item }) => {
   const { t } = useTranslation()
   const [isHiddenModal, setIsHiddenModal] = useState(true)
@@ -20,6 +22,7 @@ const AdminCategory = ({ item }) => {
   const { categoryData, setCategoryData } = useGlobalStore()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [activeId, setActiveId] = useState('')
+
   const fetchCategoryData = async () => {
     try {
       const res = await getCategoriesFromDB()
@@ -31,12 +34,15 @@ const AdminCategory = ({ item }) => {
   useEffect(() => {
     fetchCategoryData()
   }, [])
+
   const handleAddNewImage = (image_url) => {
     setImage(image_url)
   }
+
   function changeHidden() {
     setIsHiddenModal((prev) => !prev)
   }
+
   const handleEditClick = async (id) => {
     setActiveId(id)
     changeHidden()
@@ -45,11 +51,51 @@ const AdminCategory = ({ item }) => {
       const currentData = res?.data.result.data
       if (addCategoryName && addCategorySlug && imgRef) {
         addCategoryName.current.value = currentData?.name || ''
-        addCategorySlug.current.value = currentData?.slug || ''
+        addCategoryName.current.value = currentData?.slug || ''
         imgRef.current.src = currentData?.img_url || ''
       }
     }
   }
+
+  const updateCategory = async () => {
+    const category = addCategoryName?.current?.value
+    const slug = addCategoryName?.current?.value
+    const img = imgRef.current?.src
+
+    const form = {
+      name: category,
+      slug: slug,
+      img_url: img,
+    }
+
+    const res = await updateCategories(activeId, form)
+    if (res?.status === 200) {
+      // toast.success('Category updated successfully!')
+      changeHidden()
+      const updatedData = categoryData.map((item) => {
+        if (item.id === activeId) {
+          return res.data.data
+        }
+        return item
+      })
+      setCategoryData(updatedData)
+    }
+  }
+
+  const deleteCategory = async () => {
+    const res = await deleteCategories(activeId)
+
+    if (res?.status === 204) {
+      const updatedArr = categoryData.filter((item) => item.id !== activeId)
+      setCategoryData(updatedArr)
+
+      // toast.success('Deleted successfully!')
+      setIsModalOpen((prev) => !prev)
+    }
+
+    return
+  }
+
   const handleModalClose = () => {
     setIsModalOpen(false)
   }
@@ -61,6 +107,7 @@ const AdminCategory = ({ item }) => {
     <>
       <>
         <AdminLeftModal
+          createOnClick={updateCategory}
           onClickClose={changeHidden}
           p={t('adminCategoryEdit')}
           p1={t('adminModalUploadImage')}
@@ -141,6 +188,7 @@ const AdminCategory = ({ item }) => {
           <Button
             className="bg-mainRed border-2 text-white py-1 px-8 rounded-md border-mainRed shadow-md hover:scale-95 transition-all duration-500"
             innerText={t('modalDesc4')}
+            onClick={deleteCategory}
           />
         </div>
       </Modal>

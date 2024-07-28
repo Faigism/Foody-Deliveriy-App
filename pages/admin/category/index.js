@@ -4,18 +4,55 @@ import AdminLayout from '../../../shared/components/layout/admin'
 import { useEffect, useRef, useState } from 'react'
 import AdminLeftModal from '../../../shared/components/admin/adminLeftModal'
 import { useGlobalStore } from '../../../shared/services/provider'
-import { getCategoriesFromDB } from '../../../shared/services/axios'
+import {
+  getCategoriesFromDB,
+  postCategory,
+} from '../../../shared/services/axios'
 import { ToastContainer } from 'react-toastify'
 import AdminCategory from '../../../shared/components/admin/adminCategory'
+
 const Category = () => {
   const { t } = useTranslation()
   const [isHiddenModal, setIsHiddenModal] = useState(true)
-  const [image, setImage] = useState('')
-  const img = useRef(null)
+  const [imageUrl, setImageUrl] = useState('string')
+  const imgRef = useRef(null)
   const addCategoryName = useRef(null)
   const addCategorySlug = useRef(null)
   const { categoryData, setCategoryData } = useGlobalStore()
   const [loading, setLoading] = useState(true)
+
+  const addCategory = async () => {
+    const categoryName = addCategoryName?.current?.value
+    const categorySlug = addCategorySlug?.current?.value
+    const img = imageUrl
+
+    const form = {
+      name: categoryName,
+      slug: categorySlug,
+      img_url: img,
+    }
+
+    try {
+      const res = await postCategory(form)
+
+      if (res?.status === 201) {
+        setCategoryData((prev) => [...prev, res.data])
+        if (addCategoryName.current && addCategorySlug.current) {
+          addCategoryName.current.value = ''
+          addCategorySlug.current.value = ''
+        }
+
+        setTimeout(() => {
+          changeHidden()
+        }, 500)
+
+        // toast.success('Category created successfully!')
+      }
+    } catch (error) {
+      console.error('Error adding category:', error)
+    }
+  }
+
   const fetchCategoryData = async () => {
     try {
       const res = await getCategoriesFromDB()
@@ -26,15 +63,19 @@ const Category = () => {
       setLoading(false)
     }
   }
+
   useEffect(() => {
     fetchCategoryData()
   }, [])
+
   const handleAddNewImage = (image_url) => {
-    setImage(image_url)
+    setImageUrl(image_url)
   }
+
   function changeHidden() {
     setIsHiddenModal((prev) => !prev)
   }
+
   return (
     <>
       <ToastContainer />
@@ -47,7 +88,8 @@ const Category = () => {
           hidden={isHiddenModal}
           imageUrl={handleAddNewImage}
           getImgUrl={handleAddNewImage}
-          imgRef={img}
+          createOnClick={addCategory}
+          imgRef={imgRef}
           addProductName={addCategoryName}
           addCategorySlug={addCategorySlug}
           btn={t('cateCreate')}
