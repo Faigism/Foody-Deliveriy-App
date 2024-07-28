@@ -37,7 +37,7 @@ const Orders = () => {
                 <th>Delivery Address</th>
                 <th>Payment Method</th>
                 <th>Amount</th>
-                <th>Contact</th>
+                <th>Contact us</th>
               </tr>
             </thead>
             <tbody>
