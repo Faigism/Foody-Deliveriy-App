@@ -19,6 +19,9 @@ const Faqs = () => {
         }
         
     ];
+    const toggleFAQ = (index) => {
+      setActiveIndex(activeIndex === index ? null : index);
+  };
   return (
     <>
       <Head>
