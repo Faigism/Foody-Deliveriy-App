@@ -10,6 +10,7 @@ import {
 } from '../../../shared/services/axios'
 import { ToastContainer } from 'react-toastify'
 import AdminCategory from '../../../shared/components/admin/adminCategory'
+import AuthCheck from '../../../shared/components/admin/authCheck'
 
 const Category = () => {
   const { t } = useTranslation()
@@ -78,52 +79,54 @@ const Category = () => {
 
   return (
     <>
-      <ToastContainer />
-      <AdminLayout>
-        <AdminLeftModal
-          onClickClose={changeHidden}
-          p={t('cateAdd')}
-          p1={t('adminModalUploadImage')}
-          p2={t('adminModalCategoryInformation')}
-          hidden={isHiddenModal}
-          imageUrl={handleAddNewImage}
-          getImgUrl={handleAddNewImage}
-          createOnClick={addCategory}
-          imgRef={imgRef}
-          addProductName={addCategoryName}
-          addCategorySlug={addCategorySlug}
-          btn={t('cateCreate')}
-        />
-        <Subheading
-          text={t('adminLeftBarComponent4')}
-          add={t('addCategory')}
-          changeHidden={changeHidden}
-        />
-        {!loading ? (
-          <div className=" w-[94%] mt-10 bg-white ml-[50px] h-[400px] overflow-y-scroll">
-            <table className="w-[100%] ">
-              <thead className="h-16 text-sm px-8">
-                <tr>
-                  <th>ID</th>
-                  <th>Image</th>
-                  <th>Name</th>
-                  <th>Slug</th>
-                  <th>Edit and delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                {categoryData?.map((item) => (
-                  <AdminCategory key={item.id} item={item} />
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <div className="h-60 flex items-center justify-center">
-            <div className="loading"></div>
-          </div>
-        )}
-      </AdminLayout>
+      <AuthCheck>
+        <ToastContainer />
+        <AdminLayout>
+          <AdminLeftModal
+            onClickClose={changeHidden}
+            p={t('cateAdd')}
+            p1={t('adminModalUploadImage')}
+            p2={t('adminModalCategoryInformation')}
+            hidden={isHiddenModal}
+            imageUrl={handleAddNewImage}
+            getImgUrl={handleAddNewImage}
+            createOnClick={addCategory}
+            imgRef={imgRef}
+            addProductName={addCategoryName}
+            addCategorySlug={addCategorySlug}
+            btn={t('cateCreate')}
+          />
+          <Subheading
+            text={t('adminLeftBarComponent4')}
+            add={t('addCategory')}
+            changeHidden={changeHidden}
+          />
+          {!loading ? (
+            <div className=" w-[94%] mt-10 bg-white ml-[50px] h-[400px] overflow-y-scroll">
+              <table className="w-[100%] ">
+                <thead className="h-16 text-sm px-8">
+                  <tr>
+                    <th>ID</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Slug</th>
+                    <th>Edit and delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {categoryData?.map((item) => (
+                    <AdminCategory key={item.id} item={item} />
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div className="h-60 flex items-center justify-center">
+              <div className="loading"></div>
+            </div>
+          )}
+        </AdminLayout>
+      </AuthCheck>
     </>
   )
 }

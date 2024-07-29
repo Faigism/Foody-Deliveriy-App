@@ -2,15 +2,27 @@ import Head from 'next/head'
 import { ToastContainer } from 'react-toastify'
 import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import NavbarLangButton from '../../../shared/components/admin/navbarLangButton'
 import Button from '../../../shared/components/admin/Button'
+import AuthCheck from '../../../shared/components/admin/authCheck'
+import { useRouter } from 'next/router'
 
 const Login = () => {
   const { t } = useTranslation()
   const [isLoading, setIsLoading] = useState(false)
   const emailRef = useRef(null)
   const passwordRef = useRef(null)
+  const router = useRouter()
+
+  useEffect(() => {
+    const localAdmin = localStorage.getItem('localAdmin')
+    if (!localAdmin) {
+      router.push('/admin/login')
+    } else {
+      router.push('/admin/dashboard')
+    }
+  }, [router])
 
   return (
     <div className=" min-h-screen bg-darkBlue_1">
