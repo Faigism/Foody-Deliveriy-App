@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { ToastContainer } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify'
 import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
 import { useEffect, useRef, useState } from 'react'
@@ -11,9 +11,10 @@ import { useRouter } from 'next/router'
 const Login = () => {
   const { t } = useTranslation()
   const [isLoading, setIsLoading] = useState(false)
-  const emailRef = useRef(null)
+  const usernameRef = useRef(null)
   const passwordRef = useRef(null)
   const router = useRouter()
+
 
   useEffect(() => {
     const localAdmin = localStorage.getItem('localAdmin')
@@ -23,6 +24,33 @@ const Login = () => {
       router.push('/admin/dashboard')
     }
   }, [router])
+
+
+  const login = () => {
+    setIsLoading(true)
+    const username = usernameRef?.current.value
+    const password = passwordRef?.current.value
+    if (!username || !password) {
+      toast.warning('Please fill in all fields!')
+      setIsLoading(false)
+      return
+    }
+    if (username === 'admin' && password === 'admin') {
+      toast.success('Login Successfully')
+      localStorage.setItem('localAdmin', username)
+      usernameRef.current.value=''
+      passwordRef.current.value=''
+      router.push('/admin/dashboard')
+      return 
+    } else {
+      toast.error('Username or password is incorrect!')
+      usernameRef.current.value=''
+      passwordRef.current.value=''
+      setIsLoading(false)
+      
+    }
+  }
+
 
   return (
     <div className=" min-h-screen bg-darkBlue_1">
@@ -57,9 +85,9 @@ const Login = () => {
                 </p>
                 <div className=" flex flex-col  gap-6 mb-9">
                   <input
-                    ref={emailRef}
+                    ref={usernameRef}
                     className=" rounded bg-lightGray text-grayText py-4 pl-10 font-medium text-lg "
-                    placeholder={t('e-mail')}
+                    placeholder={t('username')}
                     type="text"
                   />
                   <input
@@ -71,7 +99,7 @@ const Login = () => {
                 </div>
                 <Button
                   innerText={isLoading ? '...' : t('signIn')}
-                  // onClick={login}
+                  onClick={login}
                   className=" text-white font-medium text-2xl  w-full bg-lightPurple_3 py-3 rounded"
                 />
               </div>
