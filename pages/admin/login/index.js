@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next'
 import { useEffect, useRef, useState } from 'react'
 import NavbarLangButton from '../../../shared/components/admin/navbarLangButton'
 import Button from '../../../shared/components/admin/Button'
-import AuthCheck from '../../../shared/components/admin/authCheck'
 import { useRouter } from 'next/router'
 
 const Login = () => {
@@ -15,7 +14,6 @@ const Login = () => {
   const passwordRef = useRef(null)
   const router = useRouter()
 
-
   useEffect(() => {
     const localAdmin = localStorage.getItem('localAdmin')
     if (!localAdmin) {
@@ -24,7 +22,6 @@ const Login = () => {
       router.push('/admin/dashboard')
     }
   }, [router])
-
 
   const login = () => {
     setIsLoading(true)
@@ -38,19 +35,17 @@ const Login = () => {
     if (username === 'admin' && password === 'admin') {
       toast.success('Login Successfully')
       localStorage.setItem('localAdmin', username)
-      usernameRef.current.value=''
-      passwordRef.current.value=''
+      usernameRef.current.value = ''
+      passwordRef.current.value = ''
       router.push('/admin/dashboard')
-      return 
+      return
     } else {
       toast.error('Username or password is incorrect!')
-      usernameRef.current.value=''
-      passwordRef.current.value=''
+      usernameRef.current.value = ''
+      passwordRef.current.value = ''
       setIsLoading(false)
-      
     }
   }
-
 
   return (
     <div className=" min-h-screen bg-darkBlue_1">

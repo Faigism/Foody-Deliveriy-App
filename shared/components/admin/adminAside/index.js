@@ -16,6 +16,11 @@ const AdminAside = () => {
     push(`/admin/${value}`)
   }
 
+  function logout() {
+    localStorage.removeItem('localAdmin')
+    push('/admin/login')
+  }
+
   return (
     <div className=" bg-lightPurple_2 w-full sm:w-[256px] h-[474px] flex flex-col gap-2 pt-6 pl-2 sm:pl-6 pr-4 rounded-[14px] fixed mt-[100px]">
       <AdminAsideItem
@@ -64,7 +69,7 @@ const AdminAside = () => {
         value={'logout'}
         innerText={t('adminLeftBarComponent7')}
         img={logoutIcon}
-        onClick={changePage}
+        onClick={logout}
       />
     </div>
   )
