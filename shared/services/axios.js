@@ -135,3 +135,21 @@ export const getEditOffer = async (id) => {
     console.log(error)
   }
 }
+
+export const clientRegister = async (form) => {
+  try {
+    const response = await instanceAxios.post('/auth/signup', form)
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const clientLogin = async (form) => {
+  try {
+    const response = await instanceAxios.post('/auth/signin', form)
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+}

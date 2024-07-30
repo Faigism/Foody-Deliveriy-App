@@ -7,6 +7,7 @@ import {
   getRestaurants,
 } from '../../../shared/services/axios'
 import ProductsItem from '../../../shared/components/admin/ProductsItem'
+import AuthCheck from '../../../shared/components/admin/authCheck'
 
 const Products = () => {
   const [restaurants, setRestaurants] = useState([])
@@ -27,18 +28,20 @@ const Products = () => {
   }
 
   return (
-    <AdminLayout>
-      <Subheading
-        text={'Products'}
-        type={'Restaurant'}
-        state={restaurants}
-        handleClick={getAllRestaurants}
-        handleSearchByType={getProductsByRestaurant}
-      />
-      <main style={{ margin: '0 25px 0 50px' }}>
-        <ProductsItem products={products} restaurant={restaurant} />
-      </main>
-    </AdminLayout>
+    <AuthCheck>
+      <AdminLayout>
+        <Subheading
+          text={'Products'}
+          type={'Restaurant'}
+          state={restaurants}
+          handleClick={getAllRestaurants}
+          handleSearchByType={getProductsByRestaurant}
+        />
+        <main style={{ margin: '0 25px 0 50px' }}>
+          <ProductsItem products={products} restaurant={restaurant} />
+        </main>
+      </AdminLayout>
+    </AuthCheck>
   )
 }
 export default Products

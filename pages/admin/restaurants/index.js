@@ -11,6 +11,7 @@ import {
 } from '../../../shared/services/axios'
 import { useTranslation } from 'react-i18next'
 import AdminLeftModal from '../../../shared/components/admin/adminLeftModal'
+import AuthCheck from '../../../shared/components/admin/authCheck'
 
 const Restaurants = () => {
   const { t } = useTranslation()
@@ -81,41 +82,43 @@ const Restaurants = () => {
   }, [])
 
   return (
-    <AdminLayout>
-      <AdminLeftModal
-        onClickClose={changeHidden}
-        p={t('resAdd')}
-        p1={t('adminModalUploadImage')}
-        p2={t('adminModalRestaurantInformation')}
-        hidden={isHiddenModal}
-        imageUrl={handleAddNewImage}
-        getImgUrl={handleAddNewImage}
-        imgRef={img}
-        addProductName={addRestaurantName}
-        addRestaurantCuisine={addRestaurantCuisine}
-        addRestaurantDeliveryPrice={addRestaurantDeliveryPrice}
-        addRestaurantDeliveryMin={addRestaurantDeliveryMin}
-        addRestaurantAddress={addRestaurantAddress}
-        btn={t('resCreate')}
-        cateArr={categoriesModal}
-        addRestaurantCategory={addRestaurantCategory}
-      />
-      <Subheading
-        text={t('adminLeftBarComponent3')}
-        type={'Category'}
-        add={t('addRestaurant')}
-        state={categories}
-        handleClick={getCategories}
-        handleSearchByType={getRestaurantsByCategory}
-        changeHidden={changeHidden}
-      />
-      <main style={{ margin: '0 25px 0 50px' }}>
-        <RestaurantItems
-          restaurants={restaurants}
-          categoryName={categoryName}
+    <AuthCheck>
+      <AdminLayout>
+        <AdminLeftModal
+          onClickClose={changeHidden}
+          p={t('resAdd')}
+          p1={t('adminModalUploadImage')}
+          p2={t('adminModalRestaurantInformation')}
+          hidden={isHiddenModal}
+          imageUrl={handleAddNewImage}
+          getImgUrl={handleAddNewImage}
+          imgRef={img}
+          addProductName={addRestaurantName}
+          addRestaurantCuisine={addRestaurantCuisine}
+          addRestaurantDeliveryPrice={addRestaurantDeliveryPrice}
+          addRestaurantDeliveryMin={addRestaurantDeliveryMin}
+          addRestaurantAddress={addRestaurantAddress}
+          btn={t('resCreate')}
+          cateArr={categoriesModal}
+          addRestaurantCategory={addRestaurantCategory}
         />
-      </main>
-    </AdminLayout>
+        <Subheading
+          text={t('adminLeftBarComponent3')}
+          type={'Category'}
+          add={t('addRestaurant')}
+          state={categories}
+          handleClick={getCategories}
+          handleSearchByType={getRestaurantsByCategory}
+          changeHidden={changeHidden}
+        />
+        <main style={{ margin: '0 25px 0 50px' }}>
+          <RestaurantItems
+            restaurants={restaurants}
+            categoryName={categoryName}
+          />
+        </main>
+      </AdminLayout>
+    </AuthCheck>
   )
 }
 export default Restaurants

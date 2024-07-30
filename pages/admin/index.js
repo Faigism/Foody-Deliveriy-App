@@ -4,10 +4,14 @@ import { useEffect } from 'react'
 
 const AdminDashboard = () => {
   const router = useRouter()
-
   useEffect(() => {
-    router.push('/admin/dashboard')
-  }, [])
+    const localAdmin = localStorage.getItem('localAdmin')
+    if (!localAdmin) {
+      router.push('/admin/login')
+    } else {
+      router.push('/admin/dashboard')
+    }
+  }, [router])
 
   return (
     <>

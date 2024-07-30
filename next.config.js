@@ -2,10 +2,15 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  reactStrictMode: true,
+  reactStrictMode: false,
   transpilePackages: ['@mui/x-charts'],
   images: {
-    domains: ['firebasestorage.googleapis.com'],
+    domains: [
+      'encrypted-tbn0.gstatic.com',
+      'media-cdn.tripadvisor.com',
+      'dynamic-media-cdn.tripadvisor.com',
+      'avatars.mds.yandex.net',
+    ],
   },
 }
 

@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useGlobalStore } from '../../../shared/services/provider'
 import { getOffer } from '../../../shared/services/axios'
 import AdminOffer from '../../../shared/components/admin/adminOffer'
+import AuthCheck from '../../../shared/components/admin/authCheck'
 const Offers = () => {
   const { t } = useTranslation()
   const [isHiddenModal, setIsHiddenModal] = useState(true)
@@ -36,50 +37,52 @@ const Offers = () => {
     offersRender()
   }, [])
   return (
-    <AdminLayout>
-      <AdminLeftModal
-        onClickClose={changeHidden}
-        p={t('ofAdd')}
-        p1={t('adminModalUploadImage')}
-        p2={t('adminModalOfferInformation')}
-        hidden={isHiddenModal}
-        imageUrl={handleAddNewImage}
-        getImgUrl={handleAddNewImage}
-        imgRef={img}
-        addProductName={addOfferName}
-        addProductDesc={addOfferDesc}
-        btn={t('ofCreate')}
-      />
-      <Subheading
-        text={t('adminLeftBarComponent6')}
-        add={t('addOffer')}
-        changeHidden={changeHidden}
-      />
-      {!loading ? (
-        <div className=" w-[94%] mt-10 bg-white ml-[50px] h-[400px] overflow-y-scroll">
-          <table className="w-[100%] ">
-            <thead className="h-16 text-sm px-8">
-              <tr>
-                <th>ID</th>
-                <th>Image</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Edit and delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              {(Array.isArray(offerData) ? offerData : []).map((item) => (
-                <AdminOffer key={item.id} item={item} />
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ) : (
-        <div className="h-60 flex items-center justify-center">
-          <div className="loading"></div>
-        </div>
-      )}
-    </AdminLayout>
+    <AuthCheck>
+      <AdminLayout>
+        <AdminLeftModal
+          onClickClose={changeHidden}
+          p={t('ofAdd')}
+          p1={t('adminModalUploadImage')}
+          p2={t('adminModalOfferInformation')}
+          hidden={isHiddenModal}
+          imageUrl={handleAddNewImage}
+          getImgUrl={handleAddNewImage}
+          imgRef={img}
+          addProductName={addOfferName}
+          addProductDesc={addOfferDesc}
+          btn={t('ofCreate')}
+        />
+        <Subheading
+          text={t('adminLeftBarComponent6')}
+          add={t('addOffer')}
+          changeHidden={changeHidden}
+        />
+        {!loading ? (
+          <div className=" w-[94%] mt-10 bg-white ml-[50px] h-[400px] overflow-y-scroll">
+            <table className="w-[100%] ">
+              <thead className="h-16 text-sm px-8">
+                <tr>
+                  <th>ID</th>
+                  <th>Image</th>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Edit and delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(Array.isArray(offerData) ? offerData : []).map((item) => (
+                  <AdminOffer key={item.id} item={item} />
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="h-60 flex items-center justify-center">
+            <div className="loading"></div>
+          </div>
+        )}
+      </AdminLayout>
+    </AuthCheck>
   )
 }
 export default Offers
