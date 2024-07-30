@@ -51,7 +51,7 @@ const Navbar = ({ adminNavbar }) => {
       !productRestaurant &&
       !image
     ) {
-      toast.dismiss()
+      // toast.dismiss()
       toast.warning('please fill in all fields')
       return
     }

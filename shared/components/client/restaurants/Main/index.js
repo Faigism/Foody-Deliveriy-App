@@ -19,8 +19,7 @@ const Main = () => {
   const subset =
     filteredRestaurants.length > 0
       ? filteredRestaurants.slice(startIndex, endIndex)
-      : restaurants.slice(startIndex, endIndex)
-
+      : restaurants?.slice(startIndex, endIndex)
   const allRestaurants = async () => {
     const response = await getRestaurants()
     const restaurants = response?.data.result.data
@@ -29,10 +28,10 @@ const Main = () => {
 
   useEffect(() => {
     allRestaurants()
-    if (filteredRestaurants.length > 0) {
-      setTotalPages(Math.ceil(filteredRestaurants.length / itemsPerPage))
+    if (filteredRestaurants?.length > 0) {
+      setTotalPages(Math.ceil(filteredRestaurants?.length / itemsPerPage))
     } else {
-      setTotalPages(Math.ceil(restaurants.length / itemsPerPage))
+      setTotalPages(Math.ceil(restaurants?.length / itemsPerPage))
     }
   }, [
     filteredRestaurants, itemsPerPage,
@@ -49,9 +48,9 @@ const Main = () => {
     },
   }
   return (
-    <div className='my-8 flex flex-1 items-center flex-col'>
-      <div className='flex flex-1 flex-wrap justify-around gap-y-10 xxxl:gap-x-20 xxl:gap-x-16'>
-        {subset.map((restaurant, index) => (
+    <div className="my-8 flex flex-1 items-center flex-col">
+      <div className="flex flex-1 flex-wrap justify-around gap-x-20">
+        {subset?.map((restaurant, index) => (
           <RestaurantCard restaurant={restaurant} key={restaurant.id} />
         ))}
       </div>

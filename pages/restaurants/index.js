@@ -8,10 +8,10 @@ import { getCategoriesFromDB } from '../../shared/services/axios'
 import { useEffect, useState } from 'react'
 
 const Restaurants = () => {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState([])
 
   const getAllCategories = async () => {
-    const categoriesData = await getCategoriesFromDB();
+    const categoriesData = await getCategoriesFromDB()
     // const uniqueCategories = response.map(item => item.name).filter((value, index, self) =>
     //   self.indexOf(value) === index);
     // console.log(uniqueCategories)
@@ -20,6 +20,7 @@ const Restaurants = () => {
   useEffect(() => {
     getAllCategories()
   }, [])
+
   return (
     <>
       <Head>
@@ -29,7 +30,7 @@ const Restaurants = () => {
       </Head>
 
       <ClientLayout>
-        <div className='flex gap-11'>
+        <div className="flex gap-11">
           <Sidebar categories={categories} />
           <Main />
         </div>

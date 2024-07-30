@@ -1,5 +1,4 @@
 import axios from 'axios'
-import router from 'next/router'
 
 const BASE_URL = '/api'
 // const BASE_URL = 'https://foody-api.vercel.app/api'

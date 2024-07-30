@@ -11,7 +11,9 @@ const Error = () => {
       </Head>
 
       <ClientLayout>
-        <div>Error page</div>
+        <div>
+          <img src={'/404.svg'} alt="404" style={{ width: '100%' }} />
+        </div>
       </ClientLayout>
     </>
   )
