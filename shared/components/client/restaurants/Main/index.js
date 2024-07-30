@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import styles from "./restaurantMain.module.css"
 import RestaurantCard from '../RestaurantCard'
 import { useGlobalStore } from '../../../../services/provider';
 import { Pagination, Stack } from '@mui/material';
@@ -44,7 +43,7 @@ const Main = () => {
     }
     return (
         <div className='my-8 flex flex-1 items-center flex-col'>
-            <div className='flex flex-1 flex-wrap justify-around gap-x-20'>
+            <div className='flex flex-1 flex-wrap justify-around gap-y-10 xxxl:gap-x-20 xxl:gap-x-16'>
                 {subset.map((restaurant, index) => (
                     <RestaurantCard restaurant={restaurant} key={restaurant.id} />
                 ))}

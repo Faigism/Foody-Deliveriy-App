@@ -25,6 +25,8 @@ const RestaurantProduct = ({ product, index }) => {
     }, [addToBasket]);
 
     const addProductToBasket = (product) => {
+        // const price = parseFloat(product.price).toPrecision(2)
+        // console.log(price)
         if (itemCount === 0) {
             setSelectedProducts([product])
             setTotalPrice(totalPrice + product.price)
