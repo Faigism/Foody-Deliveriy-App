@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import ClientLayout from '../shared/components/layout/client/Header'
 import Header from '../shared/components/client/header'
-import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
 import { useEffect, useState } from 'react'
 import { getOffer } from '../shared/services/axios'
@@ -35,7 +34,7 @@ const Home = () => {
           </div>
           <div className="flex flex-col justify-center gap-16 items-center sm:flex-row">
             <div className="flex flex-col gap-5 text-center pb-6 shadow-xl">
-              <Image
+              <img
                 width={240}
                 className="mx-auto"
                 height={0}
@@ -50,7 +49,7 @@ const Home = () => {
               </p>
             </div>
             <div className="flex flex-col gap-5 text-center pb-6 shadow-xl">
-              <Image
+              <img
                 width={240}
                 className="mx-auto"
                 height={0}
@@ -65,7 +64,7 @@ const Home = () => {
               </p>
             </div>
             <div className="flex flex-col gap-5 text-center pb-6 shadow-xl ">
-              <Image
+              <img
                 width={210}
                 className="mx-auto"
                 height={0}
@@ -97,7 +96,7 @@ const Home = () => {
                   </p>
                 </div>
                 <div>
-                  <Image
+                  <img
                     className="rounded-xl"
                     width={400}
                     height={400}
@@ -146,7 +145,7 @@ const Home = () => {
           </div>
           <div className="flex flex-col justify-center gap-16 items-center sm:flex-row">
             <div className="flex flex-col gap-5 text-center pb-6 shadow-xl ">
-              <Image
+              <img
                 width={240}
                 className="mx-auto"
                 height={0}
@@ -159,7 +158,7 @@ const Home = () => {
               </p>
             </div>
             <div className="flex flex-col gap-5 text-center pb-6 shadow-xl ">
-              <Image
+              <img
                 width={190}
                 className="mx-auto"
                 height={0}
@@ -172,7 +171,7 @@ const Home = () => {
               </p>
             </div>
             <div className="flex flex-col gap-5 text-center pb-6 shadow-xl ">
-              <Image
+              <img
                 width={240}
                 className="mx-auto"
                 height={0}

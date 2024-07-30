@@ -1,28 +1,29 @@
 import Head from 'next/head'
 import ClientLayout from '../../shared/components/layout/client/Header'
-import { useState } from 'react';
+import { useState } from 'react'
 
 const Faqs = () => {
-  const [activeIndex, setActiveIndex] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(null)
 
-    const faqs = [
-        {
-            question: "What is React?",
-            answer: "React is a JavaScript library for building user interfaces, maintained by Facebook and a community of developers."
-        },
-        {
-            question: "How does React work?",
-            answer: "React works by creating a virtual DOM that updates the real DOM in a very efficient way, reducing the number of updates needed."
-        },
-        {
-            question: "What is a component?",
-            answer: "A component is a reusable piece of UI that can be used to build more complex UIs. Components can be functional or class-based."
-        }
-        
-    ];
-    const toggleFAQ = (index) => {
-      setActiveIndex(activeIndex === index ? null : index);
-  };
+  const faqs = [
+    {
+      question: 'What is React?',
+      answer:
+        'React is a JavaScript library for building user interfaces, maintained by Facebook and a community of developers.',
+    },
+    {
+      question: 'Where can I find out about funding?',
+      answer: 'Bla Bla Bla Bla',
+    },
+    {
+      question: 'What is a component?',
+      answer:
+        'A component is a reusable piece of UI that can be used to build more complex UIs. Components can be functional or class-based.',
+    },
+  ]
+  const toggleFAQ = (index) => {
+    setActiveIndex(activeIndex === index ? null : index)
+  }
   return (
     <>
       <Head>

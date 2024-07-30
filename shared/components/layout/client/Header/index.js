@@ -147,7 +147,7 @@ const ClientLayout = ({ children }) => {
             className="hidden sm:block"
             width={200}
             height={0}
-            src={'footerPizza.svg'}
+            src={'/footerPizza.svg'}
             alt="footer"
           />
 
