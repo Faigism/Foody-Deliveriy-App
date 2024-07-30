@@ -12,7 +12,7 @@ const Faqs = () => {
         },
         {
             question: "Where can I find out about funding?",
-            answer: "Bla Bla Bla"
+            answer: "Bla Bla Bla Bla"
         },
         {
             question: "What is a component?",
