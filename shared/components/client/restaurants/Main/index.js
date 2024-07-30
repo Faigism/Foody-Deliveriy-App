@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import styles from './restaurantMain.module.css'
 import RestaurantCard from '../RestaurantCard'
 import { useGlobalStore } from '../../../../services/provider'
 import { Pagination, Stack } from '@mui/material'
@@ -34,7 +33,10 @@ const Main = () => {
     } else {
       setTotalPages(Math.ceil(restaurants?.length / itemsPerPage))
     }
-  }, [filteredRestaurants, itemsPerPage, restaurants])
+  }, [
+    filteredRestaurants, itemsPerPage,
+    // restaurants
+  ])
 
   const paginated = (event, value) => {
     setCurrentPage(value - 1)
