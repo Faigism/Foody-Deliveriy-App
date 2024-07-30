@@ -30,6 +30,11 @@
     color: #D63626;
 }
 
+.active {
+    background: #ffdcd9;
+    color: #D63626;
+}
+
 .sidebar::-webkit-scrollbar {
     width: 4px;
 }

@@ -16,7 +16,6 @@ const Products = () => {
   const getAllRestaurants = async () => {
     const allRestaurantsData = await getRestaurants()
     const allRestaurants = allRestaurantsData?.data.result.data
-    console.log(allRestaurants)
     setRestaurants(allRestaurants)
   }
 
