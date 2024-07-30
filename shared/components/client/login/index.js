@@ -89,7 +89,7 @@ const ClientLogin = () => {
     console.log(res)
 
     if (res?.status === 200) {
-      localStorage.setItem('loginDate', date.toISOString())
+      localStorage.setItem('loginDate', date.getTime())
       toast.success('Logged in successfully!')
       tokenObj = {
         access_token: res.data.user.access_token,

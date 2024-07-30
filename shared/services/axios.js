@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-const BASE_URL = '/api'
-// const BASE_URL = 'https://foody-api.vercel.app/api'
+// const BASE_URL = '/api'
+const BASE_URL = 'https://foody-api.vercel.app/api'
 
 const instanceAxios = axios.create({
   baseURL: BASE_URL,
@@ -151,5 +151,21 @@ export const clientLogin = async (form) => {
     return response
   } catch (error) {
     console.log(error)
+  }
+}
+
+// user-basket
+export async function getProductForBasket() {
+  try {
+    let item = localStorage.getItem('userInfo')
+    let access_token = JSON.parse(item)
+    const response = await instanceAxios.get(`/basket/`, {
+      headers: {
+        Authorization: `Bearer ${access_token.access_token}`,
+      },
+    })
+    return response
+  } catch (err) {
+    console.log(err)
   }
 }
