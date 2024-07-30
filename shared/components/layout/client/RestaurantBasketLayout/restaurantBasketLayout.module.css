@@ -1,0 +1,86 @@
+.headerImage {
+    width: 34.15px;
+    height: 30.42px;
+}
+
+.itemCount {
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    text-align: left;
+}
+
+.coloredItemCount {
+    color: #D63626;
+}
+
+.unColoredItemCount {
+    color: #BDBDBD;
+}
+
+.emptyMessage {
+    width: 295px;
+    height: 144px;
+    font-size: 40px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    text-align: center;
+    color: #BDBDBD;
+
+}
+
+.image {
+    width: 263px;
+    height: 236px;
+}
+
+.basketFooter {
+    width: 517px;
+    height: 66px;
+    border-radius: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 3px;
+    padding-left: 30px;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    text-align: left;
+    color: #FFFFFF;
+}
+
+.coloredBasketFooter {
+    background: #D63626;
+}
+
+.unColoredBasketFooter {
+    background: #BDBDBD;
+}
+
+.checkout {
+    width: 187.71px;
+    height: 59.79px;
+    border-radius: 100px;
+    background: #FFFFFF;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.coloredCheckout {
+    color: #D63626;
+}
+
+.unColoredCheckout {
+    color: #BDBDBD;
+}
+
+.main {
+    height: 492px;
+    overflow: auto;
+}

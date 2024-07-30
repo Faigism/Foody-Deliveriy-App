@@ -1,0 +1,35 @@
+.separator {
+    width: 1799px;
+    height: 2px;
+    background: #F2F2F2;
+    margin-bottom: 50px;
+}
+
+.products {
+    width: 914px;
+    height: 961px;
+    border-radius: 4px;
+    background: #F3F4F6;
+    overflow: auto;
+
+}
+
+.title {
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    color: #4F4F4F;
+
+}
+
+.basket {
+    width: 547px;
+    height: 667px;
+    border-radius: 4px;
+    background: #F3F4F6;
+
+}
