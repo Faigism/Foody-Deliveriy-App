@@ -1,4 +1,5 @@
 import axios from 'axios'
+import router from 'next/router'
 
 // const BASE_URL = '/api'
 const BASE_URL = 'https://foody-api.vercel.app/api'
@@ -34,6 +35,7 @@ export const getRestaurants = async () => {
     const response = await instanceAxios.get('/restuarants')
     return response
   } catch (error) {
+    router.push('/404')
     console.log(error)
   }
 }
