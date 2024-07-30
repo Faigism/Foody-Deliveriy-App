@@ -11,8 +11,8 @@ const Faqs = () => {
             answer: "React is a JavaScript library for building user interfaces, maintained by Facebook and a community of developers."
         },
         {
-            question: "How does React work?",
-            answer: "React works by creating a virtual DOM that updates the real DOM in a very efficient way, reducing the number of updates needed."
+            question: "Where can I find out about funding?",
+            answer: "Bla Bla Bla"
         },
         {
             question: "What is a component?",
