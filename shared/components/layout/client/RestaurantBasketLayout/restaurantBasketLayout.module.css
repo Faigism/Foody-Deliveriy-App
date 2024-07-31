@@ -84,3 +84,17 @@
     height: 492px;
     overflow: auto;
 }
+
+
+@media screen and (max-width: 1600px) {
+
+    .basketFooter {
+        width: 372px;
+        height: 47px;
+    }
+
+    .checkout {
+        width: 135px;
+        height: 43px;
+    }
+}

@@ -15,7 +15,7 @@ const Provider = ({ children }) => {
   const [itemCount, setItemCount] = useState(0)
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [selectedProducts, setSelectedProducts] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0.00);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const Component = globalContext.Provider
 

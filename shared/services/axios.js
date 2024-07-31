@@ -153,3 +153,19 @@ export const clientLogin = async (form) => {
     console.log(error)
   }
 }
+
+// user-basket
+export async function getProductForBasket() {
+  try {
+    let item = localStorage.getItem('userInfo')
+    let access_token = JSON.parse(item)
+    const response = await instanceAxios.get(`/basket/`, {
+      headers: {
+        Authorization: `Bearer ${access_token.access_token}`,
+      },
+    })
+    return response
+  } catch (err) {
+    console.log(err)
+  }
+}

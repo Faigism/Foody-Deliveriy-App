@@ -58,3 +58,35 @@
     justify-content: center;
     align-items: center;
 }
+
+@media screen and (max-width: 1600px) {
+    .card {
+        width: 200px;
+        height: 300.27px;
+        padding-top: 5px;
+    }
+
+    .card img {
+        width: 134px;
+        height: 131px;
+    }
+
+    .heading {
+        font-size: 18px;
+    }
+
+    .text {
+        font-size: 12px;
+    }
+
+    .price {
+        font-size: 13px;
+
+    }
+
+    .time {
+        width: 58px;
+        height: 25.38px;
+        font-size: 13px;
+    }
+}
