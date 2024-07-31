@@ -8,6 +8,7 @@ import { useGlobalStore } from '../../../../services/provider'
 const RestaurantBasketLayout = ({ children }) => {
 
     const { itemCount, totalPrice } = useGlobalStore();
+    console.log(itemCount)
     return (
         <div className='flex flex-col justify-between h-full'>
             <div className='flex items-end gap-2 mt-[14px] ms-[16px]'>
