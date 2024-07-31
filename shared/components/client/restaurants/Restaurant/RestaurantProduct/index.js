@@ -4,7 +4,6 @@ import AddIcon from '@mui/icons-material/Add'
 import { useGlobalStore } from '../../../../../services/provider';
 
 const RestaurantProduct = ({ product, index }) => {
-    const [addToBasket, setAddToBasket] = useState(false);
     const { getProductsInBasket, addProductToBasket } = useGlobalStore();
 
     useEffect(() => {
@@ -24,9 +23,8 @@ const RestaurantProduct = ({ product, index }) => {
             </div>
             <div className='flex gap-5 items-center'>
                 <div className={styles.price}>From <span>${product.price}</span></div>
-                <button className={`${addToBasket ? styles.activeAddToBasket : styles.inActiveAddToBasket} ${styles.addToBasket}`} onClick={() => {
+                <button className={`${styles.addToBasket}`} onClick={() => {
                     addProductToBasket(product)
-                    setAddToBasket(!addToBasket)
                 }}><AddIcon style={{ width: '24px' }} /></button>
             </div>
         </div>

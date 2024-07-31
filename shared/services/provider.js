@@ -18,12 +18,10 @@ const Provider = ({ children }) => {
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [basketId, setBasketId] = useState("");
-  // const [basketItems, setBasketItems] = useState([]);
 
   const getProductsInBasket = async () => {
     const response = await getProductForBasket();
     setBasketId(response?.data.result.data.id);
-    // setBasketItems(response?.data.result.data.items)
     setItemCount(response?.data.result.data.total_count)
     setSelectedProducts(response?.data.result.data.items);
     setTotalPrice(response?.data.result.data.total_amount)
@@ -73,8 +71,6 @@ const Provider = ({ children }) => {
     setTotalPrice,
     basketId,
     setBasketId,
-    // basketItems,
-    // setBasketItems,
     addProductToBasket,
     getProductsInBasket,
     deleteFromBasket,

@@ -1,16 +1,10 @@
 import React from 'react'
 import styles from './restaurantBasketItem.module.css'
-import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
-import { clearBasket } from '../../../../../../services/axios';
 import { useGlobalStore } from '../../../../../../services/provider';
 
 const RestaurantBasketItem = ({ selectedProduct }) => {
 
-    const { basketId, addProductToBasket, deleteFromBasket, deleteAllItemsFromBasket } = useGlobalStore();
-
-    const data = {
-        "basket_id": `${basketId}`
-    }
+    const { addProductToBasket, deleteFromBasket } = useGlobalStore();
 
     const increaseItemCount = (product) => {
         addProductToBasket(product);
@@ -30,15 +24,12 @@ const RestaurantBasketItem = ({ selectedProduct }) => {
                     <div className={styles.price}>{selectedProduct?.price}</div>
                 </div>
             </div>
-            <div className='relative'>
+            <div>
                 <div className={styles.count}>
-                    <button onClick={() => { increaseItemCount(selectedProduct) }}>+</button>
+                    <button className={styles.plus} onClick={() => { increaseItemCount(selectedProduct) }}>+</button>
                     <div>{selectedProduct.count}</div>
-                    <button onClick={() => { decreaseItemCount(selectedProduct) }}>-</button>
+                    <button className={styles.minus} onClick={() => { decreaseItemCount(selectedProduct) }}>-</button>
                 </div>
-                <button className='absolute top-[-15px] right-[-45px]' onClick={() => { deleteAllItemsFromBasket(data) }}>
-                    <DeleteSweepIcon style={{ width: '24px' }} />
-                </button>
             </div>
         </div>
     )

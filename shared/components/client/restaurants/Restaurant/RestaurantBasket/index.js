@@ -7,7 +7,7 @@ import RestaurantBasketLayout from '../../../../layout/client/RestaurantBasketLa
 import RestaurantBasketItem from './RestaurantBasketItem'
 
 const RestaurantBasket = () => {
-    const { itemCount, selectedProducts, basketItems } = useGlobalStore();
+    const { itemCount, selectedProducts } = useGlobalStore();
     return (
         <div className='h-full'>
             <RestaurantBasketLayout>

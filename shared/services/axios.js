@@ -182,7 +182,7 @@ export const editProfileInfo = async (data) => {
   } catch (error) {
     console.log(error)
   }
-}  
+}
 // user-basket
 export async function getProductForBasket() {
   try {
@@ -207,8 +207,7 @@ export async function postProduct(data) {
     const response = await instanceAxios.post(`/basket/add`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
-      },
-      data
+      }
     })
     return response
   } catch (err) {
