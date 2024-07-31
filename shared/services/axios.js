@@ -153,7 +153,36 @@ export const clientLogin = async (form) => {
     console.log(error)
   }
 }
+// user-profile
+export const getProfileInfo = async () => {
+  try {
+    let item = localStorage.getItem('userInfo')
+    let userInfo = JSON.parse(item)
+    const response = await instanceAxios.get(`/auth/user/`, {
+      headers: {
+        Authorization: `Bearer ${userInfo.access_token}`,
+      },
+    })
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+}
 
+export const editProfileInfo = async (data) => {
+  try {
+    let item = localStorage.getItem('userInfo')
+    let userInfo = JSON.parse(item)
+    const response = await instanceAxios.put(`/auth/user/`, data, {
+      headers: {
+        Authorization: `Bearer ${userInfo.access_token}`,
+      },
+    })
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+}  
 // user-basket
 export async function getProductForBasket() {
   try {
