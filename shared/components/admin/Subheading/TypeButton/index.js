@@ -34,7 +34,7 @@ const TypeButton = ({ text, states, handleClick, handleSearchByType }) => {
           states?.map((state, index) => (
             <button
               key={index}
-              className='bg-white rounded-[14px] w-[180px] p-2 hover:bg-grayText'
+              className='bg-white rounded-[14px] w-[190px] p-2 hover:bg-grayText'
               onClick={() => {
                 handleSearchByType(state.id)
                 setSearchText(state.name)

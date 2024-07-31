@@ -1,8 +1,9 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Subheading from '../../../shared/components/admin/Subheading'
 import AdminLayout from '../../../shared/components/layout/admin'
 import {
+  getProducts,
   getRestaurantById,
   getRestaurants,
 } from '../../../shared/services/axios'
@@ -11,7 +12,7 @@ import AuthCheck from '../../../shared/components/admin/authCheck'
 
 const Products = () => {
   const [restaurants, setRestaurants] = useState([])
-  const [restaurant, setRestaurant] = useState({})
+  const [restaurant, setRestaurant] = useState()
   const [products, setProducts] = useState([])
 
   const getAllRestaurants = async () => {
@@ -26,6 +27,15 @@ const Products = () => {
     const products = restaurant.products
     setProducts(products)
   }
+
+  const getAllProducts = async () => {
+    const response = await getProducts();
+    setProducts(response.data.result.data)
+  }
+
+  useEffect(() => {
+    getAllProducts()
+  }, [])
 
   return (
     <AuthCheck>

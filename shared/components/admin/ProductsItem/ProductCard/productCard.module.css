@@ -30,6 +30,9 @@
     text-align: left;
     color: #8E8E93;
 
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .price {
