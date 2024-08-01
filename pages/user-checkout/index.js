@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import UserAside from '../../shared/components/client/userAside'
 import Head from 'next/head'
 import ClientLayout from '../../shared/components/layout/client/Header'
+import UserCheckForm from '../../shared/components/client/userCheckForm'
 
 const UserCheckout = () => {
   const { t } = useTranslation()
@@ -16,7 +17,7 @@ const UserCheckout = () => {
         <section className="m-4 flex justify-center gap-10">
           <UserAside />
           <div className="w-full flex  flex-col flex-wrap gap-x-1 gap-y-8 bg-white sm:bg-whiteLight1">
-            <h1>User Checkout</h1>
+            <UserCheckForm />
           </div>
         </section>
       </ClientLayout>

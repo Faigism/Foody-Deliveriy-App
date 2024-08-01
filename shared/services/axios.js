@@ -29,6 +29,7 @@ export const createProduct = async (data) => {
   }
 }
 
+//Restaurants
 export const getRestaurants = async () => {
   try {
     const response = await instanceAxios.get('/restuarants')
@@ -50,11 +51,37 @@ export const getRestaurantById = async (id) => {
 
 export const deleteRestaurantById = async (id) => {
   try {
-    const response = await instanceAxios.delete(`restuarants/${id}`)
-    console.log(response)
-    // return restaurant
+    const response = await instanceAxios.delete(`/restuarants/${id}`)
+    return response
   } catch (error) {
     console.log(error)
+  }
+}
+
+export const postRestaurants = async (form) => {
+  try {
+    const response = await instanceAxios.post('/restuarants', form)
+    return response
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export async function getEditRestaurants(id) {
+  try {
+    const response = await instanceAxios.get(`/restuarants/${id}`)
+    return response
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export async function updateRestaurants(id, form) {
+  try {
+    const response = await instanceAxios.put(`/restuarants/${id}`, form)
+    return response
+  } catch (err) {
+    console.log(err)
   }
 }
 
@@ -182,7 +209,7 @@ export const editProfileInfo = async (data) => {
   } catch (error) {
     console.log(error)
   }
-}  
+}
 // user-basket
 export async function getProductForBasket() {
   try {

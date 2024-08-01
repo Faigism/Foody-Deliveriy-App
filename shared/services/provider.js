@@ -14,8 +14,9 @@ const Provider = ({ children }) => {
   const [filteredRestaurants, setFilteredRestaurants] = useState([])
   const [itemCount, setItemCount] = useState(0)
   const [selectedProduct, setSelectedProduct] = useState(null)
-  const [selectedProducts, setSelectedProducts] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [selectedProducts, setSelectedProducts] = useState([])
+  const [totalPrice, setTotalPrice] = useState(0)
+  const [basketData, setBasketData] = useState({})
 
   const Component = globalContext.Provider
 
@@ -35,7 +36,9 @@ const Provider = ({ children }) => {
     selectedProducts,
     setSelectedProducts,
     totalPrice,
-    setTotalPrice
+    setTotalPrice,
+    setBasketData,
+    basketData,
   }
 
   return <Component value={values}>{children}</Component>

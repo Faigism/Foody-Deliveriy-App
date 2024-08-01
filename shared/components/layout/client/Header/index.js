@@ -137,7 +137,7 @@ const ClientLayout = ({ children }) => {
           )}
         </nav>
       </header>
-      <main className="mb-[300px] mx-[30px]">{children}</main>
+      <main className="mb-[300px]">{children}</main>
       <footer className="flex flex-col justify-center items-center relative pt-44 pb-6 bg-black w-full">
         <section
           data-aos="fade-bottom"

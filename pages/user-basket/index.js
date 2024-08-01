@@ -2,9 +2,23 @@ import Head from 'next/head'
 import UserAside from '../../shared/components/client/userAside'
 import ClientLayout from '../../shared/components/layout/client/Header'
 import { useTranslation } from 'react-i18next'
+import { useEffect, useState } from 'react'
+import { getProductForBasket } from '../../shared/services/axios'
+import UserBasketDetail from '../../shared/components/client/userBasketDetail'
+import { useGlobalStore } from '../../shared/services/provider'
 
 const UserBasket = () => {
   const { t } = useTranslation()
+  const { basketData, setBasketData } = useGlobalStore()
+  const renderBasketProducts = async () => {
+    const res = await getProductForBasket()
+    setBasketData(res?.data.result.data)
+  }
+
+  useEffect(() => {
+    renderBasketProducts()
+  }, [])
+
   return (
     <>
       <Head>
@@ -16,7 +30,10 @@ const UserBasket = () => {
         <section className="m-4 flex justify-center gap-10">
           <UserAside />
           <div className="w-full flex  flex-col flex-wrap gap-x-1 gap-y-8 bg-white sm:bg-whiteLight1">
-            <h1>User Basket</h1>
+            <UserBasketDetail
+              data={basketData}
+              itemsCount={basketData?.total_item}
+            />
           </div>
         </section>
       </ClientLayout>

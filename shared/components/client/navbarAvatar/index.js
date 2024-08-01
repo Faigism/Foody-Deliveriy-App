@@ -15,14 +15,14 @@ const NavbarAvatar = ({ isName }) => {
     setNavbarList(!navbarList)
   }
 
-  const basketCount = async () => {
-    const res = await getProductForBasket()
-    setBasketData(res?.data.result.data.items)
-  }
+  // const basketCount = async () => {
+  //   const res = await getProductForBasket()
+  //   setBasketData(res?.data.result.data.items)
+  // }
 
-  useEffect(() => {
-    basketCount()
-  }, [basketData])
+  // useEffect(() => {
+  //   basketCount()
+  // }, [basketData])
 
   return (
     <div className="flex items-center gap-7 relative">

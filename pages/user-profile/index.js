@@ -1,11 +1,11 @@
 import Head from 'next/head'
+import { toast } from 'react-toastify'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import 'react-toastify/dist/ReactToastify.css'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { fileStorage } from '../../server/configs/firebase'
 import { getProfileInfo, editProfileInfo } from '../../shared/services/axios'
-import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 import ClientLayout from '../../shared/components/layout/client/Header'
 import UserAside from '../../shared/components/client/userAside'
@@ -237,8 +237,3 @@ const UserProfile = () => {
   )
 }
 export default UserProfile
-
-
-
-
-
