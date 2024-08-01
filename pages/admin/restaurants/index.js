@@ -12,6 +12,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import AdminLeftModal from '../../../shared/components/admin/adminLeftModal'
 import AuthCheck from '../../../shared/components/admin/authCheck'
+import { useGlobalStore } from '../../../shared/services/provider'
 
 const Restaurants = () => {
   const { t } = useTranslation()
@@ -19,6 +20,7 @@ const Restaurants = () => {
   const [categoriesModal, setCategoriesModal] = useState([])
   const [categoryName, setCategoryName] = useState('')
   const [restaurants, setRestaurants] = useState([])
+  const { refresh } = useGlobalStore();
 
   const showAllRestaurants = async () => {
     const allRestaurants = await getRestaurants()
@@ -26,8 +28,9 @@ const Restaurants = () => {
     setRestaurants(restaurants)
   }
   useEffect(() => {
+    console.log(refresh)
     showAllRestaurants()
-  }, [])
+  }, [refresh])
 
   const getRestaurantsByCategory = async (categoryId) => {
     const response = await getCategoryById(categoryId)

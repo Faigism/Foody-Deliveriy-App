@@ -19,11 +19,13 @@ const style = {
     p: 4,
 };
 
-export default function TransitionsModal({ id, deleteItem }) {
+export default function TransitionsModal({ id, deleteItem, openModal }) {
     const [open, setOpen] = React.useState(true);
     const handleClose = () => setOpen(false);
     const { setRefresh, refresh } = useGlobalStore();
-
+    React.useEffect(() => {
+        setOpen(true)
+    }, [openModal])
     return (
         <div>
             <Modal

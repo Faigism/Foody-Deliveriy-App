@@ -5,20 +5,24 @@ import styles from './style.module.css'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 import TransitionsModal from '../../TransitionsModal'
+import { deleteRestaurantById } from '../../../../services/axios'
 
 const RestaurantCard = ({ restaurant, categoryName }) => {
   const [activateModal, setActivateModal] = useState(false)
   const [restaurantId, setRestaurantId] = useState('')
+  const [openModal, setOpenModal] = useState(false)
+
+  const deleteRestaurant = async (id) => {
+    const response = await deleteRestaurantById(id);
+  }
+
   return (
     <div className={styles.card}>
       <div className={styles.restaurantInfo}>
-        <div>
-          <img
+        <div className={styles.image}>
+          <img className={styles.restaurantCardImage}
             src={restaurant.img_url}
             alt="restaurant logo"
-            width={100}
-            height={57}
-            quality={100}
           />
         </div>
         <div>
@@ -34,6 +38,7 @@ const RestaurantCard = ({ restaurant, categoryName }) => {
             onClick={() => {
               setActivateModal(true)
               setRestaurantId(restaurant.id)
+              setOpenModal(!openModal)
             }}
           />
         </div>
@@ -41,7 +46,7 @@ const RestaurantCard = ({ restaurant, categoryName }) => {
           <BorderColorIcon style={{ color: '#00B2A9' }} />
         </div>
       </div>
-      {activateModal && <TransitionsModal id={restaurantId} />}
+      {activateModal && <TransitionsModal id={restaurantId} deleteItem={deleteRestaurant} openModal={openModal} />}
     </div>
   )
 }

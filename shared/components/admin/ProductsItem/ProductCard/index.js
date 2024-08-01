@@ -8,6 +8,7 @@ import { deleteProductById, getRestaurantById } from '../../../../services/axios
 
 const ProductCard = ({ product, restaurant }) => {
   const [activateModal, setActivateModal] = useState(false)
+  const [openModal, setOpenModal] = useState(false)
   const [restaurantName, setRestaurantName] = useState("")
 
   const getRestaurantName = async () => {
@@ -17,7 +18,6 @@ const ProductCard = ({ product, restaurant }) => {
 
   const deleteProduct = async (id) => {
     const response = await deleteProductById(id);
-    console.log(response)
   }
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const ProductCard = ({ product, restaurant }) => {
 
   return (
     <div className={styles.productCard}>
-      <div className="w-[163px] h-full py-5 flex flex-col justify-between">
+      <div className="w-[163px] h-full py-5 flex flex-col justify-between relative">
         <div className="flex flex-col gap-2">
           <img
             src={product.img_url}
@@ -48,12 +48,15 @@ const ProductCard = ({ product, restaurant }) => {
                 style={{ color: '#EB5757' }}
                 onClick={() => {
                   setActivateModal(true)
+                  setOpenModal(!openModal)
                 }}
               />
             </div>
           </div>
         </div>
-        {activateModal && <TransitionsModal id={product.id} deleteItem={deleteProduct} />}
+        <div className='absolute'>
+          {activateModal && <TransitionsModal id={product.id} deleteItem={deleteProduct} openModal={openModal} />}
+        </div>
       </div>
     </div>
   )
