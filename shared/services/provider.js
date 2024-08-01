@@ -1,5 +1,10 @@
 import { createContext, useContext, useState } from 'react'
-import { clearBasket, deleteItemFromBasket, getProductForBasket, postProductToBasket } from './axios'
+import {
+  clearBasket,
+  deleteItemFromBasket,
+  getProductForBasket,
+  postProductToBasket,
+} from './axios'
 
 export const globalContext = createContext()
 
@@ -15,40 +20,39 @@ const Provider = ({ children }) => {
   const [filteredRestaurants, setFilteredRestaurants] = useState([])
   const [itemCount, setItemCount] = useState(0)
   const [selectedProduct, setSelectedProduct] = useState(null)
-  const [selectedProducts, setSelectedProducts] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [basketId, setBasketId] = useState("");
-  const [refresh, setRefresh] = useState(false);
+  const [selectedProducts, setSelectedProducts] = useState([])
+  const [totalPrice, setTotalPrice] = useState(0)
+  const [basketId, setBasketId] = useState('')
+  const [refresh, setRefresh] = useState(false)
 
   const getProductsInBasket = async () => {
-    const response = await getProductForBasket();
-    setBasketId(response?.data.result.data.id);
+    const response = await getProductForBasket()
+    setBasketId(response?.data.result.data.id)
     setItemCount(response?.data.result.data.total_count)
-    setSelectedProducts(response?.data.result.data.items);
+    setSelectedProducts(response?.data.result.data.items)
     setTotalPrice(response?.data.result.data.total_amount)
   }
 
   const addProductToBasket = async (product) => {
     const productId = {
-      "product_id": `${product.id}`
+      product_id: `${product.id}`,
     }
     const response = await postProductToBasket(productId)
-    getProductsInBasket();
+    getProductsInBasket()
   }
 
   const deleteFromBasket = async (product) => {
     const data = {
-      "product_id": `${product.id}`
+      product_id: `${product.id}`,
     }
 
-    const response = await deleteItemFromBasket(data);
-    getProductsInBasket();
+    const response = await deleteItemFromBasket(data)
+    getProductsInBasket()
   }
 
   const deleteAllItemsFromBasket = async (data) => {
-
-    const response = await clearBasket(data);
-    getProductsInBasket();
+    const response = await clearBasket(data)
+    getProductsInBasket()
   }
 
   const Component = globalContext.Provider
@@ -77,7 +81,7 @@ const Provider = ({ children }) => {
     addProductToBasket,
     getProductsInBasket,
     deleteFromBasket,
-    deleteAllItemsFromBasket
+    deleteAllItemsFromBasket,
   }
 
   return <Component value={values}>{children}</Component>

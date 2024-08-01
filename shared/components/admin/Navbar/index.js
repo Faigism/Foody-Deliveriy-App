@@ -76,7 +76,11 @@ const Navbar = ({ adminNavbar }) => {
         if (addProductDesc.current) addProductDesc.current.value = ''
         if (addProductRestaurant.current)
           addProductRestaurant.current.value = ''
-        if (image.current) image.current.src = '/noimg.png'
+        if (img.current) img.current.src = '/noimg.png'
+
+        setTimeout(() => {
+          changeHidden()
+        }, 500)
       }
     } catch (error) {
       console.log(error)

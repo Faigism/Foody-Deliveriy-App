@@ -6,38 +6,66 @@ import basketItem from '../../../../../public/basket/basketItem.svg'
 import coloredBasketItem from '../../../../../public/basket/coloredBasketItem.svg'
 import styles from './restaurantBasketLayout.module.css'
 import { useGlobalStore } from '../../../../services/provider'
-import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
+import DeleteSweepIcon from '@mui/icons-material/DeleteSweep'
 
 const RestaurantBasketLayout = ({ children }) => {
+  const { basketId, itemCount, totalPrice, deleteAllItemsFromBasket } =
+    useGlobalStore()
+  const data = {
+    basket_id: `${basketId}`,
+  }
 
-    const { basketId, itemCount, totalPrice, deleteAllItemsFromBasket } = useGlobalStore();
-    const data = {
-        "basket_id": `${basketId}`
-    }
-
-    return (
-        <div className='flex flex-col justify-between h-full'>
-            <div className='flex items-end justify-between mx-[16px] '>
-                <div className='flex items-end gap-2 mt-[14px] ms-[16px]'>
-                    <Image src={itemCount > 0 ? coloredBasketItem : basketItem} className={styles.headerImage} />
-                    <div className={`${styles.itemCount} ${itemCount > 0 ? styles.coloredItemCount : styles.unColoredItemCount}`}>{itemCount} items</div>
-                </div>
-                <div>
-                    {itemCount > 0 &&
-                        <button onClick={() => { deleteAllItemsFromBasket(data) }}>
-                            <DeleteSweepIcon style={{ color: '#D63626' }} />
-                        </button>}
-                </div>
-            </div>
-            <div className={styles.main}> {children}</div>
-            <div className='flex justify-center mb-[33px]'>
-                <div className={`${styles.basketFooter} ${itemCount > 0 ? styles.coloredBasketFooter : styles.unColoredBasketFooter}`}>
-                    <div>Checkout</div>
-                    <div className={`${styles.checkout} ${itemCount > 0 ? styles.coloredCheckout : styles.unColoredCheckout}`}>${totalPrice}</div>
-                </div>
-            </div>
+  return (
+    <div className="flex flex-col justify-between h-full">
+      <div className="flex items-end justify-between mx-[16px] ">
+        <div className="flex items-end gap-2 mt-[14px] ms-[16px]">
+          <Image
+            src={itemCount > 0 ? coloredBasketItem : basketItem}
+            className={styles.headerImage}
+          />
+          <div
+            className={`${styles.itemCount} ${
+              itemCount > 0
+                ? styles.coloredItemCount
+                : styles.unColoredItemCount
+            }`}
+          >
+            {itemCount} items
+          </div>
         </div>
-    )
+        <div>
+          {itemCount > 0 && (
+            <button
+              onClick={() => {
+                deleteAllItemsFromBasket(data)
+              }}
+            >
+              <DeleteSweepIcon style={{ color: '#D63626' }} />
+            </button>
+          )}
+        </div>
+      </div>
+      <div className={styles.main}> {children}</div>
+      <div className="flex justify-center mb-[33px]">
+        <div
+          className={`${styles.basketFooter} ${
+            itemCount > 0
+              ? styles.coloredBasketFooter
+              : styles.unColoredBasketFooter
+          }`}
+        >
+          <div>Checkout</div>
+          <div
+            className={`${styles.checkout} ${
+              itemCount > 0 ? styles.coloredCheckout : styles.unColoredCheckout
+            }`}
+          >
+            ${totalPrice}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default RestaurantBasketLayout

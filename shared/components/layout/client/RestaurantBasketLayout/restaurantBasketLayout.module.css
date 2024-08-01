@@ -1,100 +1,97 @@
 .headerImage {
-    width: 34.15px;
-    height: 30.42px;
+  width: 34.15px;
+  height: 30.42px;
 }
 
 .itemCount {
-    font-size: 16px;
-    font-weight: 500;
-    letter-spacing: 0.03em;
-    text-align: left;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-align: left;
 }
 
 .coloredItemCount {
-    color: #D63626;
+  color: #d63626;
 }
 
 .unColoredItemCount {
-    color: #BDBDBD;
+  color: #bdbdbd;
 }
 
 .emptyMessage {
-    width: 295px;
-    height: 144px;
-    font-size: 40px;
-    font-weight: 500;
-    letter-spacing: 0.03em;
-    text-align: center;
-    color: #BDBDBD;
-
+  width: 295px;
+  height: 144px;
+  font-size: 40px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-align: center;
+  color: #bdbdbd;
 }
 
 .image {
-    width: 263px;
-    height: 236px;
+  width: 263px;
+  height: 236px;
 }
 
 .basketFooter {
-    width: 517px;
-    height: 66px;
-    border-radius: 100px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-right: 3px;
-    padding-left: 30px;
-    font-size: 16px;
-    font-weight: 500;
-    letter-spacing: 0.03em;
-    text-align: left;
-    color: #FFFFFF;
+  width: 517px;
+  height: 66px;
+  border-radius: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 3px;
+  padding-left: 30px;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-align: left;
+  color: #ffffff;
 }
 
 .coloredBasketFooter {
-    background: #D63626;
+  background: #d63626;
+  cursor: pointer;
 }
 
 .unColoredBasketFooter {
-    background: #BDBDBD;
+  background: #bdbdbd;
 }
 
 .checkout {
-    width: 187.71px;
-    height: 59.79px;
-    border-radius: 100px;
-    background: #FFFFFF;
-    font-size: 16px;
-    font-weight: 500;
-    letter-spacing: 0.03em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+  width: 187.71px;
+  height: 59.79px;
+  border-radius: 100px;
+  background: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .coloredCheckout {
-    color: #D63626;
+  color: #d63626;
 }
 
 .unColoredCheckout {
-    color: #BDBDBD;
+  color: #bdbdbd;
 }
 
 .main {
-    height: 492px;
-    overflow: auto;
+  height: 492px;
+  overflow: auto;
 }
 
-
 @media screen and (max-width: 1600px) {
+  .basketFooter {
+    width: 372px;
+    height: 47px;
+  }
 
-    .basketFooter {
-        width: 372px;
-        height: 47px;
-    }
-
-    .checkout {
-        width: 135px;
-        height: 43px;
-    }
+  .checkout {
+    width: 135px;
+    height: 43px;
+  }
 }
