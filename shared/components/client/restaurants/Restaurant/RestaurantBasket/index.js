@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styles from './restaurantBasket.module.css'
 import basket from '../../../../../../public/basket/basket.svg'
 import Image from 'next/image'
@@ -7,11 +7,7 @@ import RestaurantBasketLayout from '../../../../layout/client/RestaurantBasketLa
 import RestaurantBasketItem from './RestaurantBasketItem'
 
 const RestaurantBasket = () => {
-    const { itemCount, selectedProducts, setTotalPrice } = useGlobalStore();
-    // useEffect(() => {
-    //     setTotalPrice(0)
-    // }, [])
-    console.log(selectedProducts)
+    const { itemCount, selectedProducts } = useGlobalStore();
     return (
         <div className='h-full'>
             <RestaurantBasketLayout>

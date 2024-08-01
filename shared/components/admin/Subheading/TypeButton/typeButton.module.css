@@ -4,10 +4,10 @@
     background: #5A5B70;
     border-radius: 14px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     color: #F2F2F2;
-
+    padding: 0 10px;
 }
 
 .typeButton:hover {
@@ -20,4 +20,7 @@
     font-weight: 500;
     letter-spacing: 0.01em;
 
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }

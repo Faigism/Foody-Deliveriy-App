@@ -48,14 +48,19 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    color: #BDBDBD;
+    border: 2px solid #BDBDBD;
 }
 
 .addToBasket:hover {
     transform: scale(0.95);
     transition: 333ms;
+    color: #fff;
+    background: #6FCF97;
+    border: 2px solid #6FCF97;
 }
 
-.inActiveAddToBasket {
+/* .inActiveAddToBasket {
     color: #BDBDBD;
     border: 2px solid #BDBDBD;
 }
@@ -64,4 +69,4 @@
     color: #fff;
     background: #6FCF97;
     border: 2px solid #6FCF97;
-}
+} */
