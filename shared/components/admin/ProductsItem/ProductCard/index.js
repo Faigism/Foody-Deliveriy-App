@@ -4,7 +4,7 @@ import styles from './productCard.module.css'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 import TransitionsModal from '../../TransitionsModal'
-import { getRestaurantById } from '../../../../services/axios'
+import { deleteProductById, getRestaurantById } from '../../../../services/axios'
 
 const ProductCard = ({ product, restaurant }) => {
   const [activateModal, setActivateModal] = useState(false)
@@ -13,6 +13,11 @@ const ProductCard = ({ product, restaurant }) => {
   const getRestaurantName = async () => {
     const response = await getRestaurantById(product.rest_id);
     setRestaurantName(response.name)
+  }
+
+  const deleteProduct = async (id) => {
+    const response = await deleteProductById(id);
+    console.log(response)
   }
 
   useEffect(() => {
@@ -48,7 +53,7 @@ const ProductCard = ({ product, restaurant }) => {
             </div>
           </div>
         </div>
-        {activateModal && <TransitionsModal />}
+        {activateModal && <TransitionsModal id={product.id} deleteItem={deleteProduct} />}
       </div>
     </div>
   )

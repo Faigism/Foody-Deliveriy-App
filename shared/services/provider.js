@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react'
-import { clearBasket, deleteItemFromBasket, getProductForBasket, postProduct } from './axios'
+import { clearBasket, deleteItemFromBasket, getProductForBasket, postProductToBasket } from './axios'
 
 export const globalContext = createContext()
 
@@ -18,6 +18,7 @@ const Provider = ({ children }) => {
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [basketId, setBasketId] = useState("");
+  const [refresh, setRefresh] = useState(false);
 
   const getProductsInBasket = async () => {
     const response = await getProductForBasket();
@@ -31,7 +32,7 @@ const Provider = ({ children }) => {
     const productId = {
       "product_id": `${product.id}`
     }
-    const response = await postProduct(productId)
+    const response = await postProductToBasket(productId)
     getProductsInBasket();
   }
 
@@ -71,6 +72,8 @@ const Provider = ({ children }) => {
     setTotalPrice,
     basketId,
     setBasketId,
+    refresh,
+    setRefresh,
     addProductToBasket,
     getProductsInBasket,
     deleteFromBasket,

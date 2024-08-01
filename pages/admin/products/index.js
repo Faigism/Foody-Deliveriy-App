@@ -9,11 +9,13 @@ import {
 } from '../../../shared/services/axios'
 import ProductsItem from '../../../shared/components/admin/ProductsItem'
 import AuthCheck from '../../../shared/components/admin/authCheck'
+import { useGlobalStore } from '../../../shared/services/provider'
 
 const Products = () => {
   const [restaurants, setRestaurants] = useState([])
   const [restaurant, setRestaurant] = useState()
   const [products, setProducts] = useState([])
+  const { refresh, setRefresh } = useGlobalStore();
 
   const getAllRestaurants = async () => {
     const allRestaurantsData = await getRestaurants()
@@ -35,7 +37,7 @@ const Products = () => {
 
   useEffect(() => {
     getAllProducts()
-  }, [])
+  }, [refresh])
 
   return (
     <AuthCheck>
