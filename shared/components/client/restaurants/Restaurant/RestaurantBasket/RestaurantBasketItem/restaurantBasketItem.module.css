@@ -6,7 +6,7 @@
     align-items: center;
     justify-content: space-between;
     padding-left: 25px;
-    padding-right: 50px;
+    /* padding-right: 25px; */
     margin: auto;
 }
 
@@ -34,14 +34,22 @@
 
 .count {
     width: 29px;
-    height: 70px;
+    height: 76px;
     border-radius: 50px;
     background: #FFFFFF;
     text-align: center;
 
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 500;
     letter-spacing: 0.03em;
     color: #000000;
 
+}
+
+.plus:hover {
+    color: #D63626;
+}
+
+.minus:hover {
+    color: #D63626;
 }

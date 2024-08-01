@@ -1,15 +1,32 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './productCard.module.css'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 import TransitionsModal from '../../TransitionsModal'
+import { deleteProductById, getRestaurantById } from '../../../../services/axios'
 
 const ProductCard = ({ product, restaurant }) => {
   const [activateModal, setActivateModal] = useState(false)
+  const [restaurantName, setRestaurantName] = useState("")
+
+  const getRestaurantName = async () => {
+    const response = await getRestaurantById(product.rest_id);
+    setRestaurantName(response.name)
+  }
+
+  const deleteProduct = async (id) => {
+    const response = await deleteProductById(id);
+    console.log(response)
+  }
+
+  useEffect(() => {
+    getRestaurantName();
+  }, [])
+
   return (
     <div className={styles.productCard}>
-      <div className="w-[163px] h-[245px] flex flex-col justify-between">
+      <div className="w-[163px] h-full py-5 flex flex-col justify-between">
         <div className="flex flex-col gap-2">
           <img
             src={product.img_url}
@@ -17,7 +34,7 @@ const ProductCard = ({ product, restaurant }) => {
             style={{ width: '160px', height: '130px' }}
           />
           <div className={styles.productName}>{product.name}</div>
-          <div className={styles.restaurantName}>{restaurant.name}</div>
+          <div className={styles.restaurantName}>{restaurant ? restaurant?.name : restaurantName}</div>
         </div>
 
         <div className="flex justify-between">
@@ -36,7 +53,7 @@ const ProductCard = ({ product, restaurant }) => {
             </div>
           </div>
         </div>
-        {activateModal && <TransitionsModal />}
+        {activateModal && <TransitionsModal id={product.id} deleteItem={deleteProduct} />}
       </div>
     </div>
   )

@@ -20,6 +20,7 @@ const Main = () => {
     filteredRestaurants.length > 0
       ? filteredRestaurants.slice(startIndex, endIndex)
       : restaurants?.slice(startIndex, endIndex)
+
   const allRestaurants = async () => {
     const response = await getRestaurants()
     const restaurants = response?.data.result.data

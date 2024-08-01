@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styles from './restaurantBasket.module.css'
 import basket from '../../../../../../public/basket/basket.svg'
 import Image from 'next/image'

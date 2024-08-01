@@ -5,7 +5,7 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { deleteRestaurantById } from '../../../services/axios';
+import { useGlobalStore } from '../../../services/provider';
 
 const style = {
     position: 'absolute',
@@ -19,13 +19,10 @@ const style = {
     p: 4,
 };
 
-export default function TransitionsModal({ id }) {
+export default function TransitionsModal({ id, deleteItem }) {
     const [open, setOpen] = React.useState(true);
     const handleClose = () => setOpen(false);
-
-    const deleteRestaurant = async (id) => {
-        deleteRestaurantById(id);
-    }
+    const { setRefresh, refresh } = useGlobalStore();
 
     return (
         <div>
@@ -51,7 +48,11 @@ export default function TransitionsModal({ id }) {
                             Attention, if you delete this product, it will not come back...
                         </Typography>
                         <div className='flex gap-3 justify-center mt-4'>
-                            <Button className='bg-mainRed text-black h-[34px] w-[106px]' onClick={() => { deleteRestaurant(id) }}>delete</Button>
+                            <Button className='bg-mainRed text-black h-[34px] w-[106px]' onClick={() => {
+                                deleteItem(id)
+                                setOpen(false)
+                                setRefresh(!refresh)
+                            }}>delete</Button>
                             <Button className='bg-green text-black h-[34px] w-[106px]' onClick={() => { handleClose() }}>cancel</Button>
                         </div>
                     </Box>
