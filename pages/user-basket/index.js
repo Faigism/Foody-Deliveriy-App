@@ -1,21 +1,46 @@
 import Head from 'next/head'
 import UserAside from '../../shared/components/client/userAside'
 import ClientLayout from '../../shared/components/layout/client/Header'
-import { useTranslation } from 'react-i18next'
 import { useEffect, useState } from 'react'
 import { getProductForBasket } from '../../shared/services/axios'
 import UserBasketDetail from '../../shared/components/client/userBasketDetail'
 import { useGlobalStore } from '../../shared/services/provider'
+import { useRouter } from 'next/router'
 
 const UserBasket = () => {
-  const { t } = useTranslation()
   const { basketData, setBasketData } = useGlobalStore()
+  const [loading, setLoading] = useState(false)
+  const { push } = useRouter()
+  const date = new Date()
+
+  const reLogin = () => {
+    const loginDate = parseInt(localStorage.getItem('loginDate') || '', 10)
+    const currentSecond = date.getTime()
+    const timeDifference = currentSecond - (loginDate || 0)
+    if (!localStorage.getItem('userInfo')) {
+      setTimeout(() => {
+        push('/login')
+      }, 1000)
+      return
+    }
+
+    if (timeDifference / 1000 >= 3600) {
+      setTimeout(() => {
+        push('/login')
+      }, 1000)
+      localStorage.removeItem('userInfo')
+      localStorage.removeItem('tokenObj')
+    }
+    setLoading(true)
+  }
+
   const renderBasketProducts = async () => {
     const res = await getProductForBasket()
     setBasketData(res?.data.result.data)
   }
 
   useEffect(() => {
+    reLogin()
     renderBasketProducts()
   }, [])
 
@@ -27,15 +52,21 @@ const UserBasket = () => {
         <link rel="icon" href="/mainBurger.svg" />
       </Head>
       <ClientLayout>
-        <section className="m-4 flex justify-center gap-10">
-          <UserAside />
-          <div className="w-full flex  flex-col flex-wrap gap-x-1 gap-y-8 bg-white sm:bg-whiteLight1">
-            <UserBasketDetail
-              data={basketData}
-              itemsCount={basketData?.total_item}
-            />
+        {loading ? (
+          <section className="m-4 flex justify-center gap-10">
+            <UserAside />
+            <div className="w-full flex  flex-col flex-wrap gap-x-1 gap-y-8 bg-white sm:bg-whiteLight1">
+              <UserBasketDetail
+                data={basketData}
+                itemsCount={basketData?.total_item}
+              />
+            </div>
+          </section>
+        ) : (
+          <div>
+            <h1 className="loading"></h1>
           </div>
-        </section>
+        )}
       </ClientLayout>
     </>
   )

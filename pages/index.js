@@ -4,16 +4,20 @@ import Header from '../shared/components/client/header'
 import { useTranslation } from 'react-i18next'
 import { useEffect, useState } from 'react'
 import { getOffer } from '../shared/services/axios'
+
 const Home = () => {
   const { t } = useTranslation()
   const [data, setData] = useState([])
+
   const getOfferData = async () => {
     const response = await getOffer()
     setData(response?.data.result.data)
   }
+
   useEffect(() => {
     getOfferData()
   }, [])
+
   return (
     <>
       <Head>

@@ -2,9 +2,40 @@ import Head from 'next/head'
 import UserAside from '../../shared/components/client/userAside'
 import { useTranslation } from 'react-i18next'
 import ClientLayout from '../../shared/components/layout/client/Header'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 const UserOrder = () => {
   const { t } = useTranslation()
+  const [loading, setLoading] = useState(false)
+  const date = new Date()
+  const { push } = useRouter()
+
+  const reLogin = () => {
+    const loginDate = parseInt(localStorage.getItem('loginDate') || '', 10)
+    const currentSecond = date.getTime()
+    const timeDifference = currentSecond - (loginDate || 0)
+    if (!localStorage.getItem('userInfo')) {
+      setTimeout(() => {
+        push('/login')
+      }, 1000)
+      return
+    }
+
+    if (timeDifference / 1000 >= 3600) {
+      setTimeout(() => {
+        push('/login')
+      }, 1000)
+      localStorage.removeItem('userInfo')
+      localStorage.removeItem('tokenObj')
+    }
+    setLoading(true)
+  }
+
+  useEffect(() => {
+    reLogin()
+  }, [])
+
   return (
     <>
       <Head>
@@ -13,12 +44,18 @@ const UserOrder = () => {
         <link rel="icon" href="/mainBurger.svg" />
       </Head>
       <ClientLayout>
-        <section className="m-4 flex justify-center gap-10">
-          <UserAside />
-          <div className="w-full flex  flex-col flex-wrap gap-x-1 gap-y-8 bg-white sm:bg-whiteLight1">
-            <h1>User Order</h1>
+        {loading ? (
+          <section className="m-4 flex justify-center gap-10">
+            <UserAside />
+            <div className="w-full flex  flex-col flex-wrap gap-x-1 gap-y-8 bg-white sm:bg-whiteLight1">
+              <h1>User Order</h1>
+            </div>
+          </section>
+        ) : (
+          <div>
+            <h1 className="loading"></h1>
           </div>
-        </section>
+        )}
       </ClientLayout>
     </>
   )

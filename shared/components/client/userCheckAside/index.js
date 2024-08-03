@@ -25,7 +25,10 @@ const UserCheckAside = () => {
       <div className="flex flex-col mt-4 sm:mt-0 gap-6 max-h-72 pr-2 overflow-y-auto ">
         {basket?.items?.map((item) => {
           return (
-            <div className="flex items-center text-grayText1 justify-between">
+            <div
+              className="flex items-center text-grayText1 justify-between"
+              key={item.id}
+            >
               <div className="flex items-center gap-1">
                 <p className="text-grayText2 text-lg font-semibold">
                   {item.count}

@@ -1,19 +1,16 @@
 'use client'
 
 import React from 'react'
-import Image from 'next/image'
 import basketItem from '../../../../../public/basket/basketItem.svg'
 import coloredBasketItem from '../../../../../public/basket/coloredBasketItem.svg'
 import styles from './restaurantBasketLayout.module.css'
 import { useGlobalStore } from '../../../../services/provider'
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep'
+import Image from 'next/image'
 
 const RestaurantBasketLayout = ({ children }) => {
   const { basketId, itemCount, totalPrice, deleteAllItemsFromBasket } =
     useGlobalStore()
-  const data = {
-    basket_id: `${basketId}`,
-  }
 
   return (
     <div className="flex flex-col justify-between h-full">
@@ -22,6 +19,7 @@ const RestaurantBasketLayout = ({ children }) => {
           <Image
             src={itemCount > 0 ? coloredBasketItem : basketItem}
             className={styles.headerImage}
+            alt="basketItemImg"
           />
           <div
             className={`${styles.itemCount} ${
@@ -37,7 +35,7 @@ const RestaurantBasketLayout = ({ children }) => {
           {itemCount > 0 && (
             <button
               onClick={() => {
-                deleteAllItemsFromBasket(data)
+                deleteAllItemsFromBasket(basketId)
               }}
             >
               <DeleteSweepIcon style={{ color: '#D63626' }} />

@@ -16,7 +16,11 @@ const RestaurantBasketItem = ({ selectedProduct }) => {
     <div className={styles.basketItem}>
       <div className="flex gap-3">
         <div>
-          <img src={selectedProduct?.img_url} className={styles.image} />
+          <img
+            src={selectedProduct?.img_url}
+            className={styles.image}
+            alt="ProdImg"
+          />
         </div>
         <div>
           <div className={styles.productName}>{selectedProduct?.name}</div>
@@ -28,7 +32,7 @@ const RestaurantBasketItem = ({ selectedProduct }) => {
           <button
             className={styles.plus}
             onClick={() => {
-              increaseItemCount(selectedProduct)
+              increaseItemCount(selectedProduct.id)
             }}
           >
             +
@@ -37,7 +41,7 @@ const RestaurantBasketItem = ({ selectedProduct }) => {
           <button
             className={styles.minus}
             onClick={() => {
-              decreaseItemCount(selectedProduct)
+              decreaseItemCount(selectedProduct.id)
             }}
           >
             -

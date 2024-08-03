@@ -1,11 +1,40 @@
-import { useTranslation } from 'react-i18next'
 import UserAside from '../../shared/components/client/userAside'
 import Head from 'next/head'
 import ClientLayout from '../../shared/components/layout/client/Header'
 import UserCheckForm from '../../shared/components/client/userCheckForm'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 const UserCheckout = () => {
-  const { t } = useTranslation()
+  const [loading, setLoading] = useState(false)
+  const { push } = useRouter()
+  const date = new Date()
+
+  const reLogin = () => {
+    const loginDate = parseInt(localStorage.getItem('loginDate') || '', 10)
+    const currentSecond = date.getTime()
+    const timeDifference = currentSecond - (loginDate || 0)
+    if (!localStorage.getItem('userInfo')) {
+      setTimeout(() => {
+        push('/login')
+      }, 1000)
+      return
+    }
+
+    if (timeDifference / 1000 >= 3600) {
+      setTimeout(() => {
+        push('/login')
+      }, 1000)
+      localStorage.removeItem('userInfo')
+      localStorage.removeItem('tokenObj')
+    }
+    setLoading(true)
+  }
+
+  useEffect(() => {
+    reLogin()
+  }, [])
+
   return (
     <>
       <Head>
@@ -14,12 +43,18 @@ const UserCheckout = () => {
         <link rel="icon" href="/mainBurger.svg" />
       </Head>
       <ClientLayout>
-        <section className="m-4 flex justify-center gap-10">
-          <UserAside />
-          <div className="w-full flex  flex-col flex-wrap gap-x-1 gap-y-8 bg-white sm:bg-whiteLight1">
-            <UserCheckForm />
+        {loading ? (
+          <section className="m-4 flex justify-center gap-10">
+            <UserAside />
+            <div className="w-full flex  flex-col flex-wrap gap-x-1 gap-y-8 bg-white sm:bg-whiteLight1">
+              <UserCheckForm />
+            </div>
+          </section>
+        ) : (
+          <div>
+            <h1 className="loading"></h1>
           </div>
-        </section>
+        )}
       </ClientLayout>
     </>
   )

@@ -28,7 +28,11 @@ const Restaurant = ({ restaurantId }) => {
           <div className={styles.title}>Products</div>
           {products &&
             products.map((product, index) => (
-              <RestaurantProduct product={product} index={index} />
+              <RestaurantProduct
+                product={product}
+                index={index}
+                key={product.id}
+              />
             ))}
         </div>
         <div className={styles.basket}>

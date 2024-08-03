@@ -226,23 +226,29 @@ export async function getProductForBasket() {
   }
 }
 
-export async function postProductToBasket(data) {
+export async function postProductToBasket(id) {
   try {
     let item = localStorage.getItem('userInfo')
     let accessToken = JSON.parse(item)
     const token = accessToken.access_token
-    const response = await instanceAxios.post(`/basket/add`, data, {
-      headers: {
-        Authorization: `Bearer ${token}`,
+    const response = await instanceAxios.post(
+      `/basket/add`,
+      {
+        product_id: id,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
-    })
+    )
     return response
   } catch (err) {
     console.log(err)
   }
 }
 
-export async function clearBasket(data) {
+export async function clearBasket(id) {
   try {
     let item = localStorage.getItem('userInfo')
     let accessToken = JSON.parse(item)
@@ -252,7 +258,9 @@ export async function clearBasket(data) {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-      data
+      data: {
+        basket_id: id,
+      },
     })
 
     return response
@@ -261,7 +269,7 @@ export async function clearBasket(data) {
   }
 }
 
-export async function deleteItemFromBasket(data) {
+export async function deleteItemFromBasket(id) {
   try {
     let item = localStorage.getItem('userInfo')
     let accessToken = JSON.parse(item)
@@ -270,7 +278,26 @@ export async function deleteItemFromBasket(data) {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-      data
+      data: {
+        product_id: id,
+      },
+    })
+
+    return response
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+//order
+export async function postOrder(data) {
+  try {
+    let item = localStorage.getItem('userInfo')
+    let access_token = JSON.parse(item)
+    const response = await instanceAxios.post(`/order/`, data, {
+      headers: {
+        Authorization: `Bearer ${access_token.access_token}`,
+      },
     })
 
     return response

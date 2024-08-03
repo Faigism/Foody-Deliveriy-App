@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { getProductForBasket } from '../../../services/axios'
-import { ToastContainer } from 'react-toastify'
+import { getProductForBasket, postOrder } from '../../../services/axios'
+import { toast, ToastContainer } from 'react-toastify'
 import Button from '../button'
 import { useTranslation } from 'react-i18next'
 import { useRouter } from 'next/router'
@@ -8,15 +8,15 @@ import UserCheckAside from '../userCheckAside'
 
 const UserCheckForm = () => {
   const { t } = useTranslation()
-  const [isChecked1, setIsChecked1] = useState(false)
+  const [isChecked1, setIsChecked1] = useState(true)
   const [isChecked2, setIsChecked2] = useState(false)
   const [radioBtn, setRadioBtn] = useState('')
   const addressRef = useRef(null)
   const numberRef = useRef(null)
-
   const [formCompleted, setFormCompleted] = useState(false)
   const [showCheck, setShowCheck] = useState(false)
   const navigate = useRouter()
+  const [basketData, setBasketData] = useState()
 
   const toggleButton1 = () => {
     setIsChecked1((prev) => !prev)
@@ -38,14 +38,11 @@ const UserCheckForm = () => {
   useEffect(() => {
     radioValue()
   }, [isChecked1])
-  console.log(radioBtn)
-  const [basket, setBasket] = useState({})
 
-  async function renderBasket() {
+  const renderBasket = async () => {
     const res = await getProductForBasket()
-    console.log(res)
     if (res?.status === 200) {
-      setBasket(res.data.result.data)
+      setBasketData(res.data.result.data)
     }
   }
   useEffect(() => {
@@ -54,45 +51,40 @@ const UserCheckForm = () => {
 
   function isValidAzerbaijanPhoneNumber(phoneNumber) {
     const azPhoneNumberRegex = /^994(50|51|55|70|77|10)\d{7}$/
-
     return azPhoneNumberRegex.test(phoneNumber)
   }
-  const validateEmail = (email) => {
-    const emailRegex = /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/
-    return emailRegex.test(email)
+
+  const handleCheckout = async (e) => {
+    e.preventDefault()
+
+    const addressValue = addressRef?.current?.value
+    const numberValue = numberRef?.current?.value
+
+    if (!addressValue || !numberValue) {
+      toast.warning('Please fill the all inputs!')
+      return
+    }
+    if (!isValidAzerbaijanPhoneNumber(numberValue)) {
+      toast.warning('Invalid phone number!')
+      return
+    }
+
+    const data = {
+      contact: numberValue,
+      basket_id: basketData.id,
+      delivery_address: addressValue,
+      payment_method: radioBtn,
+    }
+
+    const res = await postOrder(data)
+
+    if (res?.status === 201) {
+      setFormCompleted(true)
+      setTimeout(() => {
+        navigate.push('/restaurants')
+      }, 1500)
+    }
   }
-
-  // const handleCheckout = async (e) => {
-  //   e.preventDefault()
-
-  //   const addresValue = addressRef?.current?.value
-  //   const numberValue = numberRef?.current?.value
-
-  //   if (!addresValue || !numberValue || !radioBtn) {
-  //     toast.warning('Please fill the all inputs!')
-  //     return
-  //   }
-  //   if (!isValidAzerbaijanPhoneNumber(numberValue)) {
-  //     toast.warning('Invalid phone number!')
-  //     return
-  //   }
-
-  //   const data = {
-  //     contact: numberValue,
-  //     basket_id: basket.id,
-  //     delivery_address: addresValue,
-  //     payment_method: radioBtn,
-  //   }
-
-  //   const res = await postOrder(data)
-
-  //   if (res?.status === 201) {
-  //     setFormCompleted(true)
-  //     setTimeout(() => {
-  //       navigate.push('/restaurants')
-  //     }, 1500)
-  //   }
-  // }
 
   return (
     <>
@@ -107,10 +99,7 @@ const UserCheckForm = () => {
           </div>
         </div>
       ) : (
-        <div
-          data-aos="fade-left"
-          className="w-full flex flex-col sm:flex-row justify-between"
-        >
+        <div className="w-full flex flex-col sm:flex-row justify-between">
           <div className=" w-full sm:w-[58%] flex flex-col px-3 sm:px-8 py-10 flex-wrap gap-0 sm:bg-whiteLight1">
             <h2 className="font-semibold text-3xl text-grayText2">
               {t('userDesc4')}
@@ -156,13 +145,10 @@ const UserCheckForm = () => {
                       height={0}
                       src={'userNotCheck.svg'}
                       alt="userCheck"
+                      onClick={toggleButton1}
                     />
                   )}
-                  <label
-                    onClick={toggleButton1}
-                    htmlFor="payment1"
-                    className="text-grayText1"
-                  >
+                  <label htmlFor="payment1" className="text-grayText1">
                     {t('userCheck4')}
                   </label>
                 </div>
@@ -180,14 +166,11 @@ const UserCheckForm = () => {
                       height={0}
                       src={'userNotCheck.svg'}
                       alt="userCheck"
+                      onClick={toggleButton2}
                     />
                   )}
 
-                  <label
-                    onClick={toggleButton2}
-                    htmlFor="payment2"
-                    className="text-grayText1"
-                  >
+                  <label htmlFor="payment2" className="text-grayText1">
                     {t('userCheck5')}
                   </label>
                 </div>
@@ -195,7 +178,7 @@ const UserCheckForm = () => {
               <Button
                 className="w-full p-4 font-semibold text-lg sm:text-2xl bg-[#6fcf97] text-white rounded-md hover:scale-95 transition-all duration-500"
                 innerText={t('userDesc4')}
-                // onClick={handleCheckout}
+                onClick={handleCheckout}
               />
             </form>
           </div>

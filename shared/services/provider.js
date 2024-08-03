@@ -24,6 +24,7 @@ const Provider = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState(0)
   const [basketId, setBasketId] = useState('')
   const [refresh, setRefresh] = useState(false)
+  const [basketData, setBasketData] = useState({})
 
   const getProductsInBasket = async () => {
     const response = await getProductForBasket()
@@ -34,19 +35,12 @@ const Provider = ({ children }) => {
   }
 
   const addProductToBasket = async (product) => {
-    const productId = {
-      product_id: `${product.id}`,
-    }
-    const response = await postProductToBasket(productId)
+    const response = await postProductToBasket(product)
     getProductsInBasket()
   }
 
   const deleteFromBasket = async (product) => {
-    const data = {
-      product_id: `${product.id}`,
-    }
-
-    const response = await deleteItemFromBasket(data)
+    const response = await deleteItemFromBasket(product)
     getProductsInBasket()
   }
 
@@ -78,6 +72,8 @@ const Provider = ({ children }) => {
     setBasketId,
     refresh,
     setRefresh,
+    setBasketData,
+    basketData,
     addProductToBasket,
     getProductsInBasket,
     deleteFromBasket,

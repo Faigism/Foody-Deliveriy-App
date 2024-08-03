@@ -164,6 +164,9 @@
                 },
                 "fullname": {
                   "type": "string"
+                },
+                "address": {
+                  "type": "string"
                 }
               }
             }
@@ -183,7 +186,8 @@
                   "username": "jonny",
                   "fullname": "Johnt Doe test",
                   "img_url": "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",
-                  "phone": "944515556677"
+                  "phone": "944515556677",
+                  "address": "Nizami street 45 Baku Azerbaijan"
                 }
               }
             }
