@@ -3,7 +3,7 @@ import '../languages/lang'
 import Provider from '../shared/services/provider'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { Quicksand } from '@next/font/google'
+import { Quicksand, Roboto } from '@next/font/google'
 const quicksand = Quicksand({
   subsets: ['latin'],
   weight: ['400', '700'],

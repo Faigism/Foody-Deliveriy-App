@@ -7,7 +7,7 @@ import Pagination from '@mui/material/Pagination'
 import Stack from '@mui/material/Stack'
 
 const RestaurantItems = ({ restaurants, categoryName }) => {
-  const itemsPerPage = 15
+  const itemsPerPage = 8
   const [currentPage, setCurrentPage] = useState(0)
   const [totalPages, setTotalPages] = useState(1)
 
@@ -31,10 +31,10 @@ const RestaurantItems = ({ restaurants, categoryName }) => {
   }
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col">
       <div className={styles.restaurants}>
         {subset?.map((restaurant, index) => (
-          <div style={{ width: '252px', height: '120px' }} key={index}>
+          <div className={styles.allCards} key={index}>
             <RestaurantCard
               restaurant={restaurant}
               categoryName={categoryName}
@@ -42,18 +42,20 @@ const RestaurantItems = ({ restaurants, categoryName }) => {
           </div>
         ))}
       </div>
-      {totalPages > 1 && (
-        <Stack spacing={2} sx={{ marginTop: '70px' }}>
-          <Pagination
-            count={totalPages}
-            color="secondary"
-            sx={main}
-            size="large"
-            style={{ color: 'white' }}
-            onChange={paginated}
-          />
-        </Stack>
-      )}
+      <div className='flex justify-center'>
+        {totalPages > 1 && (
+          <Stack spacing={2} sx={{ marginTop: '70px' }}>
+            <Pagination
+              count={totalPages}
+              color="secondary"
+              sx={main}
+              size="large"
+              style={{ color: 'white' }}
+              onChange={paginated}
+            />
+          </Stack>
+        )}
+      </div>
     </div>
   )
 }

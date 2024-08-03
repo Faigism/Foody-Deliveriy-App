@@ -30,7 +30,7 @@ const Restaurants = () => {
       </Head>
 
       <ClientLayout>
-        <div className="flex gap-11">
+        <div className="flex gap-11 mx-[30px]">
           <Sidebar categories={categories} />
           <Main />
         </div>

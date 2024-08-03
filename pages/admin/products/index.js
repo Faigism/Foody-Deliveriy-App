@@ -15,7 +15,7 @@ const Products = () => {
   const [restaurants, setRestaurants] = useState([])
   const [restaurant, setRestaurant] = useState()
   const [products, setProducts] = useState([])
-  const { refresh, setRefresh } = useGlobalStore();
+  const { refresh } = useGlobalStore();
 
   const getAllRestaurants = async () => {
     const allRestaurantsData = await getRestaurants()

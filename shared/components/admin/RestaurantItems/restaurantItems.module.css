@@ -2,5 +2,56 @@
     margin-top: 100px;
     display: flex;
     flex-wrap: wrap;
-    gap: 60px;
+    gap: 80px;
+}
+
+.allCards {
+    width: 313px;
+    height: 155px;
+}
+
+@media screen and (max-width: 1832px) {
+
+    .restaurants {
+        gap: 70px;
+    }
+
+    .allCards {
+        width: 293px;
+    }
+}
+
+@media screen and (max-width: 1764px) {
+
+    .restaurants {
+        gap: 60px;
+    }
+
+    .allCards {
+        width: 273px;
+    }
+}
+
+@media screen and (max-width: 1620px) {
+
+    .restaurants {
+        gap: 50px;
+    }
+
+    .allCards {
+        width: 253px;
+        height: 135px;
+    }
+}
+
+@media screen and (max-width: 1510px) {
+
+    .restaurants {
+        gap: 70px;
+    }
+
+    .allCards {
+        width: 223px;
+        height: 125px;
+    }
 }
