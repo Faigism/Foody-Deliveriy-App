@@ -5,9 +5,12 @@ import Button from '../button'
 import { useTranslation } from 'react-i18next'
 import { useRouter } from 'next/router'
 import UserCheckAside from '../userCheckAside'
+import { useGlobalStore } from '../../../services/provider'
 
 const UserCheckForm = () => {
   const { t } = useTranslation()
+  const { itemCount, setItemCount, deleteAllItemsFromBasket, basketId } = useGlobalStore()
+
   const [isChecked1, setIsChecked1] = useState(true)
   const [isChecked2, setIsChecked2] = useState(false)
   const [radioBtn, setRadioBtn] = useState('')
@@ -84,8 +87,13 @@ const UserCheckForm = () => {
         navigate.push('/restaurants')
       }, 1500)
     }
+
+    clearBaskets();
   }
 
+  const clearBaskets = async () => {
+    await deleteAllItemsFromBasket(basketId);
+  }
   return (
     <>
       <ToastContainer />
