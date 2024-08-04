@@ -4,9 +4,11 @@ import ClientLayout from '../../shared/components/layout/client/Header'
 import UserCheckForm from '../../shared/components/client/userCheckForm'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { useGlobalStore } from '../../shared/services/provider'
 
 const UserCheckout = () => {
   const [loading, setLoading] = useState(false)
+  const { checkout } = useGlobalStore()
   const { push } = useRouter()
   const date = new Date()
 
@@ -47,7 +49,15 @@ const UserCheckout = () => {
           <section className="m-4 flex justify-center gap-10">
             <UserAside />
             <div className="w-full flex  flex-col flex-wrap gap-x-1 gap-y-8 bg-white sm:bg-whiteLight1">
-              <UserCheckForm />
+              {!checkout ? (
+                <div className="flex flex-col items-center justify-center h-full">
+                  <p className="text-grayText2 text-lg">
+                    Click the button to proceed to checkout.
+                  </p>
+                </div>
+              ) : (
+                <UserCheckForm />
+              )}
             </div>
           </section>
         ) : (

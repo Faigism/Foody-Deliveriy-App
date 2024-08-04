@@ -7,10 +7,18 @@ import styles from './restaurantBasketLayout.module.css'
 import { useGlobalStore } from '../../../../services/provider'
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 const RestaurantBasketLayout = ({ children }) => {
-  const { basketId, itemCount, totalPrice, deleteAllItemsFromBasket } =
-    useGlobalStore()
+  const {
+    basketId,
+    itemCount,
+    totalPrice,
+    deleteAllItemsFromBasket,
+    setCheckout,
+  } = useGlobalStore()
+
+  const { push } = useRouter()
 
   return (
     <div className="flex flex-col justify-between h-full">
@@ -51,6 +59,12 @@ const RestaurantBasketLayout = ({ children }) => {
               ? styles.coloredBasketFooter
               : styles.unColoredBasketFooter
           }`}
+          onClick={() => {
+            if (itemCount > 0) {
+              setCheckout(true)
+              push('/user-checkout')
+            }
+          }}
         >
           <div>Checkout</div>
           <div

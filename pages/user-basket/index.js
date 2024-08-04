@@ -8,7 +8,7 @@ import { useGlobalStore } from '../../shared/services/provider'
 import { useRouter } from 'next/router'
 
 const UserBasket = () => {
-  const { basketData, setBasketData } = useGlobalStore()
+  const { basketData, setBasketData, setCheckout } = useGlobalStore()
   const [loading, setLoading] = useState(false)
   const { push } = useRouter()
   const date = new Date()
@@ -59,6 +59,7 @@ const UserBasket = () => {
               <UserBasketDetail
                 data={basketData}
                 itemsCount={basketData?.total_item}
+                setCheckout={setCheckout}
               />
             </div>
           </section>

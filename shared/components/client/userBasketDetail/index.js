@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 import { useGlobalStore } from '../../../services/provider'
 
-const UserBasketDetail = ({ data, itemsCount }) => {
+const UserBasketDetail = ({ data, itemsCount, setCheckout }) => {
   const { t } = useTranslation()
   const navigate = useRouter()
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -135,7 +135,10 @@ const UserBasketDetail = ({ data, itemsCount }) => {
             <div className="bg-mainRed text-white flex items-center mt-8 justify-between pl-10 pr-2 py-2 rounded-full shadow-md">
               <p className="font-medium text-xl">{t('userDesc4')}</p>
               <Button
-                onClick={() => navigate.push('/user-checkout')}
+                onClick={() => {
+                  setCheckout(true)
+                  navigate.push('/user-checkout')
+                }}
                 className="bg-white text-mainRed rounded-full py-1 px-14 font-medium text-lg hover:scale-95 transition-all duration-500"
                 innerText={`$ ${data?.total_amount}`}
               />
