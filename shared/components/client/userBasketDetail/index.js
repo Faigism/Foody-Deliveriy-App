@@ -16,7 +16,8 @@ const UserBasketDetail = ({ data, itemsCount, setCheckout }) => {
   const { t } = useTranslation()
   const navigate = useRouter()
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const { basketData, setBasketData, itemCount, setItemCount } = useGlobalStore()
+  const { basketData, setBasketData, itemCount, setItemCount } =
+    useGlobalStore()
 
   useEffect(() => {
     setBasketData(data)
@@ -50,6 +51,7 @@ const UserBasketDetail = ({ data, itemsCount, setCheckout }) => {
       handleModalClose()
       toast.success('Cart cleared successfully!')
     }
+    setItemCount(0)
   }
 
   return (

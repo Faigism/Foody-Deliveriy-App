@@ -4,29 +4,21 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import NavbarAvatarList from '../navbarAvatarList'
 import ClientButton from '../button'
-import { getProductForBasket } from '../../../services/axios'
 import { useGlobalStore } from '../../../services/provider'
 
 const NavbarAvatar = ({ isName }) => {
   const navigate = useRouter()
   const [navbarList, setNavbarList] = useState(false)
-  const [basketData, setBasketData] = useState([])
 
-  const { basketId, itemCount, setItemCount, deleteAllItemsFromBasket } =
-    useGlobalStore()
+  const { getProductsInBasket, itemCount } = useGlobalStore()
 
   const toggleNavbarList = () => {
     setNavbarList(!navbarList)
   }
 
-  // const basketCount = async () => {
-  //   const res = await getProductForBasket()
-  //   setBasketData(res?.data.result.data.items)
-  // }
-
-  // useEffect(() => {
-  //   basketCount()
-  // }, [basketData])
+  useEffect(() => {
+    getProductsInBasket()
+  }, [itemCount])
 
   return (
     <div className="flex items-center gap-7 relative">
@@ -44,7 +36,6 @@ const NavbarAvatar = ({ isName }) => {
           }}
         />
         <span className="w-4 h-4 flex justify-center items-center text-[12px] font-bold text-white absolute right-[-4px] top-[-4px] bg-[#9d251a] z-10 rounded-full">
-          {/* {basketData?.length} */}
           {itemCount}
         </span>
       </div>
