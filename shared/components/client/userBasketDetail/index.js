@@ -16,7 +16,7 @@ const UserBasketDetail = ({ data, itemsCount }) => {
   const { t } = useTranslation()
   const navigate = useRouter()
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const { basketData, setBasketData } = useGlobalStore()
+  const { basketData, setBasketData, itemCount, setItemCount } = useGlobalStore()
 
   useEffect(() => {
     setBasketData(data)
@@ -34,12 +34,14 @@ const UserBasketDetail = ({ data, itemsCount }) => {
     if (res?.status === 201) {
       setBasketData(res?.data)
     }
+    setItemCount(itemCount + 1)
   }
   const handleDecreaseButtonClick = async (id) => {
     const res = await deleteItemFromBasket(id)
     if (res?.status === 200) {
       setBasketData(res?.data)
     }
+    setItemCount(itemCount - 1)
   }
   const handleClearBasket = async (id) => {
     const res = await clearBasket(id)
