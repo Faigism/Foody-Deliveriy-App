@@ -30,11 +30,10 @@ const RestaurantBasketLayout = ({ children }) => {
             alt="basketItemImg"
           />
           <div
-            className={`${styles.itemCount} ${
-              itemCount > 0
+            className={`${styles.itemCount} ${itemCount > 0
                 ? styles.coloredItemCount
                 : styles.unColoredItemCount
-            }`}
+              }`}
           >
             {itemCount} items
           </div>
@@ -54,11 +53,10 @@ const RestaurantBasketLayout = ({ children }) => {
       <div className={styles.main}> {children}</div>
       <div className="flex justify-center mb-[33px]">
         <div
-          className={`${styles.basketFooter} ${
-            itemCount > 0
+          className={`${styles.basketFooter} ${itemCount > 0
               ? styles.coloredBasketFooter
               : styles.unColoredBasketFooter
-          }`}
+            }`}
           onClick={() => {
             if (itemCount > 0) {
               setCheckout(true)
@@ -68,9 +66,8 @@ const RestaurantBasketLayout = ({ children }) => {
         >
           <div>Checkout</div>
           <div
-            className={`${styles.checkout} ${
-              itemCount > 0 ? styles.coloredCheckout : styles.unColoredCheckout
-            }`}
+            className={`${styles.checkout} ${itemCount > 0 ? styles.coloredCheckout : styles.unColoredCheckout
+              }`}
           >
             ${totalPrice}
           </div>

@@ -20,10 +20,10 @@ const Restaurant = ({ restaurantId }) => {
   }, [])
 
   return (
-    <div>
+    <div className='mx-[30px]'>
       <RestaurantInfo selectedRestaurant={selectedRestaurant} />
       <div className={styles.separator}></div>
-      <div className="flex justify-between mx-20 mb-28">
+      <div className="flex justify-between mx-14 mb-28">
         <div className={styles.products}>
           <div className={styles.title}>Products</div>
           {products &&
