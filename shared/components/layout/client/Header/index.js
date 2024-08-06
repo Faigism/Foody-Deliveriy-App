@@ -19,6 +19,7 @@ const ClientLayout = ({ children }) => {
   const [restaurants, setRestaurants] = useState()
   const [isToken, setIsToken] = useState(false)
   const [isName, setIsName] = useState('')
+  const [userPhoto, setUserPhoto] = useState('')
   const [isFullName, setIsFullName] = useState('')
 
   const fetchRestaurants = async () => {
@@ -38,13 +39,10 @@ const ClientLayout = ({ children }) => {
   const searchRestaurant = async (e) => {
     let res = await getRestaurants()
     let resData = res?.data.result.data
-    // console.log(e.target.value)
 
     let filterResData = resData?.filter(function (item) {
       return item.name.toLowerCase().includes(e.target.value.toLowerCase())
     })
-    // console.log(filterResData);
-    console.log(filterResData)
 
     setFilterRestaurant(filterResData)
   }
@@ -67,17 +65,21 @@ const ClientLayout = ({ children }) => {
     let parsedItem = JSON.parse(localItem)
     let parsedUser = JSON.parse(localUser)
     let userEmail = parsedUser?.email
+    let userPhoto = parsedUser?.img_url
+
     let str = ' '
     str += userEmail?.split(' ')[0]?.[0] ?? ''
     let avatar = str.toUpperCase()
 
     setIsFullName(userEmail)
     setIsName(avatar)
+    setUserPhoto(userPhoto)
 
     if (parsedItem?.access_token) {
       setIsToken(true)
     } else {
       setIsName('')
+      setUserPhoto('')
     }
   }, [isToken])
 
@@ -85,7 +87,10 @@ const ClientLayout = ({ children }) => {
     <>
       <header>
         <nav className="flex justify-between m-0 items-center rounded-md py-11 px-5 sm:m-8 bg-whiteLight1 sm:p-11">
-          <h1 className="text-4xl font-extrabold flex items-center">
+          <h1
+            className="text-4xl font-extrabold flex items-center cursor-pointer"
+            onClick={() => navigate.push('/')}
+          >
             Foody
             <span className="text-mainRed">.</span>
           </h1>
@@ -107,7 +112,7 @@ const ClientLayout = ({ children }) => {
                   />
                 )}
               </div>
-              <NavbarAvatar isName={isName} />
+              <NavbarAvatar isName={isName} userPhoto={userPhoto} />
             </>
           ) : (
             <>
@@ -226,7 +231,7 @@ const ClientLayout = ({ children }) => {
           </div>
         </section>
         <div className="text-white mt-20 text-center w-3/4 sm:w-full">
-          All rights reserved © 2003-2023 Foody TERMS OF USE | Privacy Policy
+          All rights reserved © 2003-2024 Foody TERMS OF USE | Privacy Policy
         </div>
       </footer>
     </>

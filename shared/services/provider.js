@@ -26,6 +26,8 @@ const Provider = ({ children }) => {
   const [refresh, setRefresh] = useState(false)
   const [basketData, setBasketData] = useState({})
   const [checkout, setCheckout] = useState(false)
+  const [orderData, setOrderData] = useState([])
+  const [orderForShow, setOrderForShow] = useState([])
 
   const getProductsInBasket = async () => {
     const response = await getProductForBasket()
@@ -77,6 +79,10 @@ const Provider = ({ children }) => {
     basketData,
     setCheckout,
     checkout,
+    setOrderData,
+    orderData,
+    setOrderForShow,
+    orderForShow,
     addProductToBasket,
     getProductsInBasket,
     deleteFromBasket,

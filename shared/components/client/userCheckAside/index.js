@@ -8,7 +8,6 @@ const UserCheckAside = () => {
 
   const renderBasket = async () => {
     const res = await getProductForBasket()
-    console.log(res)
     if (res?.status === 200) {
       setBasket(res.data.result.data)
     }

@@ -80,7 +80,9 @@ const UserProfile = () => {
       return
     }
     const imageRef = ref(fileStorage, `files/images/${name}`)
+
     const file = e?.target?.files?.[0]
+
     if (!file) {
       return
     }
@@ -112,13 +114,17 @@ const UserProfile = () => {
       return
     }
     const res = await editProfileInfo(userDatas)
-    console.log(res)
     const localUser = localStorage?.getItem('userInfo')
     if (res?.status === 200) {
       toast.success('Profile updated successfully')
       const newProfile = JSON.parse(localUser)
+
       newProfile.username = res.data.user.username
       newProfile.fullname = res.data.user.fullname
+      newProfile.phone = res.data.user.phone
+      newProfile.address = res.data.user.address
+      newProfile.img_url = res.data.user.img_url
+
       localStorage.setItem('userInfo', JSON.stringify(newProfile))
       push('/')
       return
@@ -225,7 +231,7 @@ const UserProfile = () => {
                       onChange={getValues}
                       className="w-[286px] sm:w-[444px] overflow-hidden h-14 p-3 rounded bg-[#F3F4F6]  sm:bg-white"
                       type="text"
-                      name="fullName"
+                      name="fullname"
                       placeholder="Full name"
                       value={userDatas?.fullname || ''}
                     />

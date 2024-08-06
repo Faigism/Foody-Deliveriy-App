@@ -3,10 +3,11 @@ import Languages from '../../admin/Languages'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import NavbarAvatarList from '../navbarAvatarList'
-import ClientButton from '../button'
 import { useGlobalStore } from '../../../services/provider'
+import NavbarAvatarPhoto from '../navbarAvatarPhoto'
+import ClientButton from '../button'
 
-const NavbarAvatar = ({ isName }) => {
+const NavbarAvatar = ({ isName, userPhoto }) => {
   const navigate = useRouter()
   const [navbarList, setNavbarList] = useState(false)
 
@@ -39,11 +40,20 @@ const NavbarAvatar = ({ isName }) => {
           {itemCount}
         </span>
       </div>
-      <ClientButton
-        className="rounded-full w-10 h-10 text-lg text-white shadow-md bg-mainRed font-semibold hover:scale-95 transition-all duration-500"
-        innerText={isName}
-        onClick={toggleNavbarList}
-      />
+
+      {userPhoto ? (
+        <NavbarAvatarPhoto
+          className="rounded-full w-10 h-10 text-lg text-white shadow-md bg-mainRed font-semibold hover:scale-95 transition-all duration-500"
+          src={userPhoto}
+          onClick={toggleNavbarList}
+        />
+      ) : (
+        <ClientButton
+          className="rounded-full w-10 h-10 text-lg text-white shadow-md bg-mainRed font-semibold hover:scale-95 transition-all duration-500"
+          innerText={isName}
+          onClick={toggleNavbarList}
+        />
+      )}
       {navbarList && <NavbarAvatarList />}
     </div>
   )

@@ -26,18 +26,19 @@ const Login = () => {
       </Head>
 
       <nav className="flex justify-between m-0 sm:m-8 items-center bg-lightRed py-11 px-5 sm:p-11">
+        <button onClick={toggleModal} className="sm:hidden block mr-5">
+          <Image
+            width={40}
+            height={0}
+            src={'/hamburgerWhite.svg'}
+            alt="hamburger"
+          />
+        </button>
         <h1
           className="text-4xl font-extrabold text-white
-         flex items-center"
+         flex items-center cursor-pointer"
+          onClick={() => navigate.push('/')}
         >
-          <button onClick={toggleModal} className="sm:hidden block mr-5">
-            <Image
-              width={40}
-              height={0}
-              src={'/hamburgerWhite.svg'}
-              alt="hamburger"
-            />
-          </button>
           Foody
           <span className="text-white">.</span>
         </h1>

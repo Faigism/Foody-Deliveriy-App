@@ -9,7 +9,8 @@ import { useGlobalStore } from '../../../services/provider'
 
 const UserCheckForm = () => {
   const { t } = useTranslation()
-  const { itemCount, setItemCount, deleteAllItemsFromBasket, basketId } = useGlobalStore()
+  const { itemCount, setItemCount, deleteAllItemsFromBasket, basketId } =
+    useGlobalStore()
 
   const [isChecked1, setIsChecked1] = useState(true)
   const [isChecked2, setIsChecked2] = useState(false)
@@ -86,14 +87,20 @@ const UserCheckForm = () => {
       setTimeout(() => {
         navigate.push('/restaurants')
       }, 1500)
+    } else if (res?.status === 500) {
+      toast.warning('Login olmalisan...')
+      setTimeout(() => {
+        navigate.push('/login')
+      }, 1500)
     }
 
-    clearBaskets();
+    clearBaskets()
   }
 
   const clearBaskets = async () => {
-    await deleteAllItemsFromBasket(basketId);
+    await deleteAllItemsFromBasket(basketId)
   }
+
   return (
     <>
       <ToastContainer />
