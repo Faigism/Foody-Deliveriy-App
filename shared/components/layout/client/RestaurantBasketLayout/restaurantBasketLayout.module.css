@@ -71,8 +71,15 @@
   align-items: center;
 }
 
+
 .coloredCheckout {
   color: #d63626;
+}
+
+.coloredCheckout:hover {
+  background-color: #F3F4F6;
+  transition: 333ms;
+  transform: scale(0.98);
 }
 
 .unColoredCheckout {
