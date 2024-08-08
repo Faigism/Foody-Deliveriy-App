@@ -50,7 +50,6 @@ const ClientLogin = () => {
     }
 
     const res = await clientRegister(form)
-    console.log(res)
 
     if (fullNameRef.current) fullNameRef.current.value = ''
     if (userNameRef.current) userNameRef.current.value = ''
@@ -86,7 +85,6 @@ const ClientLogin = () => {
     }
 
     const res = await clientLogin(form)
-    console.log(res)
 
     if (res?.status === 200) {
       localStorage.setItem('loginDate', date.getTime())

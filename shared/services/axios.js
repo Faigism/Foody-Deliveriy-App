@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const BASE_URL = '/api'
 // const BASE_URL = 'https://foody-api.vercel.app/api'
@@ -302,7 +303,42 @@ export async function postOrder(data) {
 
     return response
   } catch (err) {
+    toast.error('Your order was not found')
     console.log(err)
+  }
+}
+
+export async function getOrders() {
+  try {
+    let item = localStorage.getItem('userInfo')
+    let access_token = JSON.parse(item)
+    const response = await instanceAxios.get(`/order/user`, {
+      headers: {
+        Authorization: `Bearer ${access_token.access_token}`,
+      },
+    })
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const deleteOrder = async (id) => {
+  try {
+    let item = localStorage.getItem('userInfo')
+    let access_token = JSON.parse(item)
+
+    const response = await instanceAxios.delete(`/order`, {
+      data: {
+        order_id: id,
+      },
+      headers: {
+        Authorization: `Bearer ${access_token.access_token}`,
+      },
+    })
+    return response
+  } catch (error) {
+    console.log(error)
   }
 }
 

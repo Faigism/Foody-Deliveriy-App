@@ -9,7 +9,7 @@ import { useGlobalStore } from '../../../services/provider'
 
 const UserCheckForm = () => {
   const { t } = useTranslation()
-  const { itemCount, setItemCount, deleteAllItemsFromBasket, basketId } = useGlobalStore()
+  const { setCheckout, deleteAllItemsFromBasket, basketId } = useGlobalStore()
 
   const [isChecked1, setIsChecked1] = useState(true)
   const [isChecked2, setIsChecked2] = useState(false)
@@ -17,7 +17,6 @@ const UserCheckForm = () => {
   const addressRef = useRef(null)
   const numberRef = useRef(null)
   const [formCompleted, setFormCompleted] = useState(false)
-  const [showCheck, setShowCheck] = useState(false)
   const navigate = useRouter()
   const [basketData, setBasketData] = useState()
 
@@ -85,15 +84,27 @@ const UserCheckForm = () => {
       setFormCompleted(true)
       setTimeout(() => {
         navigate.push('/restaurants')
+        setCheckout(false)
+      }, 1500)
+    } else if (res?.status === 500) {
+      toast.warning('you must login again...')
+      setTimeout(() => {
+        navigate.push('/login')
+      }, 1500)
+    } else if (res === 'undefined') {
+      toast.error('Your order was not found')
+      setTimeout(() => {
+        navigate.push('/')
       }, 1500)
     }
 
-    clearBaskets();
+    clearBaskets()
   }
 
   const clearBaskets = async () => {
-    await deleteAllItemsFromBasket(basketId);
+    await deleteAllItemsFromBasket(basketId)
   }
+
   return (
     <>
       <ToastContainer />

@@ -35,7 +35,7 @@ const Languages = ({ bgDark }) => {
         <div
           className={`flex flex-col gap-4 w-max ${
             bgDark ? ' bg-darkBlue_3' : 'bg-white '
-          } px-2 py-4 absolute shadow-lg z-10 top-12 left-0 `}
+          } px-2 py-4 absolute shadow-lg z-20 top-12 left-0 `}
         >
           <Image
             className="cursor-pointer hover:scale-95 transition-all duration-500"
