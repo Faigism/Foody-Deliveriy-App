@@ -50,7 +50,6 @@ const ClientLogin = () => {
     }
 
     const res = await clientRegister(form)
-    console.log(res)
 
     if (fullNameRef.current) fullNameRef.current.value = ''
     if (userNameRef.current) userNameRef.current.value = ''

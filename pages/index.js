@@ -4,7 +4,6 @@ import Header from '../shared/components/client/header'
 import { useTranslation } from 'react-i18next'
 import { useEffect, useState } from 'react'
 import { getOffer } from '../shared/services/axios'
-import Image from 'next/image'
 
 const Home = () => {
   const { t } = useTranslation()

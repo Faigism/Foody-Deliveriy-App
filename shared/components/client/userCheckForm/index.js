@@ -9,8 +9,7 @@ import { useGlobalStore } from '../../../services/provider'
 
 const UserCheckForm = () => {
   const { t } = useTranslation()
-  const { itemCount, setCheckout, deleteAllItemsFromBasket, basketId } =
-    useGlobalStore()
+  const { setCheckout, deleteAllItemsFromBasket, basketId } = useGlobalStore()
 
   const [isChecked1, setIsChecked1] = useState(true)
   const [isChecked2, setIsChecked2] = useState(false)
@@ -18,10 +17,8 @@ const UserCheckForm = () => {
   const addressRef = useRef(null)
   const numberRef = useRef(null)
   const [formCompleted, setFormCompleted] = useState(false)
-  const [showCheck, setShowCheck] = useState(false)
   const navigate = useRouter()
   const [basketData, setBasketData] = useState()
-  const date = new Date()
 
   const toggleButton1 = () => {
     setIsChecked1((prev) => !prev)
@@ -65,9 +62,6 @@ const UserCheckForm = () => {
     const addressValue = addressRef?.current?.value
     const numberValue = numberRef?.current?.value
 
-    const createCheck = date.getHours()
-    console.log(createCheck)
-
     if (!addressValue || !numberValue) {
       toast.warning('Please fill the all inputs!')
       return
@@ -82,7 +76,6 @@ const UserCheckForm = () => {
       basket_id: basketData.id,
       delivery_address: addressValue,
       payment_method: radioBtn,
-      createCheckout: createCheck,
     }
 
     const res = await postOrder(data)

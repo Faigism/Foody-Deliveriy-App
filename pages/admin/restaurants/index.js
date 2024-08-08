@@ -22,7 +22,7 @@ const Restaurants = () => {
   const [categoriesModal, setCategoriesModal] = useState([])
   const [categoryName, setCategoryName] = useState('')
   const [restaurants, setRestaurants] = useState([])
-  const { refresh } = useGlobalStore();
+  const { refresh } = useGlobalStore()
 
   const showAllRestaurants = async () => {
     const allRestaurants = await getRestaurants()
@@ -30,7 +30,6 @@ const Restaurants = () => {
     setRestaurants(restaurants)
   }
   useEffect(() => {
-    console.log(refresh)
     showAllRestaurants()
   }, [refresh])
 
