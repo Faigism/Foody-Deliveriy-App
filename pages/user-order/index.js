@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import ClientLayout from '../../shared/components/layout/client/Header'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import Table from '../../shared/components/client/orderTable'
 
 const UserOrder = () => {
   const { t } = useTranslation()
@@ -47,8 +48,8 @@ const UserOrder = () => {
         {loading ? (
           <section className="m-4 flex justify-center gap-10">
             <UserAside />
-            <div className="w-full flex  flex-col flex-wrap gap-x-1 gap-y-8 bg-white sm:bg-whiteLight1">
-              <h1>User Order</h1>
+            <div className="w-full flex  flex-col flex-wrap gap-x-1 gap-y-8 bg-white sm:bg-whiteLight1 h-[450px]">
+              <Table />
             </div>
           </section>
         ) : (

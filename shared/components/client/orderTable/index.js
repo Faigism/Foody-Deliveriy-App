@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import TableData from '../orderTableData'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useGlobalStore } from '../../../services/provider'
 import { getOrders } from '../../../services/axios'
 
@@ -13,8 +13,13 @@ const Table = () => {
     try {
       const res = await getOrders()
       const result = res?.data.result.data || []
+
+      const sortedResult = result.sort(
+        (a, b) => new Date(b.created) - new Date(a.created)
+      )
+
       setOrderForShow(res)
-      setOrderData(result)
+      setOrderData(sortedResult)
     } catch (error) {
       console.error('Error fetching order:', error)
     }
@@ -27,7 +32,7 @@ const Table = () => {
   return (
     <section className="max-w-full overflow-x-auto">
       <table className=" min-w-full bg-white text-center">
-        <thead>
+        <thead className="sticky top-0 bg-white z-[10]">
           <tr>
             <th className="py-2 px-4 border-b border-whiteLight3">ID</th>
             <th className="py-2 px-4 border-b border-whiteLight3">
@@ -53,7 +58,7 @@ const Table = () => {
             <TableData
               key={`tableData_${index}`}
               id={item.id}
-              time="12:50"
+              time={item.created}
               address={item.delivery_address}
               amount={item.amount}
               payment={item.payment_method == 1 ? 'Credit Card' : 'Pay Cash'}

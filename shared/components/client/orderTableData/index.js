@@ -14,6 +14,8 @@ const TableData = ({ id, time, address, amount, payment, contact }) => {
   const [isModalOpen2, setIsModalOpen2] = useState(false)
   const { orderData, setOrderData } = useGlobalStore()
 
+  const date = new Date(time)
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (showPopup && !event.target.closest('.popup-container')) {
@@ -29,29 +31,32 @@ const TableData = ({ id, time, address, amount, payment, contact }) => {
 
   const inDeleteOrder = async () => {
     const response = await deleteOrder(id)
-
     if (response?.status == 204) {
       let newData = orderData.filter((item) => item.id !== id)
+      toast.success('Your order has been successfully deleted')
       setOrderData(newData)
       handleModalClose()
-      toast.success('Your order has been successfully deleted')
     }
   }
 
   const handleButtonClick = () => {
     setIsModalOpen(true)
+    document.body.classList.add('no-scroll')
   }
 
   const handleModalClose = () => {
     setIsModalOpen(false)
+    document.body.classList.remove('no-scroll')
   }
 
   const handleButtonClick2 = () => {
     setIsModalOpen2(true)
+    document.body.classList.add('no-scroll')
   }
 
   const handleModalClose2 = () => {
     setIsModalOpen2(false)
+    document.body.classList.remove('no-scroll')
   }
 
   const togglePopup = (e) => {
@@ -76,11 +81,20 @@ const TableData = ({ id, time, address, amount, payment, contact }) => {
       address
     )
 
+  const shortenID = (id) => {
+    if (id.length <= 2) return id
+    return `${id[0]} ... ${id[id.length - 1]}`
+  }
+
   return (
     <>
       <tr className="h-[100px]">
-        <td className="py-2 px-4 border-b border-whiteLight3">{id}</td>
-        <td className="py-2 px-4 border-b border-whiteLight3">{time} PM</td>
+        <td className="py-2 px-4 border-b border-whiteLight3">
+          {shortenID(id)}
+        </td>
+        <td className="py-2 px-4 border-b border-whiteLight3">
+          {date.toLocaleString()}
+        </td>
         <td className="py-2 px-0 sm:px-4 border-b border-whiteLight3 text-center w-60">
           {addressText}
         </td>
@@ -88,7 +102,7 @@ const TableData = ({ id, time, address, amount, payment, contact }) => {
         <td className="py-2 px-4 border-b border-whiteLight3">{payment}</td>
         <td className="py-2 px-4 border-b border-whiteLight3">+{contact}</td>
         <td className="py-2 px-4 border-b border-whiteLight3 w-[110px]">
-          <div className="relative z-50 m-auto flex items-center justify-center">
+          <div className="relative -z-0 m-auto flex items-center justify-center">
             {!showPopup ? (
               <img
                 className="cursor-pointer absolute sm:left-0 sm:relative"

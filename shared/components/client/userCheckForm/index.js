@@ -9,7 +9,7 @@ import { useGlobalStore } from '../../../services/provider'
 
 const UserCheckForm = () => {
   const { t } = useTranslation()
-  const { itemCount, setItemCount, deleteAllItemsFromBasket, basketId } =
+  const { itemCount, setCheckout, deleteAllItemsFromBasket, basketId } =
     useGlobalStore()
 
   const [isChecked1, setIsChecked1] = useState(true)
@@ -21,6 +21,7 @@ const UserCheckForm = () => {
   const [showCheck, setShowCheck] = useState(false)
   const navigate = useRouter()
   const [basketData, setBasketData] = useState()
+  const date = new Date()
 
   const toggleButton1 = () => {
     setIsChecked1((prev) => !prev)
@@ -64,6 +65,9 @@ const UserCheckForm = () => {
     const addressValue = addressRef?.current?.value
     const numberValue = numberRef?.current?.value
 
+    const createCheck = date.getHours()
+    console.log(createCheck)
+
     if (!addressValue || !numberValue) {
       toast.warning('Please fill the all inputs!')
       return
@@ -78,6 +82,7 @@ const UserCheckForm = () => {
       basket_id: basketData.id,
       delivery_address: addressValue,
       payment_method: radioBtn,
+      createCheckout: createCheck,
     }
 
     const res = await postOrder(data)
@@ -86,11 +91,17 @@ const UserCheckForm = () => {
       setFormCompleted(true)
       setTimeout(() => {
         navigate.push('/restaurants')
+        setCheckout(false)
       }, 1500)
     } else if (res?.status === 500) {
-      toast.warning('Login olmalisan...')
+      toast.warning('you must login again...')
       setTimeout(() => {
         navigate.push('/login')
+      }, 1500)
+    } else if (res === 'undefined') {
+      toast.error('Your order was not found')
+      setTimeout(() => {
+        navigate.push('/')
       }, 1500)
     }
 

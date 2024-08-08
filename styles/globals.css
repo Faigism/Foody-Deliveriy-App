@@ -79,3 +79,7 @@ tspan {
   visibility: visible;
   opacity: 1;
 }
+
+.no-scroll {
+  overflow: hidden;
+}

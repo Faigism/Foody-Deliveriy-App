@@ -1,82 +1,78 @@
 .common {
-    width: 100%;
-    height: 537px;
-    margin-bottom: 100px;
+  width: 100%;
+  height: 537px;
+  margin-bottom: 100px;
 }
 
 .info {
-    width: 100%;
-    height: 89px;
-    background: #FFFFFF;
-    display: flex;
-    justify-content: space-between;
-    padding: 20px 0;
+  width: 100%;
+  height: 89px;
+  background: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 80px;
 }
 
 .restaurantName {
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    text-align: left;
-    color: #4F4F4F;
-
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-align: left;
+  color: #4f4f4f;
 }
 
 .address {
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.03em;
-    text-align: left;
-    color: #828282;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-align: left;
+  color: #828282;
 }
 
 .cuisineTitle {
-    font-size: 18px;
-    font-weight: 500;
-    letter-spacing: 0.03em;
-    text-align: left;
-    color: #828282;
-
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-align: left;
+  color: #828282;
 }
 
 .cuisine {
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.03em;
-    text-align: left;
-    color: #828282;
-
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-align: left;
+  color: #828282;
 }
 
 .delivery {
-    width: 72px;
-    height: 51px;
-    border-radius: 5px;
-    border: 1px solid #D63626;
-    color: #D63626;
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: 0.03em;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-left: 8px;
+  width: 72px;
+  height: 51px;
+  border-radius: 5px;
+  border: 1px solid #d63626;
+  color: #d63626;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 8px;
 }
 
 .back {
-    width: 72px;
-    height: 52px;
-    border-radius: 5px;
-    border: 1px solid #D63626;
-    background: #D63626;
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: 0.03em;
-    color: #FFFFFF;
-
+  width: 72px;
+  height: 52px;
+  border-radius: 5px;
+  border: 1px solid #d63626;
+  background: #d63626;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: #ffffff;
 }
 
 .back:hover {
-    transform: scale(0.97);
-    transition: 333ms;
+  transform: scale(0.97);
+  transition: 333ms;
 }

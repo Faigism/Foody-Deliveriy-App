@@ -7,6 +7,7 @@ const RestaurantInfo = ({ selectedRestaurant }) => {
   const goBack = () => {
     router.push(`/restaurants`)
   }
+
   return (
     <div className={styles.common}>
       <img

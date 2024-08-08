@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const BASE_URL = '/api'
 // const BASE_URL = 'https://foody-api.vercel.app/api'
@@ -302,6 +303,7 @@ export async function postOrder(data) {
 
     return response
   } catch (err) {
+    toast.error('Your order was not found')
     console.log(err)
   }
 }
