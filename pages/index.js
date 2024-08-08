@@ -101,7 +101,7 @@ const Home = () => {
                   </p>
                 </div>
                 <div>
-                  <Image
+                  <img
                     className="rounded-xl"
                     width={400}
                     height={400}
