@@ -8,7 +8,7 @@ import {
   getCategoriesFromDB,
   postCategory,
 } from '../../../shared/services/axios'
-import { ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import AdminCategory from '../../../shared/components/admin/adminCategory'
 import AuthCheck from '../../../shared/components/admin/authCheck'
 
@@ -25,7 +25,7 @@ const Category = () => {
   const addCategory = async () => {
     const categoryName = addCategoryName?.current?.value
     const categorySlug = addCategorySlug?.current?.value
-    const img = imageUrl
+    const img = imgRef?.current?.src
 
     const form = {
       name: categoryName,
@@ -33,24 +33,37 @@ const Category = () => {
       img_url: img,
     }
 
-    try {
-      const res = await postCategory(form)
+    if (
+      addCategoryName.current.value &&
+      addCategorySlug.current.value &&
+      imgRef.current.src
+    ) {
+      try {
+        const res = await postCategory(form)
 
-      if (res?.status === 201) {
-        setCategoryData((prev) => [...prev, res.data])
-        if (addCategoryName.current && addCategorySlug.current) {
+        if (res?.status === 201) {
+          setCategoryData((prev) => [...prev, res.data])
+
           addCategoryName.current.value = ''
           addCategorySlug.current.value = ''
+          imgRef.current.src = '/noimg.png'
+
+          setTimeout(() => {
+            changeHidden()
+          }, 500)
+
+          toast.success('Category created successfully!', {
+            position: 'top-left',
+          })
         }
-
-        setTimeout(() => {
-          changeHidden()
-        }, 500)
-
-        // toast.success('Category created successfully!')
+      } catch (error) {
+        console.error('Error adding category:', error)
       }
-    } catch (error) {
-      console.error('Error adding category:', error)
+    } else {
+      toast.dismiss()
+      toast.error('inputs cannot be left blank', {
+        position: 'top-left',
+      })
     }
   }
 
@@ -80,7 +93,6 @@ const Category = () => {
   return (
     <>
       <AuthCheck>
-        <ToastContainer />
         <AdminLayout>
           <AdminLeftModal
             onClickClose={changeHidden}

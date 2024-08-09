@@ -47,11 +47,12 @@ const AdminCategory = ({ item }) => {
     setActiveId(id)
     changeHidden()
     const res = await getEditCategories(id)
+
     if (res?.status === 200) {
       const currentData = res?.data.result.data
       if (addCategoryName && addCategorySlug && imgRef) {
         addCategoryName.current.value = currentData?.name || ''
-        addCategoryName.current.value = currentData?.slug || ''
+        addCategorySlug.current.value = currentData?.slug || ''
         imgRef.current.src = currentData?.img_url || ''
       }
     }
@@ -59,7 +60,7 @@ const AdminCategory = ({ item }) => {
 
   const updateCategory = async () => {
     const category = addCategoryName?.current?.value
-    const slug = addCategoryName?.current?.value
+    const slug = addCategorySlug?.current?.value
     const img = imgRef.current?.src
 
     const form = {
@@ -103,6 +104,7 @@ const AdminCategory = ({ item }) => {
     setIsModalOpen(true)
     setActiveId(id)
   }
+
   return (
     <>
       <>
@@ -125,7 +127,7 @@ const AdminCategory = ({ item }) => {
         >
           <td className="text-center max-w-[75px]   overflow-x-auto">
             <div className="flex  justify-center ">
-              <p className="  border px-2 rounded-lg  ">{item.id}</p>
+              <p className="  border px-2 rounded-lg">{item.id}</p>
             </div>
           </td>
           <td className="flex justify-center items-center h-16">
@@ -152,7 +154,7 @@ const AdminCategory = ({ item }) => {
                 height="0"
                 src="/adminMarqaritaEditButton.svg"
                 alt=""
-                className=" cursor-pointer"
+                className="cursor-pointer"
                 onClick={() => handleEditClick(item.id)}
               />
               <Image
@@ -160,7 +162,7 @@ const AdminCategory = ({ item }) => {
                 height="0"
                 src="/adminMarqaritaDeleteButton.svg"
                 alt=""
-                className=" cursor-pointer"
+                className="cursor-pointer"
                 onClick={() => handleButtonClick(item.id)}
               />
             </div>
