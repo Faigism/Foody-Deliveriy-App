@@ -117,37 +117,6 @@ const RestaurantCard = ({ restaurant, categoryName }) => {
       setRestaurants(updatedData)
     }
   }
-  // const [openModal, setOpenModal] = useState(false)
-
-  // const deleteRestaurant = async (id) => {
-  //   const response = await deleteRestaurantById(id);
-  // }
-
-  // return (
-  //   <div className={styles.card}>
-  //     <div className={styles.restaurantInfo}>
-  //       <div className={styles.image}>
-  //         <img className={styles.restaurantCardImage}
-  //           src={restaurant.img_url}
-  //           alt="restaurant logo"
-  //         />
-  //       </div>
-  //       <div>
-  //         <div className={styles.restaurantName}>{restaurant.name}</div>
-  //         <div className={styles.category}>{categoryName}</div>
-  //       </div>
-  //     </div>
-
-  //     <div className="flex flex-col justify-around me-[5px]">
-  //       <div className={styles.delete}>
-  //         <DeleteForeverIcon
-  //           style={{ color: '#EB5757' }}
-  //           onClick={() => {
-  //             setActivateModal(true)
-  //             setRestaurantId(restaurant.id)
-  //             setOpenModal(!openModal)
-  //           }}
-  //         />
 
   const deleteRestaurant = async (id) => {
     const response = await deleteRestaurantById(id);
@@ -188,7 +157,7 @@ const RestaurantCard = ({ restaurant, categoryName }) => {
               className={styles.restaurantCardImage}
             />
           </div>
-          <div className='w-[120px]'>
+          <div className='xxl:w-[120px] w-[100px]'>
             <div className={styles.restaurantName}>{restaurant.name}</div>
             <div className={styles.category}>{categoryName}</div>
           </div>

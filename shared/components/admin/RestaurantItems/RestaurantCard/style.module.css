@@ -68,3 +68,20 @@
         font-weight: 500;
     }
 }
+
+@media screen and (max-width: 1440px) {
+
+    .images {
+        width: 80px;
+        height: 80px;
+    }
+
+    .restaurantName {
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .restaurantInfo {
+        width: 195px;
+    }
+}
