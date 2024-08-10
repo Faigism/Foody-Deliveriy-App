@@ -146,6 +146,8 @@ export const deleteCategories = async (id) => {
 }
 //Categories
 
+
+// offer
 export const getOffer = async () => {
   try {
     const response = await instanceAxios.get(`/offer`)
@@ -154,6 +156,26 @@ export const getOffer = async () => {
     console.log(err)
   }
 }
+
+export const postOffer = async (data) => {
+  try {
+    const response = await instanceAxios.post('/offer', data)
+    return response
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export async function deleteOfferById(id) {
+  try {
+    const response = await instanceAxios.delete(`/offer/${id}`, {
+    })
+    return response
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 
 export const getEditOffer = async (id) => {
   try {

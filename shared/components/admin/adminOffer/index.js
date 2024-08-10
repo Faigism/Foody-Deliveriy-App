@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
-import { getEditOffer, getOffer } from '../../../services/axios'
+import { deleteOfferById, getEditOffer, getOffer } from '../../../services/axios'
 import AdminLeftModal from '../adminLeftModal'
 import { useGlobalStore } from '../../../services/provider'
 import Modal from '../Modal'
 import Button from '../Button'
 import { useTranslation } from 'react-i18next'
 import Image from 'next/image'
+import { toast } from 'react-toastify'
+
 const AdminOffer = ({ item }) => {
   const { t } = useTranslation()
   const [isHiddenModal, setIsHiddenModal] = useState(true)
@@ -13,20 +15,20 @@ const AdminOffer = ({ item }) => {
   const imgRef = useRef(null)
   const addTitleRef = useRef(null)
   const addDescRef = useRef(null)
-  const { offerData, setOfferData } = useGlobalStore()
+  // const { offerData, setOfferData } = useGlobalStore()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [activeId, setActiveId] = useState('')
-  const fetchOfferData = async () => {
-    try {
-      const res = await getOffer()
-      setOfferData(res)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  useEffect(() => {
-    fetchOfferData()
-  }, [])
+  // const fetchOfferData = async () => {
+  //   try {
+  //     const res = await getOffer()
+  //     setOfferData(res)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+  // useEffect(() => {
+  //   fetchOfferData()
+  // }, [])
   const handleModalClose = () => {
     setIsModalOpen(false)
   }
@@ -52,6 +54,18 @@ const AdminOffer = ({ item }) => {
         imgRef.current.src = currentData?.img_url || ''
       }
     }
+  }
+
+  const { refresh, setRefresh } = useGlobalStore()
+
+  const deleteOffer = async (id) => {
+    const response = await deleteOfferById(id);
+    if (response?.status === 204) {
+      toast.success("Offer successfully deleted")
+      setIsModalOpen(false)
+      setRefresh(!refresh)
+    }
+
   }
   return (
     <>
@@ -81,12 +95,12 @@ const AdminOffer = ({ item }) => {
           />
         </td>
         <td>{item.name}</td>
-        <td>
-          <p className="whitespace-nowrap overflow-x-scroll  max-w-56 ">
-            {item.description}
-          </p>
+        <td className='whitespace-nowrap overflow-ellipsis overflow-hidden max-w-[150px] px-3'>
+          {/* <p className={`whitespace-nowrap overflow-ellipsis overflow-hidden w-[100px]  bg-grayText2  ${styles.description}`}> */}
+          {item.description}
+          {/* </p> */}
         </td>
-        <td className=" h-14 flex  align-middle justify-evenly">
+        <td className=" h-14 flex  align-middle justify-center gap-5">
           <Image
             width="24"
             height="0"
@@ -126,7 +140,7 @@ const AdminOffer = ({ item }) => {
           <Button
             className="bg-mainRed border-2 text-white py-1 px-8 rounded-md border-mainRed shadow-md hover:scale-95 transition-all duration-500"
             innerText={t('modalDesc4')}
-            // onClick={removeOffer}
+            onClick={() => { deleteOffer(activeId) }}
           />
         </div>
       </Modal>
