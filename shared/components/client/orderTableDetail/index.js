@@ -6,7 +6,7 @@ const OrderTableDetail = ({ id }) => {
   const { t } = useTranslation()
   const { orderForShow, setOrderForShow } = useGlobalStore()
 
-  let FilteredData = orderForShow.data.result.data.filter(
+  let FilteredData = orderForShow?.data?.result.data.filter(
     (item) => item.id == id
   )
 

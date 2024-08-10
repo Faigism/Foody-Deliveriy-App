@@ -323,6 +323,21 @@ export async function getOrders() {
   }
 }
 
+export async function getOrderList() {
+  try {
+    let item = localStorage.getItem('userInfo')
+    let access_token = JSON.parse(item)
+    const response = await instanceAxios.get(`/order`, {
+      headers: {
+        Authorization: `Bearer ${access_token.access_token}`,
+      },
+    })
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const deleteOrder = async (id) => {
   try {
     let item = localStorage.getItem('userInfo')
@@ -332,6 +347,23 @@ export const deleteOrder = async (id) => {
       data: {
         order_id: id,
       },
+      headers: {
+        Authorization: `Bearer ${access_token.access_token}`,
+      },
+    })
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+//order-history
+export const getHistory = async () => {
+  try {
+    let item = localStorage.getItem('userInfo')
+    let access_token = JSON.parse(item)
+
+    const response = await instanceAxios.get('/order/history', {
       headers: {
         Authorization: `Bearer ${access_token.access_token}`,
       },

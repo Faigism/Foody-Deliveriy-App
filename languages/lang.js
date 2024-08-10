@@ -49,6 +49,10 @@ const resources = {
       userDesc10: 'Contact',
       userDesc11: 'SHOW',
       userDesc12: 'DELETE',
+      modalAccept: 'Accept',
+      modalDescAccept: 'Do you want to accept the order?',
+      modalDescAccept2:
+        'Attention! If you accept this order, it will not come back...',
       modalDesc: 'Are you sure it’s deleted?',
       modalDesc2:
         'Attention! If you delete this order, it will not come back...',
@@ -177,6 +181,10 @@ const resources = {
       userDesc10: 'Əlaqə',
       userDesc11: 'GÖSTƏR',
       userDesc12: 'SİL',
+      modalAccept: 'Qəbul et',
+      modalDescAccept: 'sifarişi qəbul etmək istəyirsən?',
+      modalDescAccept2:
+        'Diqqət! Bu sifarişi qəbul etsəniz, geri qayıtmayacaq...',
       modalDesc: 'Silməyə əminsiniz?',
       modalDesc2: 'Diqqət! Bu sifarişi silsəniz, geri qayıtmayacaq...',
       modalDesc3: 'Ləğv Et',

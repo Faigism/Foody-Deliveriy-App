@@ -4,23 +4,35 @@ import AdminLayout from '../../../shared/components/layout/admin'
 import { useEffect, useState } from 'react'
 import AdminOrderHistory from '../../../shared/components/admin/adminOrderHistory'
 import AuthCheck from '../../../shared/components/admin/authCheck'
+import { useGlobalStore } from '../../../shared/services/provider'
+import { getHistory } from '../../../shared/services/axios'
 const OrderHistory = () => {
   const { t } = useTranslation()
   const [loading, setLoading] = useState(true)
+  const { history, setHistory } = useGlobalStore()
+
   function changeHidden() {
     setIsHiddenModal((prev) => !prev)
   }
+
   const historyRender = async () => {
     try {
+      const response = await getHistory()
+      const sortedOrder = response?.data.result.data.sort((a, b) => {
+        return new Date(b.created) - new Date(a.created)
+      })
+      setHistory(sortedOrder)
       setLoading(false)
     } catch (error) {
       console.log(error)
       setLoading(false)
     }
   }
+
   useEffect(() => {
     historyRender()
   }, [])
+
   return (
     <AuthCheck>
       <AdminLayout>
@@ -29,7 +41,7 @@ const OrderHistory = () => {
           changeHidden={changeHidden}
         />
         {!loading ? (
-          <div className=" w-[94%] mt-10 bg-white ml-[50px] h-[400px] overflow-y-scroll">
+          <div className=" w-[94%] mt-10 bg-white ml-[50px] h-[400px] overflow-y-scroll rounded-md">
             <table className="w-[100%] ">
               <thead className="h-16 text-sm px-8">
                 <tr>
@@ -43,7 +55,9 @@ const OrderHistory = () => {
                 </tr>
               </thead>
               <tbody>
-                <AdminOrderHistory />
+                {history.map((data) => (
+                  <AdminOrderHistory data={data} />
+                ))}
               </tbody>
             </table>
           </div>

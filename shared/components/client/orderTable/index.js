@@ -12,7 +12,6 @@ const Table = () => {
   const fetchOrder = async () => {
     try {
       const res = await getOrders()
-      console.log(res)
 
       const result = res?.data.result.data || []
 

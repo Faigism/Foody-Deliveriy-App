@@ -5,11 +5,33 @@ import { useTranslation } from 'react-i18next'
 import { useGlobalStore } from '../../../services/provider'
 import { useState } from 'react'
 import { deleteOrder } from '../../../services/axios'
+import { getFirestore, doc, deleteDoc } from 'firebase/firestore'
+import OrderTableDetail from '../../client/orderTableDetail'
 
-const AdminOrderHistory = ({ data }) => {
+const AdminOrder = ({ data }) => {
   const { t } = useTranslation()
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isAcceptModalOpen, setIsAcceptModalOpen] = useState(false)
+  const [isModalOpen2, setIsModalOpen2] = useState(false)
   const { orderData, setOrderData } = useGlobalStore()
+
+  const handleButtonClick2 = () => {
+    setIsModalOpen2(true)
+    document.body.classList.add('no-scroll')
+  }
+
+  const handleModalClose2 = () => {
+    setIsModalOpen2(false)
+    document.body.classList.remove('no-scroll')
+  }
+
+  const handleAcceptClick = () => {
+    setIsAcceptModalOpen(true)
+  }
+
+  const handleAcceptClose = () => {
+    setIsAcceptModalOpen(false)
+  }
 
   const handleButtonClick = () => {
     setIsModalOpen(true)
@@ -19,16 +41,37 @@ const AdminOrderHistory = ({ data }) => {
     setIsModalOpen(false)
   }
 
-  const deleteOrderData = async () => {
+  const db = getFirestore()
+
+  const deleteOrderData = async (orderId) => {
+    try {
+      const orderDoc = doc(db, 'order', orderId)
+      await deleteDoc(orderDoc)
+      toast.success('Order deleted successfully!', {
+        position: 'top-left',
+      })
+      let filteredOrder = orderData.filter((item) => item.id !== orderId)
+      setOrderData(filteredOrder)
+      handleModalClose()
+    } catch (error) {
+      console.log(error)
+      toast.error('Failed to delete order.', {
+        position: 'top-left',
+      })
+      handleModalClose()
+    }
+  }
+
+  const acceptOrderData = async () => {
     const response = await deleteOrder(data?.id)
 
     if (response?.status === 204) {
       let filteredOrder = orderData.filter((item) => item.id !== data?.id)
       setOrderData(filteredOrder)
-      toast.success('Order deleted successfully!', {
+      toast.success('Order accept successfully!', {
         position: 'top-left',
       })
-      handleModalClose()
+      handleAcceptClose()
     }
   }
 
@@ -60,7 +103,7 @@ const AdminOrderHistory = ({ data }) => {
   }
 
   const addressText =
-    data.delivery_address?.length > 20 ? (
+    data.delivery_address.length > 20 ? (
       <span className="tooltip">
         {truncateText(data.delivery_address, 20)}
         <span className="tooltiptext">{data.delivery_address}</span>
@@ -70,7 +113,7 @@ const AdminOrderHistory = ({ data }) => {
     )
 
   const idText =
-    data.id?.length > 5 ? (
+    data.id.length > 5 ? (
       <span className="tooltip">
         {truncateText(data.id, 5)}
         <span className="tooltiptext" style={{ left: '80px' }}>
@@ -82,7 +125,7 @@ const AdminOrderHistory = ({ data }) => {
     )
 
   const idCustomer =
-    data.customer_id?.length > 5 ? (
+    data.customer_id.length > 5 ? (
       <span className="tooltip">
         {truncateText(data.customer_id, 5)}
         <span className="tooltiptext" style={{ left: '80px' }}>
@@ -117,6 +160,26 @@ const AdminOrderHistory = ({ data }) => {
         <td>+{data.contact}</td>
         <td>
           <img
+            src="/view.png"
+            alt="acceptIcon"
+            className="cursor-pointer transition-transform transform hover:scale-110"
+            width="24"
+            height="0"
+            onClick={handleButtonClick2}
+          />
+        </td>
+        <td>
+          <img
+            src="/accept.svg"
+            alt="acceptIcon"
+            className="cursor-pointer transition-transform transform hover:scale-110"
+            width="24"
+            height="0"
+            onClick={handleAcceptClick}
+          />
+        </td>
+        <td>
+          <img
             width="24"
             height="0"
             src="/cancel.svg"
@@ -147,11 +210,50 @@ const AdminOrderHistory = ({ data }) => {
           <Button
             className="bg-mainRed border-2 text-white py-1 px-8 rounded-md border-mainRed shadow-md hover:scale-95 transition-all duration-500"
             innerText={t('modalDesc4')}
-            onClick={deleteOrderData}
+            onClick={() => deleteOrderData(data.id)}
           />
         </div>
+      </Modal>
+      {isAcceptModalOpen ? (
+        <Modal isOpen={isAcceptModalOpen} onClose={handleAcceptClose}>
+          <div className="flex justify-between items-center">
+            <p className="mx-auto text-3xl font-medium">
+              {t('modalDescAccept')}
+            </p>
+            <Button
+              className="text-mainRed text-lg"
+              innerText="&#10006;"
+              onClick={handleAcceptClose}
+            />
+          </div>
+          <p className=" text-grayText1 w-2/3 mx-auto text-center my-5">
+            {t('modalDescAccept2')}
+          </p>
+          <div className="mx-auto flex items-center justify-center gap-9">
+            <Button
+              className=" border-grayText1 text-grayText1 py-1 px-8 rounded-md border-2 shadow-md hover:scale-95 transition-all duration-500"
+              innerText={t('modalDesc3')}
+              onClick={handleAcceptClose}
+            />
+            <Button
+              className="bg-mainRed border-2 text-white py-1 px-8 rounded-md border-mainRed shadow-md hover:scale-95 transition-all duration-500"
+              innerText={t('modalAccept')}
+              onClick={acceptOrderData}
+            />
+          </div>
+        </Modal>
+      ) : (
+        ''
+      )}
+      <Modal isOpen={isModalOpen2} onClose={handleModalClose2}>
+        <OrderTableDetail id={data.id} />
+        <Button
+          className="mt-4 border-grayText1 text-grayText1 py-1 px-8 rounded-md border-2 shadow-md hover:scale-95 transition-all duration-500"
+          innerText={t('userOrder6')}
+          onClick={handleModalClose2}
+        />
       </Modal>
     </>
   )
 }
-export default AdminOrderHistory
+export default AdminOrder

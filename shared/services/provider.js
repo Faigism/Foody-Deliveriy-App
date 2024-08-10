@@ -28,6 +28,7 @@ const Provider = ({ children }) => {
   const [checkout, setCheckout] = useState(false)
   const [orderData, setOrderData] = useState([])
   const [orderForShow, setOrderForShow] = useState([])
+  const [history, setHistory] = useState([])
 
   const getProductsInBasket = async () => {
     const response = await getProductForBasket()
@@ -83,6 +84,8 @@ const Provider = ({ children }) => {
     orderData,
     setOrderForShow,
     orderForShow,
+    setHistory,
+    history,
     addProductToBasket,
     getProductsInBasket,
     deleteFromBasket,
