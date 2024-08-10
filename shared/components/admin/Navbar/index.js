@@ -13,7 +13,7 @@ const Navbar = ({ adminNavbar }) => {
   const { t } = useTranslation()
   const navigate = useRouter()
 
-  const { products, setProducts } = useGlobalStore()
+  const { products, setProducts, setRefresh, refresh } = useGlobalStore()
   const [isActiveName, setIsActiveName] = useState('')
   const [isHiddenModal, setIsHiddenModal] = useState(true)
   const [isModalOpen, setModalOpen] = useState(false)
@@ -70,6 +70,7 @@ const Navbar = ({ adminNavbar }) => {
       if (response?.status === 201) {
         setProducts((prev) => [...prev, prValue])
         toast.success('Product added successfully...')
+        setRefresh(!refresh);
 
         if (addProductName.current) addProductName.current.value = ''
         if (addProductPrice.current) addProductPrice.current.value = ''

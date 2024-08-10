@@ -12,12 +12,14 @@ import {
 } from '../../../../services/axios'
 import AdminLeftModal from '../../adminLeftModal'
 import { deleteRestaurantById } from '../../../../services/axios'
+import { toast } from 'react-toastify'
 
 
 const RestaurantCard = ({ restaurant, categoryName }) => {
   const [activateModal, setActivateModal] = useState(false)
   const [restaurantId, setRestaurantId] = useState('')
   const [categoriesModal, setCategoriesModal] = useState([])
+  const [openModal, setOpenModal] = useState(false)
 
   const { t } = useTranslation()
   const [restaurants, setRestaurants] = useState([])
@@ -147,6 +149,15 @@ const RestaurantCard = ({ restaurant, categoryName }) => {
   //           }}
   //         />
 
+  const deleteRestaurant = async (id) => {
+    const response = await deleteRestaurantById(id);
+    if (response.status == 204) {
+      toast.success("Restaurant successfully deleted")
+    } else {
+      toast.error(response.statusText)
+    }
+  }
+
   return (
     <>
       <AdminLeftModal
@@ -170,16 +181,14 @@ const RestaurantCard = ({ restaurant, categoryName }) => {
       />
       <div className={styles.card}>
         <div className={styles.restaurantInfo}>
-          <div>
+          <div className={styles.images}>
             <img
               src={restaurant.img_url}
               alt="restaurant logo"
-              width={100}
-              height={57}
-              quality={100}
+              className={styles.restaurantCardImage}
             />
           </div>
-          <div>
+          <div className='w-[120px]'>
             <div className={styles.restaurantName}>{restaurant.name}</div>
             <div className={styles.category}>{categoryName}</div>
           </div>
@@ -191,6 +200,7 @@ const RestaurantCard = ({ restaurant, categoryName }) => {
               style={{ color: '#EB5757' }}
               onClick={() => {
                 setActivateModal(true)
+                setOpenModal(!openModal)
                 setRestaurantId(restaurant.id)
               }}
             />
@@ -202,7 +212,7 @@ const RestaurantCard = ({ restaurant, categoryName }) => {
             <BorderColorIcon style={{ color: '#00B2A9' }} />
           </div>
         </div>
-        {activateModal && <TransitionsModal id={restaurantId} />}
+        {activateModal && <TransitionsModal id={restaurantId} deleteItem={deleteRestaurant} openModal={openModal} />}
       </div>
     </>
   )
