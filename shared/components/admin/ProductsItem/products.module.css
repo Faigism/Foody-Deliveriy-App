@@ -4,3 +4,13 @@
     flex-wrap: wrap;
     gap: 60px;
 }
+
+@media screen and (max-width: 1540px) {
+
+    .products {
+        margin-top: 50px;
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 105px;
+    }
+}

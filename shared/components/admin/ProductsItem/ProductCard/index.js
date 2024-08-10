@@ -5,11 +5,13 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 import TransitionsModal from '../../TransitionsModal'
 import { deleteProductById, getRestaurantById } from '../../../../services/axios'
+import { toast } from 'react-toastify'
 
 const ProductCard = ({ product, restaurant }) => {
   const [activateModal, setActivateModal] = useState(false)
   const [openModal, setOpenModal] = useState(false)
   const [restaurantName, setRestaurantName] = useState("")
+  const [productId, setProductId] = useState('')
 
   const getRestaurantName = async () => {
     const response = await getRestaurantById(product.rest_id);
@@ -18,6 +20,11 @@ const ProductCard = ({ product, restaurant }) => {
 
   const deleteProduct = async (id) => {
     const response = await deleteProductById(id);
+    if (response.status == 204) {
+      toast.success("Product successfully deleted")
+    } else {
+      toast.error(response.statusText)
+    }
   }
 
   useEffect(() => {
@@ -49,13 +56,14 @@ const ProductCard = ({ product, restaurant }) => {
                 onClick={() => {
                   setActivateModal(true)
                   setOpenModal(!openModal)
+                  setProductId(product.id)
                 }}
               />
             </div>
           </div>
         </div>
         <div className='absolute'>
-          {activateModal && <TransitionsModal id={product.id} deleteItem={deleteProduct} openModal={openModal} />}
+          {activateModal && <TransitionsModal id={productId} deleteItem={deleteProduct} openModal={openModal} />}
         </div>
       </div>
     </div>

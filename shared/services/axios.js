@@ -343,17 +343,27 @@ export const deleteOrder = async (id) => {
 }
 
 // admin products
+// export async function deleteProductById(id) {
+//   try {
+//     let item = localStorage.getItem('userInfo')
+//     let accessToken = JSON.parse(item)
+//     const token = accessToken.access_token
+//     const response = await instanceAxios.delete(`/products/${id}`, {
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     })
+
+//     return response
+//   } catch (err) {
+//     console.log(err)
+//   }
+// }
+
 export async function deleteProductById(id) {
   try {
-    let item = localStorage.getItem('userInfo')
-    let accessToken = JSON.parse(item)
-    const token = accessToken.access_token
     const response = await instanceAxios.delete(`/products/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
     })
-
     return response
   } catch (err) {
     console.log(err)

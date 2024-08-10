@@ -33,6 +33,8 @@ const Restaurants = () => {
     showAllRestaurants()
   }, [refresh])
 
+  console.log(refresh)
+
   const getRestaurantsByCategory = async (categoryId) => {
     const response = await getCategoryById(categoryId)
     setCategoryName(response.data.result.data.name)
@@ -144,11 +146,11 @@ const Restaurants = () => {
           changeHidden()
         }, 500)
 
-        toast.success('Category created successfully!')
+        toast.success('Restaurant created successfully!')
       }
     } catch (error) {
       console.error('Error adding category:', error)
-      toast.error('An error occurred while adding the category.')
+      toast.error('An error occurred while adding the restaurant.')
     }
   }
 

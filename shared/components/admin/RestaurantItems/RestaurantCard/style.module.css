@@ -22,13 +22,14 @@
     margin-left: 5px;
 }
 
-.image {
-    width: 130px;
+.images {
+    width: 100px;
+    height: 100px;
 }
 
 .restaurantCardImage {
     width: 100%;
-    height: 97px;
+    height: 100%;
     object-fit: cover;
 }
 
@@ -37,6 +38,8 @@
     font-weight: 500;
     letter-spacing: 0.01em;
     color: #1E1E30;
+
+    word-wrap: break-word;
 }
 
 .category {
@@ -53,10 +56,11 @@
     transition: ease-in-out 333ms;
 }
 
-@media screen and (max-width: 1510px) {
+@media screen and (max-width: 1540px) {
 
-    .image {
-        width: 90px;
+    .images {
+        width: 80px;
+        height: 80px;
     }
 
     .restaurantName {
