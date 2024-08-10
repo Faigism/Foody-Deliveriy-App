@@ -4,8 +4,8 @@ import Button from '../button'
 import OrderTableDetail from '../orderTableDetail'
 import { useEffect, useState } from 'react'
 import { useGlobalStore } from '../../../services/provider'
-import { deleteOrder } from '../../../services/axios'
 import { toast } from 'react-toastify'
+import { getFirestore, doc, deleteDoc } from 'firebase/firestore'
 
 const TableData = ({ id, time, address, amount, payment, contact }) => {
   const { t } = useTranslation()
@@ -29,13 +29,18 @@ const TableData = ({ id, time, address, amount, payment, contact }) => {
     }
   }, [showPopup])
 
-  const inDeleteOrder = async () => {
-    const response = await deleteOrder(id)
-    if (response?.status == 204) {
-      let newData = orderData.filter((item) => item.id !== id)
+  const inDeleteOrder = async (id) => {
+    try {
+      const db = getFirestore()
+      const orderDoc = doc(db, 'order', id)
+      await deleteDoc(orderDoc)
+      let filteredOrder = orderData.filter((item) => item.id !== id)
+      setOrderData(filteredOrder)
       toast.success('Your order has been successfully deleted')
-      setOrderData(newData)
       handleModalClose()
+    } catch (error) {
+      console.error(error)
+      toast.error('Failed to delete order.')
     }
   }
 
@@ -154,7 +159,7 @@ const TableData = ({ id, time, address, amount, payment, contact }) => {
             onClick={handleModalClose}
           />
           <Button
-            onClick={inDeleteOrder}
+            onClick={() => inDeleteOrder(id)}
             className="bg-mainRed border-2 text-white py-1 px-8 rounded-md border-mainRed shadow-md hover:scale-95 transition-all duration-500"
             innerText={t('modalDesc4')}
           />

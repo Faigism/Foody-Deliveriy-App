@@ -342,7 +342,6 @@ export const deleteOrder = async (id) => {
   try {
     let item = localStorage.getItem('userInfo')
     let access_token = JSON.parse(item)
-
     const response = await instanceAxios.delete(`/order`, {
       data: {
         order_id: id,
@@ -394,8 +393,7 @@ export const getHistory = async () => {
 
 export async function deleteProductById(id) {
   try {
-    const response = await instanceAxios.delete(`/products/${id}`, {
-    })
+    const response = await instanceAxios.delete(`/products/${id}`, {})
     return response
   } catch (err) {
     console.log(err)

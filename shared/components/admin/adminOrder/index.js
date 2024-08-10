@@ -4,8 +4,7 @@ import Button from '../Button'
 import { useTranslation } from 'react-i18next'
 import { useGlobalStore } from '../../../services/provider'
 import { useState } from 'react'
-import { deleteOrder } from '../../../services/axios'
-import { getFirestore, doc, deleteDoc } from 'firebase/firestore'
+import { getFirestore, doc, deleteDoc, setDoc } from 'firebase/firestore'
 import OrderTableDetail from '../../client/orderTableDetail'
 
 const AdminOrder = ({ data }) => {
@@ -63,16 +62,31 @@ const AdminOrder = ({ data }) => {
   }
 
   const acceptOrderData = async () => {
-    const response = await deleteOrder(data?.id)
+    const { id, ...orderDataWithoutId } = data
+    try {
+      const orderDoc = doc(db, 'order', id)
+      await deleteDoc(orderDoc)
+      const updatedOrderData = {
+        ...orderDataWithoutId,
+        created: Date.now(),
+      }
 
-    if (response?.status === 204) {
-      let filteredOrder = orderData.filter((item) => item.id !== data?.id)
+      const orderHistoryDoc = doc(db, 'order-history', id)
+      await setDoc(orderHistoryDoc, updatedOrderData)
+
+      let filteredOrder = orderData.filter((item) => item.id !== id)
       setOrderData(filteredOrder)
-      toast.success('Order accept successfully!', {
+
+      toast.success('Order accepted successfully!', {
         position: 'top-left',
       })
-      handleAcceptClose()
+    } catch (error) {
+      console.error(error)
+      toast.error('Failed to accept order.', {
+        position: 'top-left',
+      })
     }
+    handleAcceptClose()
   }
 
   const formatDate = (timestamp) => {

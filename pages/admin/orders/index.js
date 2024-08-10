@@ -58,8 +58,8 @@ const Orders = () => {
                 </tr>
               </thead>
               <tbody>
-                {orderData?.map((data) => (
-                  <AdminOrder data={data} />
+                {orderData?.map((data, index) => (
+                  <AdminOrder data={data} key={index} />
                 ))}
               </tbody>
             </table>

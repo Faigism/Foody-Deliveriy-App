@@ -4,12 +4,14 @@ import Button from '../Button'
 import { useTranslation } from 'react-i18next'
 import { useGlobalStore } from '../../../services/provider'
 import { useState } from 'react'
-import { deleteOrder } from '../../../services/axios'
+import { deleteDoc, doc, getFirestore } from 'firebase/firestore'
 
 const AdminOrderHistory = ({ data }) => {
   const { t } = useTranslation()
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const { orderData, setOrderData } = useGlobalStore()
+  const { history, setHistory } = useGlobalStore()
+
+  console.log(data)
 
   const handleButtonClick = () => {
     setIsModalOpen(true)
@@ -19,13 +21,21 @@ const AdminOrderHistory = ({ data }) => {
     setIsModalOpen(false)
   }
 
-  const deleteOrderData = async () => {
-    const response = await deleteOrder(data?.id)
+  const db = getFirestore()
 
-    if (response?.status === 204) {
-      let filteredOrder = orderData.filter((item) => item.id !== data?.id)
-      setOrderData(filteredOrder)
+  const deleteOrderData = async (orderId) => {
+    try {
+      const orderDoc = doc(db, 'order-history', orderId)
+      await deleteDoc(orderDoc)
       toast.success('Order deleted successfully!', {
+        position: 'top-left',
+      })
+      let filteredOrder = history.filter((item) => item.id !== orderId)
+      setHistory(filteredOrder)
+      handleModalClose()
+    } catch (error) {
+      console.log(error)
+      toast.error('Failed to delete order.', {
         position: 'top-left',
       })
       handleModalClose()
@@ -147,7 +157,7 @@ const AdminOrderHistory = ({ data }) => {
           <Button
             className="bg-mainRed border-2 text-white py-1 px-8 rounded-md border-mainRed shadow-md hover:scale-95 transition-all duration-500"
             innerText={t('modalDesc4')}
-            onClick={deleteOrderData}
+            onClick={() => deleteOrderData(data.id)}
           />
         </div>
       </Modal>
