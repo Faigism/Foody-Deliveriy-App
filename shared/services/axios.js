@@ -166,6 +166,17 @@ export const postOffer = async (data) => {
   }
 }
 
+export async function deleteOfferById(id) {
+  try {
+    const response = await instanceAxios.delete(`/offer/${id}`, {
+    })
+    return response
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+
 export const getEditOffer = async (id) => {
   try {
     const response = await instanceAxios.get(`/offer/${id}`)

@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
-import { getEditOffer, getOffer } from '../../../services/axios'
+import { deleteOfferById, getEditOffer, getOffer } from '../../../services/axios'
 import AdminLeftModal from '../adminLeftModal'
 import { useGlobalStore } from '../../../services/provider'
 import Modal from '../Modal'
 import Button from '../Button'
 import { useTranslation } from 'react-i18next'
 import Image from 'next/image'
+import { toast } from 'react-toastify'
 
 const AdminOffer = ({ item }) => {
   const { t } = useTranslation()
@@ -53,6 +54,18 @@ const AdminOffer = ({ item }) => {
         imgRef.current.src = currentData?.img_url || ''
       }
     }
+  }
+
+  const { refresh, setRefresh } = useGlobalStore()
+
+  const deleteOffer = async (id) => {
+    const response = await deleteOfferById(id);
+    if (response?.status === 204) {
+      toast.success("Offer successfully deleted")
+      setIsModalOpen(false)
+      setRefresh(!refresh)
+    }
+
   }
   return (
     <>
@@ -127,7 +140,7 @@ const AdminOffer = ({ item }) => {
           <Button
             className="bg-mainRed border-2 text-white py-1 px-8 rounded-md border-mainRed shadow-md hover:scale-95 transition-all duration-500"
             innerText={t('modalDesc4')}
-          // onClick={removeOffer}
+            onClick={() => { deleteOffer(activeId) }}
           />
         </div>
       </Modal>
