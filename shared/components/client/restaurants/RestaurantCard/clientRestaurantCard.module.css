@@ -8,6 +8,23 @@
     justify-content: space-between;
     align-items: center;
     padding-top: 5px;
+    position: relative;
+}
+
+.newRestaurant {
+    position: absolute;
+    width: 53px;
+    height: 27px;
+    top: 0px;
+    right: 197px;
+    background: #D63626;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 14.06px;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .card img {
@@ -20,6 +37,14 @@
     cursor: pointer;
     transform: scale(0.98);
     transition: 333ms;
+}
+
+.restaurantInfo {
+    word-break: keep-all;
+    word-wrap: break-word;
+    height: 110px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .heading {
@@ -42,7 +67,10 @@
     font-weight: 700;
     letter-spacing: 0.03em;
     color: #4F4F4F;
-
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100px;
 }
 
 .time {
@@ -57,6 +85,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 @media screen and (max-width: 1600px) {
@@ -64,6 +95,10 @@
         width: 200px;
         height: 300.27px;
         padding-top: 5px;
+    }
+
+    .restaurantInfo {
+        height: 90px;
     }
 
     .card img {
@@ -88,5 +123,10 @@
         width: 58px;
         height: 25.38px;
         font-size: 13px;
+    }
+
+    .newRestaurant {
+        top: 0px;
+        right: 147px;
     }
 }

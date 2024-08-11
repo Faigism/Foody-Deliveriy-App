@@ -8,9 +8,6 @@ import Image from 'next/image'
 
 const RestaurantBasket = () => {
   const { itemCount, selectedProducts, setTotalPrice } = useGlobalStore()
-  // useEffect(() => {
-  //     setTotalPrice(0)
-  // }, [])
   return (
     <div className="h-full">
       <RestaurantBasketLayout>
