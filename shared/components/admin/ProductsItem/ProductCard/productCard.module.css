@@ -58,3 +58,10 @@
         width: 216px;
     }
 }
+
+@media screen and (max-width: 1440px) {
+
+    .productCard {
+        width: 196px;
+    }
+}

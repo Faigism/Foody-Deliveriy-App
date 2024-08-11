@@ -55,3 +55,14 @@
         height: 125px;
     }
 }
+
+@media screen and (max-width: 1440px) {
+
+    .restaurants {
+        gap: 50px;
+    }
+
+    .allCards {
+        width: 233px;
+    }
+}

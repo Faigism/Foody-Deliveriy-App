@@ -14,3 +14,10 @@
         column-gap: 105px;
     }
 }
+
+@media screen and (max-width: 1440px) {
+
+    .products {
+        column-gap: 95px;
+    }
+}

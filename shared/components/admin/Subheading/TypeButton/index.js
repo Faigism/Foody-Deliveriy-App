@@ -3,10 +3,12 @@
 import React, { useState } from 'react'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import styles from './typeButton.module.css'
+import { useGlobalStore } from '../../../../services/provider'
 
 const TypeButton = ({ text, states, handleClick, handleSearchByType }) => {
   const [searchText, setSearchText] = useState('')
   const [popUp, setPopUp] = useState(false)
+  const { refresh, setRefresh } = useGlobalStore()
 
   return (
     <div style={{ position: 'relative' }}>
@@ -30,20 +32,32 @@ const TypeButton = ({ text, states, handleClick, handleSearchByType }) => {
         style={{ position: 'absolute', zIndex: '10' }}
         className='flex flex-col rounded-[14px] bg-white mt-1 pt-1 overflow-x-hidden overflow-y-auto h-[300px]'
       >
-        {popUp &&
-          states?.map((state, index) => (
-            <button
-              key={index}
-              className='bg-white rounded-[14px] w-[190px] p-2 hover:bg-grayText'
+        {popUp && (
+          <>
+            <button className='bg-white rounded-[14px] w-[190px] p-2 hover:bg-grayText font-bold'
               onClick={() => {
-                handleSearchByType(state.id)
-                setSearchText(state.name)
-                setPopUp(false)
+                setPopUp(false);
+                setSearchText(text + " type");
+                setRefresh(!refresh)
               }}
             >
-              {state.name}
+              All
             </button>
-          ))}
+            {states?.map((state, index) => (
+              <button
+                key={index}
+                className='bg-white rounded-[14px] w-[190px] p-2 hover:bg-grayText'
+                onClick={() => {
+                  handleSearchByType(state.id);
+                  setSearchText(state.name);
+                  setPopUp(false);
+                }}
+              >
+                {state.name}
+              </button>
+            ))}
+          </>
+        )}
       </div>
     </div>
   )
