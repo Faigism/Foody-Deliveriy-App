@@ -57,8 +57,9 @@ const AdminLeftModal = ({
 
   return (
     <div
-      className={` fixed  z-10  w-full sm:w-3/4 sm:pl-12 ${hidden ? '  -right-full' : 'right-0'
-        } transition-all duration-500 top-0 h-screen`}
+      className={` fixed  z-10  w-full sm:w-3/4 sm:pl-12 ${
+        hidden ? '  -right-full' : 'right-0'
+      } transition-all duration-500 top-0 h-screen`}
     >
       <button
         onClick={onClickClose}
@@ -77,8 +78,9 @@ const AdminLeftModal = ({
             </p>
             <img
               ref={imgRef}
-              src={`${imgOnload ? '/loadingImg.jpg' : imgUrl ? imgUrl : '/noimg.png'
-                }`}
+              src={`${
+                imgOnload ? '/loadingImg.jpg' : imgUrl ? imgUrl : '/noimg.png'
+              }`}
               width={124}
               height={124}
               alt="img"

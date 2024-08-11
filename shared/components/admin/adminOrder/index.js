@@ -204,10 +204,10 @@ const AdminOrder = ({ data }) => {
         </td>
       </tr>{' '}
       <Modal isOpen={isModalOpen} onClose={handleModalClose}>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center relative">
           <p className="mx-auto text-3xl font-medium">{t('modalDesc')}</p>
           <Button
-            className="text-mainRed text-lg"
+            className="text-mainRed text-lg absolute -top-7 -right-5"
             innerText="&#10006;"
             onClick={handleModalClose}
           />
@@ -230,12 +230,12 @@ const AdminOrder = ({ data }) => {
       </Modal>
       {isAcceptModalOpen ? (
         <Modal isOpen={isAcceptModalOpen} onClose={handleAcceptClose}>
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center relative">
             <p className="mx-auto text-3xl font-medium">
               {t('modalDescAccept')}
             </p>
             <Button
-              className="text-mainRed text-lg"
+              className="text-mainRed text-lg absolute -top-7 -right-5"
               innerText="&#10006;"
               onClick={handleAcceptClose}
             />

@@ -14,8 +14,8 @@ import { useGlobalStore } from '../../../shared/services/provider'
 const Products = () => {
   const [restaurants, setRestaurants] = useState([])
   const [restaurant, setRestaurant] = useState()
-  const [products, setProducts] = useState([])
-  const { refresh } = useGlobalStore();
+  const { products, setProducts } = useGlobalStore()
+  const { refresh } = useGlobalStore()
 
   const getAllRestaurants = async () => {
     const allRestaurantsData = await getRestaurants()
@@ -31,9 +31,19 @@ const Products = () => {
   }
 
   const getAllProducts = async () => {
-    const response = await getProducts();
+    const response = await getProducts()
     setProducts(response.data.result.data)
   }
+
+  const renderRestaurants = async () => {
+    const res = await getRestaurants()
+    let item = res?.data.result.data.map((i) => i.name)
+    setRestaurants(item)
+  }
+
+  useEffect(() => {
+    renderRestaurants()
+  }, [])
 
   useEffect(() => {
     getAllProducts()

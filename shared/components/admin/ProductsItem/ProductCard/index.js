@@ -4,31 +4,34 @@ import styles from './productCard.module.css'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 import TransitionsModal from '../../TransitionsModal'
-import { deleteProductById, getRestaurantById } from '../../../../services/axios'
+import {
+  deleteProductById,
+  getRestaurantById,
+} from '../../../../services/axios'
 import { toast } from 'react-toastify'
 
 const ProductCard = ({ product, restaurant }) => {
   const [activateModal, setActivateModal] = useState(false)
   const [openModal, setOpenModal] = useState(false)
-  const [restaurantName, setRestaurantName] = useState("")
+  const [restaurantName, setRestaurantName] = useState('')
   const [productId, setProductId] = useState('')
 
   const getRestaurantName = async () => {
-    const response = await getRestaurantById(product.rest_id);
+    const response = await getRestaurantById(product.rest_id)
     setRestaurantName(response.name)
   }
 
   const deleteProduct = async (id) => {
-    const response = await deleteProductById(id);
+    const response = await deleteProductById(id)
     if (response.status == 204) {
-      toast.success("Product successfully deleted")
+      toast.success('Product successfully deleted')
     } else {
       toast.error(response.statusText)
     }
   }
 
   useEffect(() => {
-    getRestaurantName();
+    getRestaurantName()
   }, [])
 
   return (
@@ -41,7 +44,9 @@ const ProductCard = ({ product, restaurant }) => {
             style={{ width: '160px', height: '130px' }}
           />
           <div className={styles.productName}>{product.name}</div>
-          <div className={styles.restaurantName}>{restaurant ? restaurant?.name : restaurantName}</div>
+          <div className={styles.restaurantName}>
+            {restaurant ? restaurant?.name : restaurantName}
+          </div>
         </div>
 
         <div className="flex justify-between">
@@ -62,8 +67,14 @@ const ProductCard = ({ product, restaurant }) => {
             </div>
           </div>
         </div>
-        <div className='absolute'>
-          {activateModal && <TransitionsModal id={productId} deleteItem={deleteProduct} openModal={openModal} />}
+        <div className="absolute">
+          {activateModal && (
+            <TransitionsModal
+              id={productId}
+              deleteItem={deleteProduct}
+              openModal={openModal}
+            />
+          )}
         </div>
       </div>
     </div>

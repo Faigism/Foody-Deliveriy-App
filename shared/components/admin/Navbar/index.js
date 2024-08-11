@@ -44,6 +44,7 @@ const Navbar = ({ adminNavbar }) => {
     const productPrice = addProductPrice.current?.value
     const productDesc = addProductDesc.current?.value
     const productRestaurant = addProductRestaurant.current?.value
+
     if (
       !productName &&
       !productPrice &&
@@ -70,7 +71,7 @@ const Navbar = ({ adminNavbar }) => {
       if (response?.status === 201) {
         setProducts((prev) => [...prev, prValue])
         toast.success('Product added successfully...')
-        setRefresh(!refresh);
+        setRefresh(!refresh)
 
         if (addProductName.current) addProductName.current.value = ''
         if (addProductPrice.current) addProductPrice.current.value = ''
