@@ -168,6 +168,7 @@ const ProductCard = ({ prd }) => {
               src={prd.img_url}
               alt="product image"
               style={{ width: '160px', height: '130px' }}
+              className="object-cover"
             />
             <div className={styles.productName}>{prd.name}</div>
             <div className={styles.restaurantName}>{prd.rest_id}</div>

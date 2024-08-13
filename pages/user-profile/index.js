@@ -144,10 +144,7 @@ const UserProfile = () => {
           {loading ? (
             <section className="m-4 sm:m-8 flex justify-center gap-10">
               <UserAside />
-              <div
-                data-aos="fade-left"
-                className="w-full flex  flex-col  sm:px-8 sm:py-10 flex-wrap gap-x-1 gap-y-8 bg-white sm:bg-whiteLight1"
-              >
+              <div className="w-full flex  flex-col  sm:px-8 sm:py-10 flex-wrap gap-x-1 gap-y-8 bg-white sm:bg-whiteLight1">
                 <h2 className=" font-semibold text-3xl text-grayText2">
                   {t('userDesc')}
                 </h2>
@@ -175,7 +172,7 @@ const UserProfile = () => {
                     />
                   </div>
                 </label>
-                <div className=" sm:m-10 flex flex-wrap justify-between gap-4  ">
+                <div className=" sm:m-10 flex flex-wrap justify-center gap-4  ">
                   <div className="">
                     <label>{t('userProfileContact')}</label>
                     <br />

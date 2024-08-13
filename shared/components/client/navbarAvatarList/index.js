@@ -10,7 +10,7 @@ const NavbarAvatarList = () => {
   }
 
   return (
-    <ul className="absolute top-12 w-[160px] bg-whiteLight1 z-50 hidden sm:flex flex-col gap-1 p-4 shadow-xl rounded-md">
+    <ul className="absolute top-12 w-[160px] bg-whiteLight1 z-50 sm:flex flex-col gap-1 p-4 shadow-xl rounded-md">
       <li
         onClick={() => {
           navigate.push('/user-profile')

@@ -24,7 +24,6 @@ const NavbarAvatar = ({ isName, userPhoto }) => {
   return (
     <div className="flex items-center gap-7 relative">
       <Languages />
-
       <div className="relative">
         <Image
           className="cursor-pointer hover:scale-95 transition-all duration-500"
