@@ -29,10 +29,10 @@ const Restaurants = () => {
     const allRestaurants = await getRestaurants()
     const restaurants = allRestaurants?.data.result.data
     setRestaurants(restaurants)
+    setLoading(false)
   }
   useEffect(() => {
     showAllRestaurants()
-    setLoading(false)
   }, [refresh])
 
   const getRestaurantsByCategory = async (categoryId) => {
@@ -73,14 +73,15 @@ const Restaurants = () => {
       const response = await getCategoriesFromDB()
       let items = response.map((item) => item.name)
       setCategoriesModal(items)
+      setLoading(false)
     } catch (error) {
       console.log(error)
+      setLoading(false)
     }
   }
 
   useEffect(() => {
     fetchCategory()
-    setLoading(false)
   }, [])
 
   const addRestaurants = async () => {
