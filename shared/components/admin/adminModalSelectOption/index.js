@@ -9,7 +9,7 @@ const AdminModalSelectOption = ({ p, arr, useRef, className }) => {
         <option value="" disabled>
           {t('adminModalSelectChoose')}
         </option>
-        <option value="all">All</option>
+        {/* <option value="all">All</option> */}
         {arr
           ? arr?.map((item, index) => (
               <option key={index} value={item}>

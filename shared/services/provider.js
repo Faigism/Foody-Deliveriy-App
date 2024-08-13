@@ -18,6 +18,7 @@ const Provider = ({ children }) => {
   const [categoryData, setCategoryData] = useState([])
   const [offerData, setOfferData] = useState([])
   const [filteredRestaurants, setFilteredRestaurants] = useState([])
+  const [restaurants, setRestaurants] = useState([])
   const [itemCount, setItemCount] = useState(0)
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [selectedProducts, setSelectedProducts] = useState([])
@@ -86,6 +87,8 @@ const Provider = ({ children }) => {
     orderForShow,
     setHistory,
     history,
+    setRestaurants,
+    restaurants,
     addProductToBasket,
     getProductsInBasket,
     deleteFromBasket,

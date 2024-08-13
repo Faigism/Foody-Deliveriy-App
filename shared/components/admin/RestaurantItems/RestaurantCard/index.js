@@ -1,28 +1,29 @@
 'use client'
 
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from './style.module.css'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 import TransitionsModal from '../../TransitionsModal'
 import { useTranslation } from 'react-i18next'
 import {
+  getCategoriesFromDB,
   getEditRestaurants,
   updateRestaurants,
 } from '../../../../services/axios'
 import AdminLeftModal from '../../adminLeftModal'
 import { deleteRestaurantById } from '../../../../services/axios'
 import { toast } from 'react-toastify'
+import { useGlobalStore } from '../../../../services/provider'
 
-
-const RestaurantCard = ({ restaurant, categoryName }) => {
+const RestaurantCard = ({ restaurant }) => {
   const [activateModal, setActivateModal] = useState(false)
   const [restaurantId, setRestaurantId] = useState('')
   const [categoriesModal, setCategoriesModal] = useState([])
   const [openModal, setOpenModal] = useState(false)
 
   const { t } = useTranslation()
-  const [restaurants, setRestaurants] = useState([])
+  const { restaurants, setRestaurants } = useGlobalStore()
 
   const [activeId, setActiveId] = useState('')
   const [isHiddenModal, setIsHiddenModal] = useState(true)
@@ -47,6 +48,7 @@ const RestaurantCard = ({ restaurant, categoryName }) => {
   const handleAddNewImage = (image_url) => {
     setImage(image_url)
   }
+
   function changeHidden() {
     setIsHiddenModal((prev) => !prev)
   }
@@ -90,6 +92,24 @@ const RestaurantCard = ({ restaurant, categoryName }) => {
     const resCategoryId = addRestaurantCategory?.current?.value
     const resImgRef = img?.current?.src
 
+    if (
+      !isInputValid(
+        resName,
+        resCuisine,
+        resDeliveryPrice,
+        resDeliveryMin,
+        resAddress,
+        resCategoryId,
+        resImgRef
+      )
+    ) {
+      toast.dismiss()
+      toast.warning('Please fill all the inputs!', {
+        position: 'top-left',
+      })
+      return
+    }
+
     const form = {
       name: resName,
       cuisine: resCuisine,
@@ -118,23 +138,57 @@ const RestaurantCard = ({ restaurant, categoryName }) => {
     }
   }
 
+  function isInputValid(
+    resName,
+    resCuisine,
+    resDeliveryPrice,
+    resDeliveryMin,
+    resAddress,
+    resCategoryId,
+    resImgRef
+  ) {
+    return (
+      !!resName &&
+      !!resCategoryId &&
+      !!resImgRef &&
+      !!resAddress &&
+      !!resCuisine &&
+      !!resDeliveryMin &&
+      !!resDeliveryPrice
+    )
+  }
+
   const deleteRestaurant = async (id) => {
-    const response = await deleteRestaurantById(id);
+    const response = await deleteRestaurantById(id)
     if (response.status == 204) {
-      toast.success("Restaurant successfully deleted")
+      toast.success('Restaurant successfully deleted')
     } else {
       toast.error(response.statusText)
     }
   }
+
+  const fetchCategory = async () => {
+    try {
+      const response = await getCategoriesFromDB()
+      let items = response.map((item) => item.name)
+      setCategoriesModal(items)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchCategory()
+  }, [])
 
   return (
     <>
       <AdminLeftModal
         onClickClose={changeHidden}
         createOnClick={UpdateRestaurants}
-        p={t('resAdd')}
+        p="Edit Restaurant"
         p1={t('adminModalUploadImage')}
-        p2={t('adminModalRestaurantInformation')}
+        p2="Edit your restaurant information"
         hidden={isHiddenModal}
         imageUrl={handleAddNewImage}
         getImgUrl={handleAddNewImage}
@@ -144,7 +198,7 @@ const RestaurantCard = ({ restaurant, categoryName }) => {
         addRestaurantDeliveryPrice={addRestaurantDeliveryPrice}
         addRestaurantDeliveryMin={addRestaurantDeliveryMin}
         addRestaurantAddress={addRestaurantAddress}
-        btn={t('resCreate')}
+        btn="Edit Restaurant"
         cateArr={categoriesModal}
         addRestaurantCategory={addRestaurantCategory}
       />
@@ -157,9 +211,9 @@ const RestaurantCard = ({ restaurant, categoryName }) => {
               className={styles.restaurantCardImage}
             />
           </div>
-          <div className='xxl:w-[120px] w-[100px]'>
+          <div className="xxl:w-[120px] w-[100px]">
             <div className={styles.restaurantName}>{restaurant.name}</div>
-            <div className={styles.category}>{categoryName}</div>
+            <div className={styles.category}>{restaurant.category_id}</div>
           </div>
         </div>
 
@@ -181,7 +235,13 @@ const RestaurantCard = ({ restaurant, categoryName }) => {
             <BorderColorIcon style={{ color: '#00B2A9' }} />
           </div>
         </div>
-        {activateModal && <TransitionsModal id={restaurantId} deleteItem={deleteRestaurant} openModal={openModal} />}
+        {activateModal && (
+          <TransitionsModal
+            id={restaurantId}
+            deleteItem={deleteRestaurant}
+            openModal={openModal}
+          />
+        )}
       </div>
     </>
   )

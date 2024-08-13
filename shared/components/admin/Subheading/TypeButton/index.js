@@ -30,14 +30,15 @@ const TypeButton = ({ text, states, handleClick, handleSearchByType }) => {
       </button>
       <div
         style={{ position: 'absolute', zIndex: '10' }}
-        className='flex flex-col rounded-[14px] bg-white mt-1 pt-1 overflow-x-hidden overflow-y-auto h-[300px]'
+        className="flex flex-col rounded-[14px] bg-white mt-1 pt-1 overflow-x-hidden overflow-y-auto h-[300px]"
       >
         {popUp && (
           <>
-            <button className='bg-white rounded-[14px] w-[190px] p-2 hover:bg-grayText font-bold'
+            <button
+              className="bg-white rounded-[14px] w-[190px] p-2 hover:bg-grayText font-bold"
               onClick={() => {
-                setPopUp(false);
-                setSearchText(text + " type");
+                setPopUp(false)
+                setSearchText(text + ' type')
                 setRefresh(!refresh)
               }}
             >
@@ -46,11 +47,11 @@ const TypeButton = ({ text, states, handleClick, handleSearchByType }) => {
             {states?.map((state, index) => (
               <button
                 key={index}
-                className='bg-white rounded-[14px] w-[190px] p-2 hover:bg-grayText'
+                className="bg-white rounded-[14px] w-[190px] p-2 hover:bg-grayText"
                 onClick={() => {
-                  handleSearchByType(state.id);
-                  setSearchText(state.name);
-                  setPopUp(false);
+                  handleSearchByType(state.name)
+                  setSearchText(state.name)
+                  setPopUp(false)
                 }}
               >
                 {state.name}

@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
 import { useEffect, useRef, useState } from 'react'
@@ -28,18 +28,23 @@ const Login = () => {
     const username = usernameRef?.current.value
     const password = passwordRef?.current.value
     if (!username || !password) {
+      toast.dismiss()
       toast.warning('Please fill in all fields!')
       setIsLoading(false)
       return
     }
     if (username === 'admin' && password === 'admin') {
-      toast.success('Login Successfully')
+      toast.dismiss()
+      toast.success('Login Successfully', {
+        autoClose: 1000,
+      })
       localStorage.setItem('localAdmin', username)
       usernameRef.current.value = ''
       passwordRef.current.value = ''
       router.push('/admin/dashboard')
       return
     } else {
+      toast.dismiss()
       toast.error('Username or password is incorrect!')
       usernameRef.current.value = ''
       passwordRef.current.value = ''
@@ -55,8 +60,7 @@ const Login = () => {
         <link rel="icon" href="/admin-icon.png" />
       </Head>
       <div>
-        <ToastContainer />
-        <header className="  mb-20  md:mb-44 pt-14  pl-8 ">
+        <header className="mb-4 pt-14  pl-8 ">
           <h1
             style={{ letterSpacing: '0.84px' }}
             className=" text-[#F5F5F5] font-extrabold text-[28px]  "

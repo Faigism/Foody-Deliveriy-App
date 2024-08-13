@@ -8,6 +8,7 @@ const Subheading = ({
   type,
   add,
   state,
+  callBackValue,
   handleClick,
   handleSearchByType,
   changeHidden,
@@ -22,6 +23,7 @@ const Subheading = ({
             states={state}
             handleClick={handleClick}
             handleSearchByType={handleSearchByType}
+            callBackValue={callBackValue}
           />
         )}
         {add && <AddButton text={add} changeHidden={changeHidden} />}

@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import { deleteOfferById, getEditOffer, getOffer } from '../../../services/axios'
+import {
+  deleteOfferById,
+  getEditOffer,
+  getOffer,
+  putOffer,
+} from '../../../services/axios'
 import AdminLeftModal from '../adminLeftModal'
 import { useGlobalStore } from '../../../services/provider'
 import Modal from '../Modal'
@@ -8,49 +13,43 @@ import { useTranslation } from 'react-i18next'
 import Image from 'next/image'
 import { toast } from 'react-toastify'
 
-const AdminOffer = ({ item }) => {
+const AdminOffer = ({ item, setOfferData, offerData }) => {
   const { t } = useTranslation()
   const [isHiddenModal, setIsHiddenModal] = useState(true)
   const [image, setImage] = useState('')
   const imgRef = useRef(null)
   const addTitleRef = useRef(null)
   const addDescRef = useRef(null)
-  // const { offerData, setOfferData } = useGlobalStore()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [activeId, setActiveId] = useState('')
-  // const fetchOfferData = async () => {
-  //   try {
-  //     const res = await getOffer()
-  //     setOfferData(res)
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-  // useEffect(() => {
-  //   fetchOfferData()
-  // }, [])
+
   const handleModalClose = () => {
     setIsModalOpen(false)
   }
+
   const handleButtonClick = (id) => {
     setIsModalOpen(true)
     setActiveId(id)
   }
+
   const handleAddNewImage = (image_url) => {
     setImage(image_url)
   }
+
   function changeHidden() {
     setIsHiddenModal((prev) => !prev)
   }
+
   const handleEditClick = async (id) => {
     setActiveId(id)
     changeHidden()
     const res = await getEditOffer(id)
+
     if (res?.status === 200) {
       const currentData = res?.data.result.data
       if (addTitleRef && addDescRef && imgRef) {
         addTitleRef.current.value = currentData?.name || ''
-        addDescRef.current.value = currentData?.slug || ''
+        addDescRef.current.value = currentData?.description || ''
         imgRef.current.src = currentData?.img_url || ''
       }
     }
@@ -59,25 +58,64 @@ const AdminOffer = ({ item }) => {
   const { refresh, setRefresh } = useGlobalStore()
 
   const deleteOffer = async (id) => {
-    const response = await deleteOfferById(id);
+    const response = await deleteOfferById(id)
     if (response?.status === 204) {
-      toast.success("Offer successfully deleted")
+      toast.success('Offer successfully deleted')
       setIsModalOpen(false)
       setRefresh(!refresh)
     }
-
   }
+
+  const editOffer = async () => {
+    const title = addTitleRef?.current?.value
+    const description = addDescRef?.current?.value
+    const img = imgRef?.current?.src
+
+    const offerValues = {
+      name: title,
+      description,
+      img_url: img,
+    }
+
+    if (!isInputValid(title, description, img)) {
+      toast.warning('Please fill all the inputs!')
+      return
+    }
+
+    const res = await putOffer(activeId, offerValues)
+
+    if (res?.status === 200) {
+      toast.success('Edit was successfully!')
+      const updatedData = offerData.map((item) => {
+        if (item.id === activeId) {
+          return res.data.data
+        }
+        return item
+      })
+      setOfferData(updatedData)
+
+      setTimeout(() => {
+        changeHidden()
+      }, 500)
+    }
+  }
+
+  function isInputValid(title, description, img) {
+    return !!title && !!description && !!img
+  }
+
   return (
     <>
       <AdminLeftModal
-        p="Edit Offer  "
+        p="Edit Offer"
         p1="Upload Image"
         p2="Edit your Offer information"
         btn="Update Offer"
         imageUrl={handleAddNewImage}
+        getImgUrl={handleAddNewImage}
         onClickClose={changeHidden}
         hidden={isHiddenModal}
-        // ButtonOnClick={editOffer}
+        createOnClick={editOffer}
         imgRef={imgRef}
         addProductName={addTitleRef}
         addDescRef={addDescRef}
@@ -95,7 +133,7 @@ const AdminOffer = ({ item }) => {
           />
         </td>
         <td>{item.name}</td>
-        <td className='whitespace-nowrap overflow-ellipsis overflow-hidden max-w-[150px] px-3'>
+        <td className="whitespace-nowrap overflow-ellipsis overflow-hidden max-w-[150px] px-3">
           {/* <p className={`whitespace-nowrap overflow-ellipsis overflow-hidden w-[100px]  bg-grayText2  ${styles.description}`}> */}
           {item.description}
           {/* </p> */}
@@ -106,7 +144,7 @@ const AdminOffer = ({ item }) => {
             height="0"
             src="/adminMarqaritaEditButton.svg"
             alt=""
-            className=" cursor-pointer"
+            className="cursor-pointer"
             onClick={() => handleEditClick(item.id)}
           />
           <Image
@@ -114,7 +152,7 @@ const AdminOffer = ({ item }) => {
             height="0"
             src="/adminMarqaritaDeleteButton.svg"
             alt=""
-            className=" cursor-pointer"
+            className="cursor-pointer"
             onClick={() => handleButtonClick(item.id)}
           />
         </td>
@@ -140,7 +178,9 @@ const AdminOffer = ({ item }) => {
           <Button
             className="bg-mainRed border-2 text-white py-1 px-8 rounded-md border-mainRed shadow-md hover:scale-95 transition-all duration-500"
             innerText={t('modalDesc4')}
-            onClick={() => { deleteOffer(activeId) }}
+            onClick={() => {
+              deleteOffer(activeId)
+            }}
           />
         </div>
       </Modal>

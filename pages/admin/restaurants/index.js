@@ -18,10 +18,11 @@ import { useGlobalStore } from '../../../shared/services/provider'
 
 const Restaurants = () => {
   const { t } = useTranslation()
+  const [loading, setLoading] = useState(true)
   const [categories, setCategories] = useState([])
   const [categoriesModal, setCategoriesModal] = useState([])
   const [categoryName, setCategoryName] = useState('')
-  const [restaurants, setRestaurants] = useState([])
+  const { restaurants, setRestaurants } = useGlobalStore()
   const { refresh } = useGlobalStore()
 
   const showAllRestaurants = async () => {
@@ -31,9 +32,8 @@ const Restaurants = () => {
   }
   useEffect(() => {
     showAllRestaurants()
+    setLoading(false)
   }, [refresh])
-
-  console.log(refresh)
 
   const getRestaurantsByCategory = async (categoryId) => {
     const response = await getCategoryById(categoryId)
@@ -49,12 +49,6 @@ const Restaurants = () => {
   const getCategories = async () => {
     const categories = await getCategoriesFromDB()
     setCategories(categories)
-  }
-
-  const getCategoriesModal = async () => {
-    const categories = await getCategoriesFromDB()
-    const items = categories?.map((item) => item.name)
-    setCategoriesModal(items)
   }
 
   const [isHiddenModal, setIsHiddenModal] = useState(true)
@@ -76,8 +70,9 @@ const Restaurants = () => {
 
   const fetchCategory = async () => {
     try {
-      getCategories()
-      getCategoriesModal()
+      const response = await getCategoriesFromDB()
+      let items = response.map((item) => item.name)
+      setCategoriesModal(items)
     } catch (error) {
       console.log(error)
     }
@@ -85,6 +80,7 @@ const Restaurants = () => {
 
   useEffect(() => {
     fetchCategory()
+    setLoading(false)
   }, [])
 
   const addRestaurants = async () => {
@@ -107,7 +103,10 @@ const Restaurants = () => {
         img
       )
     ) {
-      toast.warning('Please fill all the inputs!')
+      toast.dismiss()
+      toast.warning('Please fill all the inputs!', {
+        position: 'top-left',
+      })
       return
     }
 
@@ -174,6 +173,16 @@ const Restaurants = () => {
     )
   }
 
+  const handleSelectChange = (e) => {
+    const value = e.target.value
+    if (value == 'all') {
+      setRestaurants(restaurants)
+      return
+    }
+    let newValue = restaurants.filter((item) => item?.category_id == value)
+    setRestaurants(newValue)
+  }
+
   return (
     <AuthCheck>
       <AdminLayout>
@@ -200,17 +209,21 @@ const Restaurants = () => {
           text={t('adminLeftBarComponent3')}
           type={'Category'}
           add={t('addRestaurant')}
+          callBackValue={handleSelectChange}
           state={categories}
           handleClick={getCategories}
           handleSearchByType={getRestaurantsByCategory}
           changeHidden={changeHidden}
         />
-        <main style={{ margin: '0 25px 0 50px' }}>
-          <RestaurantItems
-            restaurants={restaurants}
-            categoryName={categoryName}
-          />
-        </main>
+        {!loading ? (
+          <main style={{ margin: '0 25px 0 50px' }}>
+            <RestaurantItems restaurants={restaurants} />
+          </main>
+        ) : (
+          <div className="h-60 flex items-center justify-center">
+            <div className="loading"></div>
+          </div>
+        )}
       </AdminLayout>
     </AuthCheck>
   )

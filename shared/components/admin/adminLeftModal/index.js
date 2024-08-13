@@ -29,6 +29,7 @@ const AdminLeftModal = ({
   addRestaurantDeliveryPrice,
   addRestaurantDeliveryMin,
   addRestaurantAddress,
+  addDescRef,
   cateArr,
   addRestaurantCategory,
 }) => {
@@ -136,6 +137,9 @@ const AdminLeftModal = ({
                   useRef={addProductDesc}
                 />
               )}
+              {addDescRef && (
+                <AdminModalTextArea p="Description" useRef={addDescRef} />
+              )}
               {addProductPrice && (
                 <AdminModalInput
                   p={t('adminModalProductPrice')}
@@ -145,7 +149,7 @@ const AdminLeftModal = ({
               {addProductRestaurant && (
                 <AdminModalSelectOption
                   useRef={addProductRestaurant}
-                  arr={arr}
+                  arr={cateArr}
                   p={t('adminModalProductRestaurants')}
                   className="w-full bg-darkBlue_4 rounded-2xl font-medium text-base text-whiteLight pl-3 py-4"
                 />

@@ -40,6 +40,15 @@ export const updateProduct = async (id, data) => {
   }
 }
 
+export async function deleteProductById(id) {
+  try {
+    const response = await instanceAxios.delete(`/products/${id}`)
+    return response
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 //Restaurants
 export const getRestaurants = async () => {
   try {
@@ -57,15 +66,6 @@ export const getRestaurantById = async (id) => {
     return restaurant
   } catch (error) {
     console.log(error)
-  }
-}
-
-export async function deleteProductById(id) {
-  try {
-    const response = await instanceAxios.delete(`/products/${id}`, {})
-    return response
-  } catch (err) {
-    console.log(err)
   }
 }
 
@@ -202,6 +202,16 @@ export const getEditOffer = async (id) => {
   }
 }
 
+export const putOffer = async (id, offerValues) => {
+  try {
+    const response = await instanceAxios.put(`/offer/${id}`, offerValues)
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+//client login-register
 export const clientRegister = async (form) => {
   try {
     const response = await instanceAxios.post('/auth/signup', form)

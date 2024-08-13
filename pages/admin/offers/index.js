@@ -12,7 +12,7 @@ const Offers = () => {
   const { t } = useTranslation()
   const [isHiddenModal, setIsHiddenModal] = useState(true)
   const [image, setImage] = useState('')
-  const img = useRef(null)
+  const offerImg = useRef(null)
   const addOfferName = useRef(null)
   const addOfferDesc = useRef(null)
   const [loading, setLoading] = useState(true)
@@ -42,32 +42,36 @@ const Offers = () => {
   const addOffer = async () => {
     const offerName = addOfferName?.current?.value
     const offerDesc = addOfferDesc?.current?.value
-    const img = image
 
-    if (offerName.trim().length < 2) {
-      toast.error("Invalid product name")
-    } else if (img == null || img?.trim().length === 0) {
-      toast.error("Invalid image URL")
-    } else if (offerDesc.trim().length < 2) {
-      toast.error("Add description")
+    if (offerName == '' || offerDesc == '' || image == '') {
+      toast.warning('Fill the inputs correctly!', {
+        position: 'top-left',
+      })
     } else {
       const data = {
         name: offerName,
-        img_url: img,
         description: offerDesc,
+        img_url: image,
       }
-      const response = await postOffer(data);
+
+      const response = await postOffer(data)
+
+      const prValue = response?.data
 
       if (response?.status === 201) {
-        toast.success("Offer successfully added")
-        // img.current.value = null;
-        addOfferName.current.value = "";
-        addOfferDesc.current.value = "";
+        setOfferData((prev) => [...prev, prValue])
+
+        toast.success('Offer successfully added')
+        if (offerImg.current) {
+          offerImg.current.src = '/noimg.png'
+          setImage('')
+        }
+        if (addOfferName.current) addOfferName.current.value = ''
+        if (addOfferDesc.current) addOfferDesc.current.value = ''
         setIsHiddenModal(true)
         setRefresh(!refresh)
       }
     }
-
   }
 
   return (
@@ -82,7 +86,7 @@ const Offers = () => {
           hidden={isHiddenModal}
           imageUrl={handleAddNewImage}
           getImgUrl={handleAddNewImage}
-          imgRef={img}
+          imgRef={offerImg}
           addProductName={addOfferName}
           addProductDesc={addOfferDesc}
           btn={t('ofCreate')}
@@ -106,7 +110,12 @@ const Offers = () => {
               </thead>
               <tbody>
                 {(Array.isArray(offerData) ? offerData : []).map((item) => (
-                  <AdminOffer key={item.id} item={item} />
+                  <AdminOffer
+                    key={item.id}
+                    item={item}
+                    setOfferData={setOfferData}
+                    offerData={offerData}
+                  />
                 ))}
               </tbody>
             </table>

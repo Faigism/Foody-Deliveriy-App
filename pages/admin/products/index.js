@@ -13,6 +13,7 @@ import { useGlobalStore } from '../../../shared/services/provider'
 
 const Products = () => {
   const [restaurants, setRestaurants] = useState([])
+  const [loading, setLoading] = useState(true)
   const [restaurant, setRestaurant] = useState()
   const { products, setProducts } = useGlobalStore()
   const { refresh } = useGlobalStore()
@@ -33,12 +34,14 @@ const Products = () => {
   const getAllProducts = async () => {
     const response = await getProducts()
     setProducts(response.data.result.data)
+    setLoading(false)
   }
 
   const renderRestaurants = async () => {
     const res = await getRestaurants()
     let item = res?.data.result.data.map((i) => i.name)
     setRestaurants(item)
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -49,6 +52,25 @@ const Products = () => {
     getAllProducts()
   }, [refresh])
 
+  const filterProduct = async (e) => {
+    const value = e.target.value
+
+    try {
+      const response = await getProducts()
+
+      if (value === 'all') {
+        setProducts(response?.data?.result?.data)
+      } else {
+        const filteredProd = response?.data.result.data.filter(
+          (item) => item?.rest_id === value
+        )
+        setProducts(filteredProd)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <AuthCheck>
       <AdminLayout>
@@ -56,12 +78,19 @@ const Products = () => {
           text={'Products'}
           type={'Restaurant'}
           state={restaurants}
+          callBackValue={filterProduct}
           handleClick={getAllRestaurants}
           handleSearchByType={getProductsByRestaurant}
         />
-        <main style={{ margin: '0 25px 0 50px' }}>
-          <ProductsItem products={products} restaurant={restaurant} />
-        </main>
+        {!loading ? (
+          <main style={{ margin: '0 25px 0 50px' }}>
+            <ProductsItem products={products} setProducts={setProducts} />
+          </main>
+        ) : (
+          <div className="h-60 flex items-center justify-center">
+            <div className="loading"></div>
+          </div>
+        )}
       </AdminLayout>
     </AuthCheck>
   )

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useRouter } from 'next/router'
 import NavbarLangButton from '../navbarLangButton'
 import AdminLeftModal from '../adminLeftModal'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { createProduct, getRestaurants } from '../../../services/axios'
 import { useGlobalStore } from '../../../services/provider'
 
@@ -44,22 +44,27 @@ const Navbar = ({ adminNavbar }) => {
     const productPrice = addProductPrice.current?.value
     const productDesc = addProductDesc.current?.value
     const productRestaurant = addProductRestaurant.current?.value
+    const img = image
 
     if (
-      !productName &&
-      !productPrice &&
-      !productDesc &&
-      !productRestaurant &&
-      !image
+      !isInputValid(
+        productName,
+        productPrice,
+        productDesc,
+        productRestaurant,
+        img
+      )
     ) {
-      // toast.dismiss()
-      toast.warning('please fill in all fields')
+      toast.dismiss()
+      toast.warning('Please fill all the inputs!', {
+        position: 'top-left',
+      })
       return
     }
     const productValues = {
       name: productName,
       description: productDesc,
-      img_url: image,
+      img_url: img,
       rest_id: productRestaurant,
       price: parseFloat(productPrice),
     }
@@ -87,6 +92,22 @@ const Navbar = ({ adminNavbar }) => {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  function isInputValid(
+    productName,
+    productPrice,
+    productDesc,
+    productRestaurant,
+    img_url
+  ) {
+    return (
+      !!productName &&
+      !!productPrice &&
+      !!productDesc &&
+      !!productRestaurant &&
+      !!img_url
+    )
   }
 
   function changeHidden() {
@@ -122,7 +143,7 @@ const Navbar = ({ adminNavbar }) => {
         addProductDesc={addProductDesc}
         addProductRestaurant={addProductRestaurant}
         imageUrl={handleAddNewImage}
-        arr={restaurants}
+        cateArr={restaurants}
       />
       <div className="flex gap-2 sm:gap-5">
         <Button
@@ -132,7 +153,6 @@ const Navbar = ({ adminNavbar }) => {
         />
         <NavbarLangButton />
         <NavbarAvatar isName={isActiveName} />
-        <ToastContainer />
       </div>
     </nav>
   )
