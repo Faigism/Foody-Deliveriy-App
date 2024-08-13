@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import styles from './restaurant.module.css'
-import { getRestaurantById } from '../../../../services/axios'
+import { getProducts, getRestaurants } from '../../../../services/axios'
 import RestaurantProduct from './RestaurantProduct'
 import RestaurantInfo from './RestaurantInfo'
 import RestaurantBasket from './RestaurantBasket'
@@ -9,17 +9,43 @@ import RestaurantBasket from './RestaurantBasket'
 const Restaurant = ({ restaurantId }) => {
   const [selectedRestaurant, setSelectedRestaurant] = useState()
   const [loading, setLoading] = useState(false)
+  const [products, setProducts] = useState([])
 
-  const products = selectedRestaurant?.products
-  const getRestaurant = async (id) => {
-    const restaurant = await getRestaurantById(id)
-    setSelectedRestaurant(restaurant)
-    setLoading(true)
+  const getRestaurant = async () => {
+    try {
+      const res = await getRestaurants()
+      const resArr = res?.data.result.data
+      const newResult = resArr.find((item) => item.id === restaurantId)
+      setSelectedRestaurant(newResult)
+      setLoading(true)
+    } catch (error) {
+      console.error('Error fetching restaurant:', error)
+      setLoading(true)
+    }
+  }
+
+  const fetchProducts = async () => {
+    try {
+      const res = await getProducts()
+      const resArr = res?.data.result.data
+      const focusProduct = resArr.filter(
+        (item) => item.rest_id === selectedRestaurant?.name
+      )
+      setProducts(focusProduct)
+    } catch (error) {
+      console.error('Error fetching products:', error)
+    }
   }
 
   useEffect(() => {
-    getRestaurant(restaurantId)
+    getRestaurant()
   }, [restaurantId])
+
+  useEffect(() => {
+    if (selectedRestaurant) {
+      fetchProducts()
+    }
+  }, [selectedRestaurant])
 
   return (
     <>

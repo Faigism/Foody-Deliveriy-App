@@ -10,7 +10,7 @@ const Sidebar = ({ categories }) => {
   const [itemIndex, setItemIndex] = useState(-1)
 
   useEffect(() => {
-    getAllRestaurant();
+    getAllRestaurant()
   }, [])
 
   const getRestaurantByCategoryId = async (categoryId) => {
@@ -23,7 +23,7 @@ const Sidebar = ({ categories }) => {
   }
 
   const getAllRestaurant = async () => {
-    const response = await getRestaurants();
+    const response = await getRestaurants()
     const restaurants = response?.data.result.data
     setFilteredRestaurants(restaurants)
   }
@@ -31,18 +31,25 @@ const Sidebar = ({ categories }) => {
   return (
     <div className={styles.sidebar}>
       <ul className="my-8 mx-5">
-        <li style={{ paddingLeft: '45px' }} className={`${itemIndex === -1 ? styles.active : ''}`} onClick={() => {
-          setItemIndex(-1);
-          getAllRestaurant();
-        }}>All</li>
+        <li
+          style={{ paddingLeft: '45px' }}
+          className={`${itemIndex === -1 ? styles.active : ''}`}
+          onClick={() => {
+            setItemIndex(-1)
+            getAllRestaurant()
+          }}
+        >
+          All
+        </li>
         {categories?.map((category, index) => (
           <li
-            className={`${itemIndex === index ? styles.active : ''
-              } flex gap-3 my-8`}
+            className={`${
+              itemIndex === index ? styles.active : ''
+            } flex gap-3 my-8`}
             key={category.id}
             onClick={() => {
               setItemIndex(index)
-              getRestaurantByCategoryId(category.id)
+              getRestaurantByCategoryId(category.name)
             }}
           >
             <img src={category.img_url} />

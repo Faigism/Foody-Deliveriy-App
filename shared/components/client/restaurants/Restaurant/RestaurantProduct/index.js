@@ -5,7 +5,7 @@ import { useGlobalStore } from '../../../../../services/provider'
 import { useRouter } from 'next/router'
 import { toast, ToastContainer } from 'react-toastify'
 
-const RestaurantProduct = ({ product, index }) => {
+const RestaurantProduct = ({ product }) => {
   const { getProductsInBasket, addProductToBasket } = useGlobalStore()
   const { push } = useRouter()
   const date = new Date()
