@@ -36,7 +36,9 @@ const TableData = ({ id, time, address, amount, payment, contact }) => {
       await deleteDoc(orderDoc)
       let filteredOrder = orderData.filter((item) => item.id !== id)
       setOrderData(filteredOrder)
-      toast.success('Your order has been successfully deleted')
+      toast.success('Your order has been successfully deleted', {
+        autoClose: 1000,
+      })
       handleModalClose()
     } catch (error) {
       console.error(error)

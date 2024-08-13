@@ -9,7 +9,7 @@ import {
   postProductToBasket,
 } from '../../../services/axios'
 import { useEffect, useState } from 'react'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { useGlobalStore } from '../../../services/provider'
 
 const UserBasketDetail = ({ data, itemsCount, setCheckout }) => {
@@ -49,14 +49,15 @@ const UserBasketDetail = ({ data, itemsCount, setCheckout }) => {
     if (res?.status === 200) {
       setBasketData(res?.data)
       handleModalClose()
-      toast.success('Cart cleared successfully!')
+      toast.success('Cart cleared successfully!', {
+        autoClose: 1000,
+      })
     }
     setItemCount(0)
   }
 
   return (
     <>
-      <ToastContainer />
       {itemsCount === 0 ? (
         <>
           <div className="w-full flex flex-col px-3 sm:px-8 py-10 flex-wrap gap-0 sm:bg-whiteLight1">

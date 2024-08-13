@@ -54,6 +54,7 @@ const Category = () => {
 
           toast.success('Category created successfully!', {
             position: 'top-left',
+            autoClose: 1000,
           })
         }
       } catch (error) {
@@ -61,8 +62,9 @@ const Category = () => {
       }
     } else {
       toast.dismiss()
-      toast.error('inputs cannot be left blank', {
+      toast.warning('inputs cannot be left blank', {
         position: 'top-left',
+        autoClose: 1000,
       })
     }
   }

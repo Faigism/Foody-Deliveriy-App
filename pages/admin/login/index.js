@@ -29,7 +29,9 @@ const Login = () => {
     const password = passwordRef?.current.value
     if (!username || !password) {
       toast.dismiss()
-      toast.warning('Please fill in all fields!')
+      toast.warning('Please fill in all fields!', {
+        autoClose: 1000,
+      })
       setIsLoading(false)
       return
     }

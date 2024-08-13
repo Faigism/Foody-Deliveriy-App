@@ -91,6 +91,7 @@ const ProductCard = ({ prd }) => {
       toast.dismiss()
       toast.warning('Please fill the correctly!', {
         position: 'top-left',
+        autoClose: 1000,
       })
       return
     }
@@ -101,7 +102,9 @@ const ProductCard = ({ prd }) => {
       setTimeout(() => {
         changeHidden()
       }, 500)
-      toast.success('Product update successfully!')
+      toast.success('Product update successfully!', {
+        autoClose: 1000,
+      })
 
       const updatedData = products.map((item) => {
         if (item?.id === prd.id) {
@@ -134,7 +137,9 @@ const ProductCard = ({ prd }) => {
     if (res?.status == 204) {
       let newProduct = products?.filter((item) => item?.id !== prd.id)
       setProducts(newProduct)
-      toast.success('Deleted Successfully!')
+      toast.success('Deleted Successfully!', {
+        autoClose: 1000,
+      })
     }
   }
 

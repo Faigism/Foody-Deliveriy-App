@@ -60,7 +60,9 @@ const AdminOffer = ({ item, setOfferData, offerData }) => {
   const deleteOffer = async (id) => {
     const response = await deleteOfferById(id)
     if (response?.status === 204) {
-      toast.success('Offer successfully deleted')
+      toast.success('Offer successfully deleted', {
+        autoClose: 1000,
+      })
       setIsModalOpen(false)
       setRefresh(!refresh)
     }
@@ -78,14 +80,18 @@ const AdminOffer = ({ item, setOfferData, offerData }) => {
     }
 
     if (!isInputValid(title, description, img)) {
-      toast.warning('Please fill all the inputs!')
+      toast.warning('Please fill all the inputs!', {
+        autoClose: 1000,
+      })
       return
     }
 
     const res = await putOffer(activeId, offerValues)
 
     if (res?.status === 200) {
-      toast.success('Edit was successfully!')
+      toast.success('Edit was successfully!', {
+        autoClose: 1000,
+      })
       const updatedData = offerData.map((item) => {
         if (item.id === activeId) {
           return res.data.data

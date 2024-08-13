@@ -29,6 +29,7 @@ const AdminOrderHistory = ({ data }) => {
       await deleteDoc(orderDoc)
       toast.success('Order deleted successfully!', {
         position: 'top-left',
+        autoClose: 1000,
       })
       let filteredOrder = history.filter((item) => item.id !== orderId)
       setHistory(filteredOrder)

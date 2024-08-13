@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { getProductForBasket, postOrder } from '../../../services/axios'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import Button from '../button'
 import { useTranslation } from 'react-i18next'
 import { useRouter } from 'next/router'
@@ -63,11 +63,15 @@ const UserCheckForm = () => {
     const numberValue = numberRef?.current?.value
 
     if (!addressValue || !numberValue) {
-      toast.warning('Please fill the all inputs!')
+      toast.warning('Please fill the all inputs!', {
+        autoClose: 1000,
+      })
       return
     }
     if (!isValidAzerbaijanPhoneNumber(numberValue)) {
-      toast.warning('Invalid phone number!')
+      toast.warning('Invalid phone number!', {
+        autoClose: 1000,
+      })
       return
     }
 
@@ -87,7 +91,9 @@ const UserCheckForm = () => {
         setCheckout(false)
       }, 1500)
     } else if (res?.status === 500) {
-      toast.warning('you must login again...')
+      toast.warning('you must login again...', {
+        autoClose: 1000,
+      })
       setTimeout(() => {
         navigate.push('/login')
       }, 1500)
@@ -107,7 +113,6 @@ const UserCheckForm = () => {
 
   return (
     <>
-      <ToastContainer />
       {formCompleted ? (
         <div className="w-full flex justify-center items-center bg-white sm:bg-whiteLight1">
           <div className="flex my-28 flex-col items-center justify-center gap-9">

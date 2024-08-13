@@ -106,6 +106,7 @@ const RestaurantCard = ({ restaurant }) => {
       toast.dismiss()
       toast.warning('Please fill all the inputs!', {
         position: 'top-left',
+        autoClose: 1000,
       })
       return
     }
@@ -126,7 +127,9 @@ const RestaurantCard = ({ restaurant }) => {
       setTimeout(() => {
         changeHidden()
       }, 500)
-      toast.success('Category updated successfully!')
+      toast.success('Category updated successfully!', {
+        autoClose: 1000,
+      })
 
       const updatedData = restaurants.map((item) => {
         if (item.id === activeId) {
@@ -161,7 +164,9 @@ const RestaurantCard = ({ restaurant }) => {
   const deleteRestaurant = async (id) => {
     const response = await deleteRestaurantById(id)
     if (response.status == 204) {
-      toast.success('Restaurant successfully deleted')
+      toast.success('Restaurant successfully deleted', {
+        autoClose: 1000,
+      })
     } else {
       toast.error(response.statusText)
     }

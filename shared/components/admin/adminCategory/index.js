@@ -11,6 +11,7 @@ import { useGlobalStore } from '../../../services/provider'
 import Image from 'next/image'
 import Modal from '../Modal'
 import Button from '../Button'
+import { toast } from 'react-toastify'
 
 const AdminCategory = ({ item }) => {
   const { t } = useTranslation()
@@ -71,7 +72,9 @@ const AdminCategory = ({ item }) => {
 
     const res = await updateCategories(activeId, form)
     if (res?.status === 200) {
-      // toast.success('Category updated successfully!')
+      toast.success('Category updated successfully!', {
+        autoClose: 1000,
+      })
       changeHidden()
       const updatedData = categoryData.map((item) => {
         if (item.id === activeId) {
@@ -89,8 +92,9 @@ const AdminCategory = ({ item }) => {
     if (res?.status === 204) {
       const updatedArr = categoryData.filter((item) => item.id !== activeId)
       setCategoryData(updatedArr)
-
-      // toast.success('Deleted successfully!')
+      toast.success('Deleted successfully!', {
+        autoClose: 1000,
+      })
       setIsModalOpen((prev) => !prev)
     }
 
@@ -122,17 +126,17 @@ const AdminCategory = ({ item }) => {
           imgRef={imgRef}
         />
         <tr
-          className="text-center h-16  border-y border-gray-800 text-sm not-italic font-normal leading-6"
+          className="text-center h-16 border-y border-gray-800 text-sm not-italic font-normal leading-6"
           key={item.id}
         >
-          <td className="text-center max-w-[75px]   overflow-x-auto">
-            <div className="flex  justify-center ">
-              <p className="  border px-2 rounded-lg">{item.id}</p>
+          <td className="text-center max-w-[100px]">
+            <div className="flex justify-center ">
+              <p className="border px-2 rounded-lg">{item.id}</p>
             </div>
           </td>
           <td className="flex justify-center items-center h-16">
             <img
-              className=" object-cover"
+              className="object-cover h-14"
               width="50"
               height="40"
               src={item.img_url}
@@ -140,7 +144,7 @@ const AdminCategory = ({ item }) => {
             />
           </td>
           <td className="max-w-64 text-center ">
-            <p className="whitespace-nowrap max-w-64  text-center ">
+            <p className="whitespace-nowrap max-w-64 text-center ">
               {item.name}
             </p>
           </td>

@@ -107,6 +107,7 @@ const Restaurants = () => {
       toast.dismiss()
       toast.warning('Please fill all the inputs!', {
         position: 'top-left',
+        autoClose: 1000,
       })
       return
     }
@@ -146,7 +147,9 @@ const Restaurants = () => {
           changeHidden()
         }, 500)
 
-        toast.success('Restaurant created successfully!')
+        toast.success('Restaurant created successfully!', {
+          autoClose: 1000,
+        })
       }
     } catch (error) {
       console.error('Error adding category:', error)

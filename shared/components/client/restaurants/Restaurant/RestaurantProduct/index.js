@@ -3,7 +3,7 @@ import styles from './restaurantProduct.module.css'
 import AddIcon from '@mui/icons-material/Add'
 import { useGlobalStore } from '../../../../../services/provider'
 import { useRouter } from 'next/router'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 
 const RestaurantProduct = ({ product }) => {
   const { getProductsInBasket, addProductToBasket } = useGlobalStore()
@@ -31,7 +31,10 @@ const RestaurantProduct = ({ product }) => {
       localStorage.removeItem('tokenObj')
     } else if (timeDifference / 1000 >= 3540) {
       toast.warning(
-        'You will be logged out from the site in the next 1 minutes.!'
+        'You will be logged out from the site in the next 1 minutes.!',
+        {
+          autoClose: 1000,
+        }
       )
     }
   }
@@ -42,7 +45,6 @@ const RestaurantProduct = ({ product }) => {
 
   return (
     <>
-      <ToastContainer />
       <div className={styles.product} key={product.id}>
         <div className="flex gap-5">
           <div>

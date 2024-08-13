@@ -58,6 +58,7 @@ const Navbar = ({ adminNavbar }) => {
       toast.dismiss()
       toast.warning('Please fill all the inputs!', {
         position: 'top-left',
+        autoClose: 1000,
       })
       return
     }
@@ -75,7 +76,9 @@ const Navbar = ({ adminNavbar }) => {
 
       if (response?.status === 201) {
         setProducts((prev) => [...prev, prValue])
-        toast.success('Product added successfully...')
+        toast.success('Product added successfully...', {
+          autoClose: 1000,
+        })
         setRefresh(!refresh)
 
         if (addProductName.current) addProductName.current.value = ''

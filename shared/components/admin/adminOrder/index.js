@@ -48,6 +48,7 @@ const AdminOrder = ({ data }) => {
       await deleteDoc(orderDoc)
       toast.success('Order deleted successfully!', {
         position: 'top-left',
+        autoClose: 1000,
       })
       let filteredOrder = orderData.filter((item) => item.id !== orderId)
       setOrderData(filteredOrder)
@@ -79,6 +80,7 @@ const AdminOrder = ({ data }) => {
 
       toast.success('Order accepted successfully!', {
         position: 'top-left',
+        autoClose: 1000,
       })
     } catch (error) {
       console.error(error)

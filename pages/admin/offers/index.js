@@ -46,6 +46,7 @@ const Offers = () => {
     if (offerName == '' || offerDesc == '' || image == '') {
       toast.warning('Fill the inputs correctly!', {
         position: 'top-left',
+        autoClose: 1000,
       })
     } else {
       const data = {
@@ -61,7 +62,9 @@ const Offers = () => {
       if (response?.status === 201) {
         setOfferData((prev) => [...prev, prValue])
 
-        toast.success('Offer successfully added')
+        toast.success('Offer successfully added', {
+          autoClose: 1000,
+        })
         if (offerImg.current) {
           offerImg.current.src = '/noimg.png'
           setImage('')

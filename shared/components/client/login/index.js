@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import Button from '../button'
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -42,10 +42,14 @@ const ClientLogin = () => {
     const emailRegex = /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/
 
     if (!email || !password) {
-      toast.warning('Please fill in all inputs!')
+      toast.warning('Please fill in all inputs!', {
+        autoClose: 1000,
+      })
       return
     } else if (!emailRegex.test(email)) {
-      toast.warning('Please enter a valid email address!')
+      toast.warning('Please enter a valid email address!', {
+        autoClose: 1000,
+      })
       return
     }
 
@@ -77,10 +81,14 @@ const ClientLogin = () => {
     const emailRegex = /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/
 
     if (!email || !password) {
-      toast.warning('Please fill in all inputs!')
+      toast.warning('Please fill in all inputs!', {
+        autoClose: 1000,
+      })
       return
     } else if (!emailRegex.test(email)) {
-      toast.warning('Please enter a valid email address!')
+      toast.warning('Please enter a valid email address!', {
+        autoClose: 1000,
+      })
       return
     }
 
@@ -88,7 +96,9 @@ const ClientLogin = () => {
 
     if (res?.status === 200) {
       localStorage.setItem('loginDate', date.getTime())
-      toast.success('Logged in successfully!')
+      toast.success('Logged in successfully!', {
+        autoClose: 1000,
+      })
       tokenObj = {
         access_token: res.data.user.access_token,
         refresh_token: res.data.user.refresh_token,
@@ -100,7 +110,9 @@ const ClientLogin = () => {
       }, 700)
     } else {
       toast.dismiss()
-      toast.warning('Username or login is incorrect')
+      toast.warning('Username or login is incorrect', {
+        autoClose: 1000,
+      })
     }
   }
 
@@ -110,7 +122,6 @@ const ClientLogin = () => {
 
   return (
     <section className="flex flex-col mt-5 sm:mt-0 sm:flex-row justify-center bg-white sm:bg-lightRed mx-8 mb-8 ">
-      <ToastContainer />
       <div className="bg-lightRed m-auto w-full sm:w-1/2">
         <Image
           className="w-4/5 m-auto"
