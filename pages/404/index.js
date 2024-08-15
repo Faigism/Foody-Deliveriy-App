@@ -11,8 +11,13 @@ const Error = () => {
       </Head>
 
       <ClientLayout>
-        <div>
-          <img src={'/404.svg'} alt="404" style={{ width: '100%' }} />
+        <div className="flex justify-center items-center">
+          <img
+            src={'/404.svg'}
+            alt="404"
+            style={{ width: '96%' }}
+            className="h-screen"
+          />
         </div>
       </ClientLayout>
     </>
