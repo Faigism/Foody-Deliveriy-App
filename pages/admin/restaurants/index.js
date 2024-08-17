@@ -53,7 +53,7 @@ const Restaurants = () => {
 
   const [isHiddenModal, setIsHiddenModal] = useState(true)
   const [image, setImage] = useState('')
-  const img = useRef(null)
+  const imgRef = useRef(null)
   const addRestaurantName = useRef(null)
   const addRestaurantCuisine = useRef(null)
   const addRestaurantDeliveryPrice = useRef(null)
@@ -143,6 +143,11 @@ const Restaurants = () => {
           addRestaurantCategory.current.value = ''
         }
 
+        if (imgRef.current) {
+          imgRef.current.src = '/noimg.png'
+          setImage('')
+        }
+
         setTimeout(() => {
           changeHidden()
         }, 500)
@@ -199,7 +204,7 @@ const Restaurants = () => {
           hidden={isHiddenModal}
           imageUrl={handleAddNewImage}
           getImgUrl={handleAddNewImage}
-          imgRef={img}
+          imgRef={imgRef}
           addProductName={addRestaurantName}
           addRestaurantCuisine={addRestaurantCuisine}
           addRestaurantDeliveryPrice={addRestaurantDeliveryPrice}
